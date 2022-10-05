@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Client.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Client"
+    Shell.FlyoutBehavior="Disabled">
+
+
+    <TabBar x:Name="Navigation">
+        <Tab Title="Home" Icon="home.svg">
+            <ShellContent
+                Shell.TabBarIsVisible="false"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        </Tab>
+        <Tab Title="History" Icon="history.svg">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:HistoryPage}"
+            Route="MainPage" />
+        </Tab>
+        <Tab Title="Integrations" Icon="integrations.svg">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:IntegrationsPage}"
+            Route="MainPage" />
+        </Tab>
+        <Tab Title="Settings" Icon="settings.svg">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:SettingsPage}"
+            Route="MainPage" />
+        </Tab>
+    </TabBar>
+
+
+</Shell>

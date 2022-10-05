@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Client.Model"
+             
+             x:Class="Client.HistoryPage">
+    <Grid Padding="0,20">
+        <!--
+        <Label TextColor="#000" Text="Electricity Meter History"  FontAttributes="Bold"  FontSize="15" />
+        -->
+        
+        <CollectionView>
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type model:MonthReading}">
+                    <model:MonthReading 
+                        Month="July"
+                        PayedAmount="420"
+                        UsedKwh="69"/>
+                    <model:MonthReading 
+                        Month="January"
+                        PayedAmount="420.5"
+                        UsedKwh="69"/>
+                    <model:MonthReading 
+                        Month="August"
+                        PayedAmount="420.5"
+                        UsedKwh="69"/>
+                </x:Array>
+      
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:MonthReading">
+                    <StackLayout>
+                        
+                        <HorizontalStackLayout  WidthRequest="100" HorizontalOptions="End">
+                            <Label Text="{Binding Month}" FontSize="24"/>
+                            <Image Source="pencil.svg" />
+                        </HorizontalStackLayout>
+                        
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding PayedAmount}" FontSize="24"/>
+                            <Label Text="{Binding UsedKwh}" FontSize="24"/>
+                        </HorizontalStackLayout>
+                        
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+        
+        
+    </Grid>
+</ContentPage>

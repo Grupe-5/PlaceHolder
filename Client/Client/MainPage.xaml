@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.MainPage"
+             xmlns:viewmodel="clr-namespace:Client.ViewModels"
+             x:DataType="viewmodel:MainViewModel">
+    <Grid>
+        <StackLayout Margin="20" Padding="0,20">
+            <Label Margin="0,50" TextColor="#000" Text="Log In"  FontAttributes="Bold"  FontSize="35" HorizontalTextAlignment="Center"></Label>
+
+            <StackLayout >
+                <Grid Margin="0,16">
+                    <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
+                    <Entry  Placeholder="Username" 
+                            Text="{Binding UserName}"
+                            FontSize="20"
+                            TextColor="Black" Margin="5,0"
+                            PlaceholderColor="#BDBDBD" />
+                </Grid>
+
+                <Grid>
+                    <Frame Opacity="0.3" HeightRequest="50" BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6"/>
+                    <Entry Placeholder="Password" 
+                           Text="{Binding Password }"
+                           FontSize="20"
+                            TextColor="Black" Margin="5,0"
+                            PlaceholderColor="#BDBDBD" IsPassword="True"/>
+                </Grid>
+
+                <Label Margin="0,10" TextDecorations="Underline" TextColor="#4C34C2" Text="Register an Acount"  FontAttributes="Bold"  FontSize="20" HorizontalTextAlignment="Center"></Label>
+
+            </StackLayout>
+        
+            <StackLayout Margin="0,100">
+                <Button Command="{Binding LogInCommand}"  Text="Log In" FontSize="25" CornerRadius="10" BackgroundColor="#4C34C2" ></Button>
+                <Label Margin="0,10" TextColor="#4C34C2" Text="Forgot Your password?"  FontAttributes="Bold"  FontSize="20" HorizontalTextAlignment="Center"></Label>
+            </StackLayout>
+        
+        </StackLayout>
+    </Grid>
+</ContentPage>
