@@ -18,12 +18,11 @@ public class MonthReading
         November,
         December
     };
+    
 
-    public Months Month { get; set; }
+    public String Month { get; set; }
     public double PayedAmount { get; set; }
     public int UsedKwh { get; set; }
-
-
 
 }
 

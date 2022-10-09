@@ -1,4 +1,5 @@
-﻿using Client.ViewModels;
+﻿using Client.Services;
+using Client.ViewModels;
 
 namespace Client;
 
@@ -17,6 +18,10 @@ public static class MauiProgram
             });
 		builder.Services.AddSingleton<MainPage>();
 		builder.Services.AddSingleton<MainViewModel>();
+
+		builder.Services.AddSingleton<HistoryPage>();
+        builder.Services.AddSingleton<HistoryViewModel>();
+        builder.Services.AddSingleton<HistoryService>();
 
 		builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();

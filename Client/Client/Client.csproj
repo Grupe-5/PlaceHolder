@@ -50,10 +50,13 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\OpenSans-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Sitka.ttc" />
+	  <None Remove="Resources\Images\arrow.svg" />
+	  <None Remove="Resources\Images\calendar.svg" />
 	  <None Remove="Resources\Images\History.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\Integrations.svg" />
 	  <None Remove="Resources\Images\pencil.svg" />
+	  <None Remove="Resources\Images\pencilblue.svg" />
 	  <None Remove="Resources\Images\Settings.svg" />
 	</ItemGroup>
 
@@ -62,6 +65,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="HistoryMonthPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="HistoryPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

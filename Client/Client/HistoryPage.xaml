@@ -2,51 +2,80 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Client.Model"
-             
+             xmlns:viewmodel="clr-namespace:Client.ViewModels"
+             x:DataType="viewmodel:HistoryViewModel"
              x:Class="Client.HistoryPage">
-    <Grid Padding="0,20">
-        <!--
-        <Label TextColor="#000" Text="Electricity Meter History"  FontAttributes="Bold"  FontSize="15" />
-        -->
-        
-        <CollectionView>
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type model:MonthReading}">
-                    <model:MonthReading 
-                        Month="July"
-                        PayedAmount="420"
-                        UsedKwh="69"/>
-                    <model:MonthReading 
-                        Month="January"
-                        PayedAmount="420.5"
-                        UsedKwh="69"/>
-                    <model:MonthReading 
-                        Month="August"
-                        PayedAmount="420.5"
-                        UsedKwh="69"/>
-                </x:Array>
-      
-            </CollectionView.ItemsSource>
-            <CollectionView.ItemTemplate>
+    <StackLayout Padding="10,10,10,10">
+        <HorizontalStackLayout HorizontalOptions="Center" Margin="0,15,0,30">
+            <Label Text="{Binding Title}" FontSize="25" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+
+        <StackLayout BackgroundColor="#4C34C2"  Padding="20,10">
+            <Grid ColumnDefinitions="*, 2*"  RowDefinitions="*">
+                <Label Margin="0,0,8,0" Text="History" TextColor="#F7F5FF" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="1"  HorizontalOptions="End">
+                    <Image Source="calendar.svg" Margin="0,2,0,0" HeightRequest="25"/>
+                </VerticalStackLayout>
+            </Grid>
+        </StackLayout>
+
+        <CollectionView 
+            ItemsSource="{Binding MonthReadings}"
+            SelectionMode="None"
+            HeightRequest="400">
+
+            <CollectionView.ItemTemplate  Padding="20">
                 <DataTemplate x:DataType="model:MonthReading">
-                    <StackLayout>
-                        
-                        <HorizontalStackLayout  WidthRequest="100" HorizontalOptions="End">
-                            <Label Text="{Binding Month}" FontSize="24"/>
-                            <Image Source="pencil.svg" />
-                        </HorizontalStackLayout>
-                        
-                        <HorizontalStackLayout>
-                            <Label Text="{Binding PayedAmount}" FontSize="24"/>
-                            <Label Text="{Binding UsedKwh}" FontSize="24"/>
-                        </HorizontalStackLayout>
-                        
-                    </StackLayout>
+                    <VerticalStackLayout Padding="10,10,8,10" Spacing="4" >
+
+                        <Grid ColumnDefinitions="*, 2*" Padding="10,0,15,0"  RowDefinitions="*">
+                            <Label Text="{Binding Month}" Grid.Column="0" FontSize="20"/>
+                            <Image Source="pencilblue.svg" Grid.Column="1" HorizontalOptions="End">
+                                
+                            </Image>
+                        </Grid>
+
+                        <Grid ColumnDefinitions="*, 2*" RowDefinitions="*" Padding="10,0,15,20" Margin="0,15,0,0">
+                            <HorizontalStackLayout Grid.Column="0" >
+                                <Label  Text="{Binding UsedKwh}" FontSize="20"/>
+                                <Label Text="kWh" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                <Label  Text="{Binding PayedAmount}" FontSize="20" />
+                                <Label Text="€" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
+                            </HorizontalStackLayout>
+
+                        </Grid>
+                        <Line X1="500"
+                            Y1="0"
+                            X2="0"
+                            Y2="0"
+                            Stroke="#E8E8E8"/>
+                    </VerticalStackLayout>
+
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-            
         </CollectionView>
+
         
         
-    </Grid>
+        <StackLayout Margin="0,75">
+            <Button IsEnabled="{Binding IsNotBusy}"   
+                    Padding="15" 
+                    TextColor="White" 
+                    Text="Register Electricity Readings   &#62;	" 
+                    FontSize="20" 
+                    FontAttributes="Bold"
+                    CornerRadius="10" 
+                    BackgroundColor="#4C34C2"
+                    ImageSource="arrow.svg">
+
+            </Button>
+        </StackLayout>
+        
+        
+      
+    </StackLayout>
 </ContentPage>

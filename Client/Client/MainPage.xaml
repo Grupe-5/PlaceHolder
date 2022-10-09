@@ -5,10 +5,10 @@
              xmlns:viewmodel="clr-namespace:Client.ViewModels"
              x:DataType="viewmodel:MainViewModel">
     <Grid>
+        
         <StackLayout Margin="20" Padding="0,20">
             <Label Margin="0,50" TextColor="#000" Text="Log In"  FontAttributes="Bold"  FontSize="35" HorizontalTextAlignment="Center"></Label>
-
-            <StackLayout >
+            <StackLayout>
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
                     <Entry  Placeholder="Username" 
@@ -32,7 +32,7 @@
             </StackLayout>
         
             <StackLayout Margin="0,100">
-                <Button Command="{Binding LogInCommand}"  Text="Log In" FontSize="25" CornerRadius="10" BackgroundColor="#4C34C2" ></Button>
+                <Button Command="{Binding LogInCommand}"  TextColor="White" Text="Log In" FontSize="25" CornerRadius="10" BackgroundColor="#4C34C2" ></Button>
                 <Label Margin="0,10" TextColor="#4C34C2" Text="Forgot Your password?"  FontAttributes="Bold"  FontSize="20" HorizontalTextAlignment="Center"></Label>
             </StackLayout>
         

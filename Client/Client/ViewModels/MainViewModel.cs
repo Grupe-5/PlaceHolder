@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Client.ViewModels
 {
-    public partial  class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         
         [ObservableProperty]
@@ -20,6 +20,7 @@ namespace Client.ViewModels
         {
             
             await Shell.Current.GoToAsync(nameof(HomePage));
+
             Console.WriteLine(UserName);
             UserName = string.Empty;
             Password = string.Empty;   
