@@ -10,27 +10,26 @@ namespace ScraperClient
     /* 4) 6) 8-widening 9-queries */
     internal class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main(string[] _)
         {
             IFetcher fetcher = new PriceFetcher();
+            await fetcher.InitAsync();
 
-            Console.WriteLine("Enter start date (yyyy-mm-dd): ");
-            var line = Console.ReadLine();
+            Console.WriteLine("Enter start date (yyyy-MM-dd): ");
+            var start = Console.ReadLine();
+            var startDate = DateTime.Parse(start);
 
-            var date = DateTime.Parse(line);
-            for (int i = 0; i < 10; i++)
+            Console.WriteLine("Enter end date (yyyy-MM-dd): ");
+            var end = Console.ReadLine();
+            var endDate = DateTime.Parse(end);
+
+            var prices = await fetcher.GetDayPricesAsync(startDate, endDate);
+            foreach(var price in prices)
             {
-                var priceRes = fetcher.GetDayPrices(date.AddDays(-1 * i));
-                if (priceRes != null)
-                {
-                    var price = priceRes.GetValueOrDefault();
-                    Console.WriteLine($"{price.Date.ToString("yyyy-MM-dd")} {string.Join(", ", price.HourlyPrices)}");
-                }
-                else
-                {
-                    Console.WriteLine("Failed to get data for that date");
-                }
+                Console.WriteLine($"{price.Date:yyyy-MM-dd} {string.Join(", ", price.HourlyPrices)}");
             }
+
+            await fetcher.DeinitAsync();
         }
     }
 }
