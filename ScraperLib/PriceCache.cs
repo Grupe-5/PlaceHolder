@@ -28,11 +28,11 @@ namespace ScraperLib
 
         /* File format: */
         /* U32 - Entry count
-         * n * (Days after epoch (U32), Double[24]) - DayPrices
+         * n * (U32 - Days after epoch, Double[24] - Prices) - DayPrices
          */
         private IDictionary<DateTime, DayPrices>? LoadCache()
         {
-            /* Potential problems: Millenium bug (2038), System endianes, invalid file, and probably timezone bug */
+            /* Potential problems - different timezone bug */
             try
             {
                 BinaryReader reader = new BinaryReader(File.Open(_cachePath, FileMode.Open));
