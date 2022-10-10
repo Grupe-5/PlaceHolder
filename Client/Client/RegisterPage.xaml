@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.RegisterPage">
+
+    <Grid>
+        <StackLayout Margin="20" Padding="0,20">
+            <Label Margin="0,50" TextColor="#000" Text="Register an Account"  FontAttributes="Bold"  FontSize="35" HorizontalTextAlignment="Center"></Label>
+            <StackLayout>
+                <Grid Margin="0,16">
+                    <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
+                    <Entry  Placeholder="Username"
+                            IsTextPredictionEnabled="False"
+                            x:Name="Username"
+                            FontSize="20"
+                            TextColor="Black" 
+                            Margin="5,0"
+                            PlaceholderColor="#BDBDBD" />
+                </Grid>
+
+                <Grid Margin="0,16">
+                    <Frame Opacity="0.3" HeightRequest="50" BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6"/>
+                    <Entry Placeholder="Password"
+                           x:Name="Password"
+                           FontSize="20"
+                           TextColor="Black" 
+                           Margin="5,0"
+                           PlaceholderColor="#BDBDBD" 
+                           IsPassword="True"/>
+                </Grid>
+                <Grid>
+                    <Frame Opacity="0.3" HeightRequest="50" BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6"/>
+                    <Entry Placeholder="Repeat your password"
+                           Margin="0,10"
+                           x:Name="RepeatedPassword"
+                           FontSize="20"
+                           TextColor="Black"
+                           PlaceholderColor="#BDBDBD" 
+                           IsPassword="True"/>
+                </Grid>
+
+            </StackLayout>
+
+            <StackLayout Margin="0,16">
+                <Button Clicked="CheckRegex" 
+                        TextColor="White" 
+                        Text="Register now"
+                        FontSize="25" 
+                        CornerRadius="10" 
+                        BackgroundColor="#4C34C2" ></Button>
+            </StackLayout>
+
+        </StackLayout>
+    </Grid>
+
+</ContentPage>

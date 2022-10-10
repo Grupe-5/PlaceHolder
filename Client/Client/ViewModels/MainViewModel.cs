@@ -1,7 +1,4 @@
-﻿
-
-
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Client.ViewModels
@@ -24,6 +21,14 @@ namespace Client.ViewModels
             Console.WriteLine(UserName);
             UserName = string.Empty;
             Password = string.Empty;   
+        }
+
+        [RelayCommand]
+        async Task Register()
+        {
+
+            await Shell.Current.GoToAsync(nameof(RegisterPage));
+
         }
     }
 }
