@@ -5,7 +5,7 @@ namespace API.Models
     public class Issue
     {
         public int Id { get; set; }
-        [Required] //This property must have a value
+        [Required] /*This property must have a value*/
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
