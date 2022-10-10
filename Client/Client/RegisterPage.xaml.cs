@@ -8,21 +8,34 @@ public partial class RegisterPage : ContentPage
 	public RegisterPage(RegisterViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
+        Shell.SetTabBarIsVisible(this, false);
+        BindingContext = vm;
 	}
+
+    private void ClearEntryField()
+    {
+        Username.Text = string.Empty;
+        Password.Text = string.Empty;
+        RepeatedPassword.Text = string.Empty;
+    }
 
     bool isValidEmailRegex(string email)
     {
-        /*bool isEmail = Regex.IsMatch(email,
-            @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
-            RegexOptions.IgnoreCase);*/
-
         bool isEmail = Regex.IsMatch(email,
             @"^([\w]+)@([\w]+)((\.(\w){2,3})+)$",
             RegexOptions.IgnoreCase);
 
         return isEmail;
 
+    }
+
+    bool isValidPasswordRegex(string password)
+    {
+        //password must be at least 8 char long and
+        //must contain 1 or more digits, uppercase and lowecase letters, special symbols
+
+        bool isPassword = Regex.IsMatch(password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+        return isPassword;
     }
 
     private async void CheckRegex(object sender, EventArgs e)
@@ -33,22 +46,37 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
+        if (Password.Text != RepeatedPassword.Text)
+        {
+            await DisplayAlert("Error", "Passwords do not match", "OK");
+            ClearEntryField();
+            return;
+        }
+
         if (isValidEmailRegex(Username.Text) == false)
         {
            
             await DisplayAlert("Error", "Your email adress is incorrect!", "OK");
-            Username.Text = string.Empty;
-            Password.Text = string.Empty;
-            RepeatedPassword.Text = string.Empty;
-
-        } else
-        {
-            await DisplayAlert("Success!", "You have been registered!", "OK");
-            Username.Text = string.Empty;
-            Password.Text = string.Empty;
-            RepeatedPassword.Text = string.Empty;
-            await Shell.Current.GoToAsync(nameof(HomePage));
+            ClearEntryField();
+            return;
         }
-   
+
+        if(Password.Text.Length < 8)
+        {
+            await DisplayAlert("Error", "Password must be at least 8 characters long!", "OK");
+            ClearEntryField();
+            return;
+        }
+
+        if(isValidPasswordRegex(RepeatedPassword.Text) == false)
+        {
+            await DisplayAlert("Error", "Password must contain at least 1 upppercase, lowercase characters and special symbols!", "OK");
+            ClearEntryField();
+            return;
+        }
+
+        await DisplayAlert("Success!", "You have been registered!", "OK");
+        ClearEntryField();
+        await Shell.Current.GoToAsync(nameof(HomePage));
     }
 }
