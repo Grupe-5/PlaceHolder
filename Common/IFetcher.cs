@@ -8,7 +8,9 @@ namespace Common
 {
     public interface IFetcher
     {
-        DayPrices? GetDayPrices(DateTime date);
-        IList<DayPrices> GetDayPrices(DateTime begin, DateTime end);
+        Task InitAsync();
+        Task DeinitAsync();
+        Task<DayPrices?> GetDayPricesAsync(DateTime date);
+        Task<IList<DayPrices>> GetDayPricesAsync(DateTime begin, DateTime end);
     }
 }

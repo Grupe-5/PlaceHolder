@@ -9,48 +9,61 @@ namespace ScraperLib
 {
     public class PriceFetcher : IFetcher
     {
-        PriceCache priceCache;
-        PriceScraper scraper;
+        PriceCache? priceCache;
+        PriceScraper? scraper;
 
-        /* TODO: This doesn't get destroyed */
-        ~PriceFetcher()
+        public PriceFetcher() { }
+        public async Task InitAsync()
         {
-            Task.Run(() => scraper.DestroyFetcher());
+            this.priceCache = new PriceCache();
+            this.scraper = await PriceScraper.CreateAsync();
         }
 
-        public PriceFetcher()
+        public async Task DeinitAsync()
         {
-            priceCache = new PriceCache();
-            scraper = Task.Run(() => PriceScraper.CreateAsync()).Result;
+            if (priceCache == null || scraper == null)
+            {
+                throw new NullReferenceException("Did you forget to call initialize?");
+            }
+
+            await scraper.DestroyFetcher();
         }
 
-        private DayPrices? ScrapeMissing(DateTime date)
+        private async Task<DayPrices?> ScrapeMissing(DateTime date)
         {
-            /* TODO: Use optional arg */
-            var prices = Task.Run(() => scraper.FetchPrices(date)).Result;
+            var prices = await scraper.FetchPrices(date);
             priceCache.PopulateCache(prices);
             return priceCache.SearchCache(date);
         }
 
-        public DayPrices? GetDayPrices(DateTime date)
+        public async Task<DayPrices?> GetDayPricesAsync(DateTime date)
         {
-            return priceCache.SearchCache(date) ?? ScrapeMissing(date);
-        }
-        public IList<DayPrices> GetDayPrices(DateTime begin, DateTime end)
-        {
-            if (end > begin)
+            if (priceCache == null || scraper == null)
             {
-                return new List<DayPrices>();
+                throw new NullReferenceException("Did you forget to call initialize?");
+            }
+            return priceCache.SearchCache(date) ?? await ScrapeMissing(date);
+        }
+        public async Task<IList<DayPrices>> GetDayPricesAsync(DateTime begin, DateTime end)
+        {
+            if (priceCache == null || scraper == null)
+            {
+                throw new NullReferenceException("Did you forget to call initialize?");
+            }
+
+            if (end < begin)
+            {
+                (begin, end) = (end, begin);
             }
 
             int dayCount = (int)(end - begin).TotalDays + 1;
             var prices = new List<DayPrices>();
             for (int i = 0; i < dayCount; i++)
             {
-                var price = GetDayPrices(begin.AddDays(i));
+                var price = await GetDayPricesAsync(end.AddDays(-1 * i));
                 if (price != null)
                 {
-                    prices.Add(price.GetValueOrDefault());
+                    prices.Add(price);
                 }
             }
 
