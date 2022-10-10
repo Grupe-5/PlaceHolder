@@ -3,7 +3,7 @@
     public struct DayPrices : IComparable<DayPrices>
     {
         public DateTime Date { get; }
-        public Double[] HourlyPrices { get; }
+        public IList<Double> HourlyPrices { get; }
 
         public DayPrices(DateTime date, Double[] prices)
         {
@@ -13,7 +13,7 @@
             }
 
             Date = date.Date;
-            HourlyPrices = prices;
+            HourlyPrices = new List<Double>(prices);
         }
 
         /* Compares DayPrice dates */
