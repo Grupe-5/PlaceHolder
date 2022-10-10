@@ -16,29 +16,20 @@ namespace ScraperLib
 
         public async Task CloseAsync()
         {
-            Console.WriteLine("Closing...");
             await page.CloseAsync();
             await browser.CloseAsync();
         }
         private async Task<PricePage> InitializeAsync(String url, String waitSelector)
         {
-            Console.WriteLine("Fetching chromium...");
             await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
-
-            Console.WriteLine("Launching browser...");
             browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Headless = false
+                Headless = true
             });
 
-            Console.WriteLine("Loading page...");
             page = await browser.NewPageAsync();
             await page.GoToAsync(url);
-
-            /* Wait for selector to finish loading */
-            Console.WriteLine($"Waiting for {waitSelector}...");
             await page.WaitForSelectorAsync(waitSelector);
-
             return this;
         }
 
@@ -57,8 +48,6 @@ namespace ScraperLib
         public async Task SetPageDate(DateTime date)
         {
             String dateVal = date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);
-            Console.WriteLine($"Setting date to: '{dateVal}'");
-
             await page.EvaluateExpressionAsync("document.querySelector('#data-end-date').removeAttribute('readonly');");
             await page.EvaluateExpressionAsync($"document.querySelector('#data-end-date').value = '{dateVal}';");
             await page.EvaluateExpressionAsync("document.querySelector('#data-end-date').dispatchEvent(new Event('change'));");
@@ -68,8 +57,6 @@ namespace ScraperLib
         public async Task<PageData> GetPageDataAsync()
         {
             PageData ret = new PageData();
-
-            Console.WriteLine("Selecting data from DOM...");
             var jsSelectDates = @"Array.from(document.querySelector('#datatable').querySelectorAll('table thead tr th')).filter(th => !th.classList.contains('row-name')).map(th => th.innerText);";
             ret.tableHead = await page.EvaluateExpressionAsync<string[]>(jsSelectDates);
 
