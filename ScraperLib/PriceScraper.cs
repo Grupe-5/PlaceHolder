@@ -47,8 +47,7 @@ namespace ScraperLib
             return prices;
         }
 
-        /* TODO: This should be done from end to begin, because NordPool returns from dates from x-6 to x */
-        /* This will return more entries than are expected. */
+        /* Note: This could return more entries than are expected. */
         async public Task<IEnumerable<DayPrices>> FetchPrices(DateTime begin, DateTime? endOpt = null)
         {
             /* If the param wasn't passed then end is null, which means we only want care about begin */
