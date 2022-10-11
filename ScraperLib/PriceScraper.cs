@@ -62,10 +62,10 @@ namespace ScraperLib
             int dayCount = (int)((end - begin).TotalDays) + 1;
             List<DayPrices> priceList = new List<DayPrices>(dayCount);
 
-            int queryCount = (int) Math.Ceiling(dayCount / 7.0);
+            int queryCount = (int) Math.Ceiling(dayCount / 8.0);
             for (int i = 0; i < queryCount; i++)
             {
-                IList<DayPrices> currPrices = await FetchWeekPrices(end.AddDays(-7 * i));
+                IList<DayPrices> currPrices = await FetchWeekPrices(end.AddDays(-8 * i));
                 priceList.AddRange(currPrices);
             }
 
