@@ -1,6 +1,6 @@
 ﻿namespace Common
 {
-    public struct DayPrices : IComparable<DayPrices>
+    public class DayPrices : IComparable<DayPrices>
     {
         public DateTime Date { get; }
         public Double[] HourlyPrices { get; }
@@ -17,15 +17,20 @@
         }
 
         /* Compares DayPrice dates */
-        public int CompareTo(DayPrices other)
+        public int CompareTo(DayPrices? other)
         {
-            if (this.Date < other.Date)
+            if (other == null)
             {
                 return 1;
             }
-            else if (this.Date > other.Date)
+
+            if (this.Date < other.Date)
             {
                 return -1;
+            }
+            else if (this.Date > other.Date)
+            {
+                return 1;
             }
 
             return 0;
