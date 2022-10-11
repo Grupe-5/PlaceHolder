@@ -71,6 +71,12 @@ namespace ScraperLib
 
             /* Remove duplicate dates */
             return priceList.GroupBy(x => x.Date).Select(x => x.First());
+            /* Or, in query syntax: */
+            /*
+            return from x in (from x in priceList
+                   group x by x.Date)
+                   select x.First();
+            */
         }
     }
 

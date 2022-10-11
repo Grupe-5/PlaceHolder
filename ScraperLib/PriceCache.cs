@@ -131,6 +131,9 @@ namespace ScraperLib
             }
 
             /* Only write cache if there are new entries */
+            /* TODO: Better option would be to expose this as method, which
+             * will allow program to decide when to save entries.
+             */
             if (newEntries != 0)
             {
                 Console.WriteLine($"Saving cache ({newEntries} new entries)");

@@ -12,6 +12,12 @@ namespace ScraperLib
     {
         private IBrowser browser;
         private IPage page;
+        public struct PageData
+        {
+            public String[] tableHead;
+            public String[] tableBody;
+        }
+
         private PricePage() {}
 
         public async Task CloseAsync()
@@ -37,12 +43,6 @@ namespace ScraperLib
         {
             var ret = new PricePage();
             return await ret.InitializeAsync("https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/LT/Hourly/?view=table", "#datatable");
-        }
-
-        public struct PageData
-        {
-            public String[] tableHead;
-            public String[] tableBody;
         }
 
         public async Task SetPageDate(DateTime date)

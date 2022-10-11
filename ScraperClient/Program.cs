@@ -7,7 +7,6 @@ using Common;
 
 namespace ScraperClient
 {
-    /* 4) 6) 8-widening 9-queries */
     internal class Program
     {
         static async Task Main(string[] _)
