@@ -9,9 +9,8 @@
             <StackLayout>
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
-                    <Entry  Placeholder="Email"
+                    <Entry  Placeholder="Username"
                             IsTextPredictionEnabled="False"
-                            Keyboard="Email"
                             x:Name="Username"
                             FontSize="20"
                             TextColor="Black" 

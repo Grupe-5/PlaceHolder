@@ -14,25 +14,27 @@ public partial class RegisterPage : ContentPage
 
     private void ClearEntryField()
     {
-        Username.Text = string.Empty;
-        Password.Text = string.Empty;
-        RepeatedPassword.Text = string.Empty;
+        //Username.Text = string.Empty;
+        //Password.Text = string.Empty;
+        //RepeatedPassword.Text = string.Empty;
     }
-
-    bool IsValidEmailRegex(string email)
+    
+    bool isValidEmailRegex(string email)
     {
         bool isEmail = Regex.IsMatch(email,
-                                     @"^([\w]+\.*[\w]+)@([\w]+)((\.(\w){2,3})+)$",
-                                     RegexOptions.IgnoreCase);
+            @"^([\w]+)@([\w]+)((\.(\w){2,3})+)$",
+            RegexOptions.IgnoreCase);
+
         return isEmail;
+
     }
 
-    bool IsValidPasswordRegex(string password)
+    bool isValidPasswordRegex(string password)
     {
         //password must be at least 8 char long and
         //must contain 1 or more digits, uppercase and lowecase letters, special symbols
-        bool isPassword = Regex.IsMatch(password, 
-                                        @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%/^&*-]).{8,}$");
+
+        bool isPassword = Regex.IsMatch(password, @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
         return isPassword;
     }
 
@@ -51,8 +53,9 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
-        if (IsValidEmailRegex(Username.Text) == false)
+        if (isValidEmailRegex(Username.Text) == false)
         {
+           
             await DisplayAlert("Error", "Your email adress is incorrect!", "OK");
             ClearEntryField();
             return;
@@ -65,7 +68,7 @@ public partial class RegisterPage : ContentPage
             return;
         }
 
-        if(IsValidPasswordRegex(RepeatedPassword.Text) == false)
+        if(isValidPasswordRegex(RepeatedPassword.Text) == false)
         {
             await DisplayAlert("Error", "Password must contain at least 1 upppercase, lowercase characters and special symbols!", "OK");
             ClearEntryField();

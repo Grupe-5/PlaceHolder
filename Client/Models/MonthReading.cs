@@ -3,6 +3,16 @@ namespace Client.Model;
 
 public class MonthReading
 {
+    public MonthReading()
+    {
+
+    }
+    public MonthReading(string month, double payedAmount, int usedKwh)
+    {
+        this.month = month;
+        this.payedAmount = payedAmount;
+        this.usedKwh = usedKwh;
+    }
     public enum Months
     {
         January,
@@ -20,9 +30,9 @@ public class MonthReading
     };
     
 
-    public String Month { get; set; }
-    public double PayedAmount { get; set; }
-    public int UsedKwh { get; set; }
+    public String month { get; set; }
+    public double payedAmount { get; set; }
+    public int usedKwh { get; set; }
 
 }
 

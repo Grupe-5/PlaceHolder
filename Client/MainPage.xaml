@@ -11,8 +11,7 @@
             <StackLayout>
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
-                    <Entry  Placeholder="Email"
-                            Keyboard="Email"
+                    <Entry  Placeholder="Username" 
                             Text="{Binding UserName}"
                             FontSize="20"
                             TextColor="Black" Margin="5,0"
@@ -24,8 +23,8 @@
                     <Entry Placeholder="Password" 
                            Text="{Binding Password }"
                            FontSize="20"
-                           TextColor="Black" Margin="5,0"
-                           PlaceholderColor="#BDBDBD" IsPassword="True"/>
+                            TextColor="Black" Margin="5,0"
+                            PlaceholderColor="#BDBDBD" IsPassword="True"/>
                 </Grid>
 
                 <Button
