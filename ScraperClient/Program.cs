@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Reflection.Metadata;
-using System.Linq;
-using ScraperLib;
+﻿using ScraperLib;
 using Common;
 using System.Globalization;
 

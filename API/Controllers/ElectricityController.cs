@@ -12,7 +12,7 @@ namespace trackingapi.Controllers
         private readonly IFetcher _fetcher;
         public ElectricityController(DayPricesDbContext context, IFetcher fetcher) { _context = context; _fetcher = fetcher; }
 
-        [HttpGet("{date}")] /*Get unit by it's date */
+        [HttpGet("{date}")] /* Get unit by it's date */
         [ProducesResponseType(typeof(DayPrices), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
