@@ -18,22 +18,20 @@ namespace trackingapi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetById(String date)
         {
-            DateTime dateVal;
-            if (!DateTime.TryParse(date, out dateVal))
+            if (!DateTime.TryParse(date, out DateTime dateVal))
             {
                 return BadRequest("Date must be supplied in this format: yyyy-MM-dd");
             }
 
-            dateVal = dateVal.Date;
-            var prices = await _context.DayPrices.FindAsync(dateVal);
-            if (prices == null)
+            var key = dateVal.Date.DaysSinceUnixEpoch();
+            var prices = await _fetcher.GetDayPricesAsync(dateVal);
+            /* For now DB things aren't fully setup, so just skip this setup
+            var prices = await _context.DayPrices.FindAsync(key);
+            if (prices != null)
             {
-                prices = await _fetcher.GetDayPricesAsync(dateVal);
-                if (prices != null)
-                {
-                    await _context.DayPrices.AddAsync(prices);
-                }
+                await _context.DayPrices.AddAsync(prices);
             }
+            */
 
             return prices == null ? NotFound() : Ok(prices);
         }
