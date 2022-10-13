@@ -17,12 +17,12 @@ namespace API.Data
         {
             modelBuilder
                 .Entity<DayPrices>()
-                .HasKey(e => new {e.DaysSinceUnixEpoch});
+                .HasKey(e => new { e.DaysSinceUnixEpoch });
             modelBuilder.Entity<DayPrices>()
-            .Property(e => e.HourlyPrices)
-            .HasConversion(
-                v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                v => JsonSerializer.Deserialize<Double[]>(v, (JsonSerializerOptions)null));
-            }
+                .Property(e => e.HourlyPrices)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<Double[]>(v, (JsonSerializerOptions)null));
+        }
     }
 }
