@@ -1,28 +1,18 @@
 ﻿using System.Globalization;
 using Common;
+using Nito.AsyncEx;
 
 namespace ScraperLib
 {
-    internal class PriceScraper
+    internal sealed class PriceScraper
     {
-        PricePage page;
-        private PriceScraper() {}
-        async public Task DestroyFetcher()
-        {
-            await page.CloseAsync();
-        }
-        async public static Task<PriceScraper> CreateAsync()
-        {
-            var ret = new PriceScraper();
-            ret.page = await PricePage.CreateAsync();
-            return ret;
-        }
+        private readonly Lazy<PricePage> page = new Lazy<PricePage> (() => new PricePage ());
 
         /* Returns 7 (or less) days of data, starting from date and moving backwards */
         async private Task<IList<DayPrices>> FetchWeekPrices(DateTime date)
         {
-            await page.SetPageDate(date);
-            PricePage.PageData data = await page.GetPageDataAsync();
+            await page.Value.SetPageDate(date);
+            PricePage.PageData data = await page.Value.GetPageDataAsync();
 
             DayPrices[] prices = new DayPrices[data.tableHead.Length];
             for (int i = 0; i < data.tableHead.Length; i++)
@@ -70,7 +60,7 @@ namespace ScraperLib
             }
 
             /* Remove duplicate dates */
-            return priceList.GroupBy(x => x.Date).Select(x => x.First());
+            return priceList.GroupBy(x => x.DaysSinceUnixEpoch).Select(x => x.First());
             /* Or, in query syntax: */
             /*
             return from x in (from x in priceList

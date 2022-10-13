@@ -1,20 +1,39 @@
-﻿namespace Common
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace Common
 {
+    /* TODO: Either DaysSinceUnixEpoch or DayPrices Date get property is returning off by one! (For now, incrementing DaysSince fixes it)*/
+    public static class DateTimeExtension
+    {
+        public static long DaysSinceUnixEpoch(this DateTime date)
+        {
+            return (long)(date.Date - DateTimeOffset.UnixEpoch).TotalDays + 1;
+        }
+    }
+
     public class DayPrices : IComparable<DayPrices>
     {
-        public DateTime Date { get; }
+        [Required]
+        public long DaysSinceUnixEpoch { get; }
+        [Required]
         public Double[] HourlyPrices { get; }
+        public DateTime Date { get => DateTimeOffset.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
 
-        public DayPrices(DateTime date, Double[] prices)
+
+        [JsonConstructor]
+        public DayPrices(long daysSinceUnixEpoch, double[] hourlyPrices)
         {
-            if (prices == null || prices.Length != 24)
+            if (hourlyPrices == null || hourlyPrices.Length != 24)
             {
                 throw new ArgumentException("Prices should have be non-null and have a length of 24!");
             }
 
-            Date = date.Date;
-            HourlyPrices = prices;
+            DaysSinceUnixEpoch = daysSinceUnixEpoch;
+            HourlyPrices = hourlyPrices;
         }
+
+        public DayPrices(DateTime date, Double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
 
         /* Compares DayPrice dates */
         public int CompareTo(DayPrices? other)
@@ -24,11 +43,11 @@
                 return 1;
             }
 
-            if (this.Date < other.Date)
+            if (this.DaysSinceUnixEpoch < other.DaysSinceUnixEpoch)
             {
                 return -1;
             }
-            else if (this.Date > other.Date)
+            else if (this.DaysSinceUnixEpoch > other.DaysSinceUnixEpoch)
             {
                 return 1;
             }
