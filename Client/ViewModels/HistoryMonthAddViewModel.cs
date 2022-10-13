@@ -12,7 +12,6 @@ namespace Client.ViewModels
     public partial class HistoryMonthAddViewModel : BaseViewModel
     {
 
-
         public HistoryMonthAddViewModel()
         {
             monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
@@ -42,7 +41,7 @@ namespace Client.ViewModels
         [RelayCommand]
         async Task OnAdd()
         {
-            // ADD VALIDATION
+            /* ADD VALIDATION */
             MonthReading monthReadingItem = new MonthReading(selectedMonth, Double.Parse(pricePayed), int.Parse(kwhUsed));
             
             HistoryService historyService = new HistoryService();

@@ -16,9 +16,7 @@ public partial class HistoryViewModel : BaseViewModel
         this.historyService = historyService;
         Title = "HistoryPage";
 
-        GetMonthReadingsAsync();
-        
-        
+        GetMonthReadingsAsync();   
     }
 
 
@@ -50,7 +48,7 @@ public partial class HistoryViewModel : BaseViewModel
         }
         catch(Exception ex)
         {
-            await Shell.Current.DisplayAlert("Error!", "Unable to delete", "OK");
+            await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
         finally
         {

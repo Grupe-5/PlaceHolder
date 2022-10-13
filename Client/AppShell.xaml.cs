@@ -11,6 +11,5 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(nameof(HistoryMonthAddPage), typeof(HistoryMonthAddPage));	
 		Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
 
-
     }
 }

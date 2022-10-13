@@ -28,7 +28,6 @@ public class MonthReading
         November,
         December
     };
-    
 
     public String month { get; set; }
     public double payedAmount { get; set; }
