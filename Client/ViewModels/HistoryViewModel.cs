@@ -15,35 +15,50 @@ public partial class HistoryViewModel : BaseViewModel
     {
         this.historyService = historyService;
         Title = "HistoryPage";
-        // Make this more pretty
+
+        GetMonthReadingsAsync();   
+    }
+
+
+    [RelayCommand]
+    async Task AddNewMonthPage()
+    {
+        await Shell.Current.GoToAsync($"{nameof(HistoryMonthAddPage)}", true, 
+            new Dictionary<string, object>
+            {
+                {"MonthReadings", MonthReadings }
+            });
+
+    }
+
+    [RelayCommand]
+    async Task DeleteMonth(MonthReading monthReading)
+    {
+        if (IsBusy || monthReading is null)
+            return;
         try
         {
-            GetMonthReadingsAsync();
+            IsBusy = true;
+            
+            if (await historyService.DeleteReading(monthReading))
+            {
+                MonthReadings.Remove(monthReading);
+            }
+
         }
         catch(Exception ex)
         {
-
+            await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
-    }
-  
-
-
-
-    [RelayCommand]
-    async Task GotToMonthAsync(MonthReading monthReading)
-    {
-        if (monthReading is null)
-            return;
-
-
-        await Shell.Current.GoToAsync($"{nameof(HistoryMonthPage)}",true,new Dictionary<string, object>
+        finally
         {
-            {"MonthReading ", monthReading }
-        });
+            IsBusy = false;
+        }
+
     }
 
     [RelayCommand]
-    async Task GetMonthReadingsAsync()
+    async public void GetMonthReadingsAsync()
     {
         if (IsBusy)
             return;
@@ -61,13 +76,13 @@ public partial class HistoryViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            await Shell.Current.DisplayAlert("Error!","Unable to get data.","OK");
+            await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
         finally
         {
             IsBusy = false;
-            
         }
     }
+
 }
 

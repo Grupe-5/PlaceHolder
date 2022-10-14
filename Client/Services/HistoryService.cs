@@ -1,9 +1,4 @@
 ﻿using Client.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Services
 {
@@ -16,17 +11,36 @@ namespace Client.Services
             if (monthReadingsList?.Count > 0)
                 return monthReadingsList;
 
-
             MonthReading monthReadingItem;
             for (int i = 0; i < 5; i++)
             {
                 monthReadingItem = new MonthReading();
-                monthReadingItem.PayedAmount = 420.5 + i;
-                monthReadingItem.UsedKwh = 69;
-                monthReadingItem.Month = MonthReading.Months.March.ToString();
+                monthReadingItem.payedAmount = 420.5 + i;
+                monthReadingItem.usedKwh = 69;
+                monthReadingItem.month = MonthReading.Months.March.ToString();
                 monthReadingsList.Add(monthReadingItem);
             }
+            // GET API
+
             return monthReadingsList;
         }
+
+        public async Task<bool> DeleteReading(MonthReading monthReading)
+        {
+            monthReadingsList.Remove(monthReading);
+            // DELETE API
+
+            return true;
+        }
+
+        public async Task<bool> AddMonth(MonthReading monthReading)
+        {
+            monthReadingsList.Add(monthReading);
+            // PUT API
+            Console.WriteLine(monthReading.month);
+            return true;
+        }
+
+
     }
 }

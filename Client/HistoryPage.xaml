@@ -29,20 +29,26 @@
                     <VerticalStackLayout Padding="10,10,8,10" Spacing="4" >
 
                         <Grid ColumnDefinitions="*, 2*" Padding="10,0,15,0"  RowDefinitions="*">
-                            <Label Text="{Binding Month}" Grid.Column="0" FontSize="20"/>
-                            <Image Source="pencilblue.svg" Grid.Column="1" HorizontalOptions="End">
-                                
+                            <Label Text="{Binding month}" Grid.Column="0" FontSize="20"/>
+                            
+                            <Image Source="trashempty.svg" Grid.Column="1" HeightRequest="23" HorizontalOptions="End">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        CommandParameter="{Binding .}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HistoryViewModel}}, Path=DeleteMonthCommand}"/>
+                                </Image.GestureRecognizers>
                             </Image>
+
                         </Grid>
 
                         <Grid ColumnDefinitions="*, 2*" RowDefinitions="*" Padding="10,0,15,20" Margin="0,15,0,0">
                             <HorizontalStackLayout Grid.Column="0" >
-                                <Label  Text="{Binding UsedKwh}" FontSize="20"/>
+                                <Label  Text="{Binding usedKwh}" FontSize="20"/>
                                 <Label Text="kWh" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
-                                <Label  Text="{Binding PayedAmount}" FontSize="20" />
+                                <Label  Text="{Binding payedAmount}" FontSize="20" />
                                 <Label Text="€" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
                             </HorizontalStackLayout>
 
@@ -59,23 +65,19 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        
-        
+
         <StackLayout Margin="0,75">
-            <Button IsEnabled="{Binding IsNotBusy}"   
+            <Button IsEnabled="{Binding IsNotBusy}" 
+                    Command="{Binding AddNewMonthPageCommand}"
                     Padding="15" 
                     TextColor="White" 
-                    Text="Register Electricity Readings   &#62;	" 
+                    Text="Register Electricity Readings" 
                     FontSize="20" 
                     FontAttributes="Bold"
                     CornerRadius="10" 
                     BackgroundColor="#4C34C2"
                     ImageSource="arrow.svg">
-
             </Button>
         </StackLayout>
-        
-        
-      
     </StackLayout>
 </ContentPage>

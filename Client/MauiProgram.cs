@@ -26,7 +26,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<HistoryViewModel>();
         builder.Services.AddSingleton<HistoryService>();
 
-		builder.Services.AddTransient<StatisticsPage>();
+		builder.Services.AddTransient<HistoryMonthAddViewModel>();
+		builder.Services.AddTransient<HistoryMonthAddPage>();
+
+        builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
 
         return builder.Build();
