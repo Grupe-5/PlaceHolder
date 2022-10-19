@@ -6,11 +6,10 @@ namespace trackingapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ElectricityController : ControllerBase
+    public class DayPricesController : ControllerBase
     {
         private readonly DayPricesDbContext _context;
-        private readonly IFetcher _fetcher;
-        public ElectricityController(DayPricesDbContext context, IFetcher fetcher) { _context = context; _fetcher = fetcher; }
+        public DayPricesController(DayPricesDbContext context) { _context = context; }
 
         [HttpGet("{date}")]
         [ProducesResponseType(typeof(DayPrices), StatusCodes.Status200OK)]
@@ -23,15 +22,12 @@ namespace trackingapi.Controllers
                 return BadRequest("Date must be supplied in this format: yyyy-MM-dd");
             }
 
-            var prices = await _fetcher.GetDayPricesAsync(dateVal);
-            /* For now DB things aren't fully setup, so just skip this setup
             var key = dateVal.Date.DaysSinceUnixEpoch();
             var prices = await _context.DayPrices.FindAsync(key);
             if (prices != null)
             {
                 await _context.DayPrices.AddAsync(prices);
             }
-            */
 
             return prices == null ? NotFound() : Ok(prices);
         }

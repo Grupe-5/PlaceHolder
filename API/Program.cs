@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using API.Data;
 using Common;
 using ScraperLib;
+using API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<DayPricesDbContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 
 builder.Services.AddSingleton<IFetcher, PriceFetcher>();
+
+builder.Services.AddHostedService<FetcherService>();
 
 var app = builder.Build();
 

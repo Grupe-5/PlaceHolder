@@ -2,7 +2,6 @@
 {
     public interface IFetcher
     {
-        Task<DayPrices?> GetDayPricesAsync(DateTime date);
-        Task<IList<DayPrices>> GetDayPricesAsync(DateTime begin, DateTime end);
+        Task<IEnumerable<DayPrices>> GetWeekPricesAsync(DateTime date);
     }
 }

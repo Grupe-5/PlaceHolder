@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Common
 {
-    /* TODO: Either DaysSinceUnixEpoch or DayPrices Date get property is returning off by one! (For now, incrementing DaysSince fixes it)*/
     public static class DateTimeExtension
     {
         public static long DaysSinceUnixEpoch(this DateTime date)
@@ -14,10 +14,10 @@ namespace Common
 
     public class DayPrices : IComparable<DayPrices>
     {
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long DaysSinceUnixEpoch { get; }
-        [Required]
-        public Double[] HourlyPrices { get; }
+        public double[] HourlyPrices { get; }
         public DateTime Date { get => DateTimeOffset.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
 
 
@@ -30,12 +30,11 @@ namespace Common
             }
 
             DaysSinceUnixEpoch = daysSinceUnixEpoch;
-            HourlyPrices = hourlyPrices;
+            HourlyPrices = hourlyPrices.ToArray();
         }
 
-        public DayPrices(DateTime date, Double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
+        public DayPrices(DateTime date, double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
 
-        /* Compares DayPrice dates */
         public int CompareTo(DayPrices? other)
         {
             if (other == null)
@@ -55,7 +54,6 @@ namespace Common
             return 0;
         }
 
-        /* Returns true if the prices between two objects are the same */
         public bool HasSamePrices(DayPrices other)
         {
             return this.HourlyPrices.SequenceEqual(other.HourlyPrices);

@@ -21,8 +21,8 @@ namespace API.Data
             modelBuilder.Entity<DayPrices>()
                 .Property(e => e.HourlyPrices)
                 .HasConversion(
-                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
-                    v => JsonSerializer.Deserialize<Double[]>(v, (JsonSerializerOptions)null));
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                    v => JsonSerializer.Deserialize<double[]>(v, (JsonSerializerOptions?)null) ?? new double[0]);
         }
     }
 }
