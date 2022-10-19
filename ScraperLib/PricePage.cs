@@ -22,7 +22,7 @@ namespace ScraperLib
             });
         }
 
-        /* FIXME: If request is for already set date, then this will timeout. */
+        /* FIXME: If second request is for same date, then this will timeout. */
         private async Task<bool> SetPageDate(DateTime date)
         {
             var page = await _page;

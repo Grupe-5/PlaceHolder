@@ -1,8 +1,4 @@
 ﻿using Common;
-using Nito.AsyncEx;
-using Nito.Disposables.Internals;
-using PuppeteerSharp;
-using System.Globalization;
 
 namespace ScraperLib
 {

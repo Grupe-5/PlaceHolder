@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 
 namespace Common
 {
-    /* TODO: Either DaysSinceUnixEpoch or DayPrices Date get property is returning off by one! (For now, incrementing DaysSince fixes it)*/
     public static class DateTimeExtension
     {
         public static long DaysSinceUnixEpoch(this DateTime date)
@@ -36,7 +35,6 @@ namespace Common
 
         public DayPrices(DateTime date, double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
 
-        /* Compares DayPrice dates */
         public int CompareTo(DayPrices? other)
         {
             if (other == null)
@@ -56,7 +54,6 @@ namespace Common
             return 0;
         }
 
-        /* Returns true if the prices between two objects are the same */
         public bool HasSamePrices(DayPrices other)
         {
             return this.HourlyPrices.SequenceEqual(other.HourlyPrices);

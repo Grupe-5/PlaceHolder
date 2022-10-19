@@ -22,7 +22,7 @@ namespace API.Data
                 .Property(e => e.HourlyPrices)
                 .HasConversion(
                     v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
-                    v => JsonSerializer.Deserialize<double[]>(v, (JsonSerializerOptions?)null));
+                    v => JsonSerializer.Deserialize<double[]>(v, (JsonSerializerOptions?)null) ?? new double[0]);
         }
     }
 }
