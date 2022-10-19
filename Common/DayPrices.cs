@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Common
@@ -14,10 +15,10 @@ namespace Common
 
     public class DayPrices : IComparable<DayPrices>
     {
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long DaysSinceUnixEpoch { get; }
-        [Required]
-        public Double[] HourlyPrices { get; }
+        public double[] HourlyPrices { get; }
         public DateTime Date { get => DateTimeOffset.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
 
 
@@ -30,10 +31,10 @@ namespace Common
             }
 
             DaysSinceUnixEpoch = daysSinceUnixEpoch;
-            HourlyPrices = hourlyPrices;
+            HourlyPrices = hourlyPrices.ToArray();
         }
 
-        public DayPrices(DateTime date, Double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
+        public DayPrices(DateTime date, double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
 
         /* Compares DayPrice dates */
         public int CompareTo(DayPrices? other)
