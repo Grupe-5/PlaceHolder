@@ -121,7 +121,6 @@ namespace API.Services
                 _logger.LogInformation("Executing next fetch at {} (in ~{} hours)", DateTime.Now.Add(delayAmount), delayAmount.TotalHours.ToString("0.00"));
                 await Task.Delay(delayAmount, stoppingToken);
                 await FetchTommorowData();
-                /* Fetch here */
             }
         }
 
