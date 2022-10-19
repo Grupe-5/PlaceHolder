@@ -1,46 +1,22 @@
 ﻿using Common;
 using Nito.AsyncEx;
+using Nito.Disposables.Internals;
+using PuppeteerSharp;
+using System.Globalization;
 
 namespace ScraperLib
 {
+    /* TODO: Dependency injection for whole scraper */
     public class PriceFetcher : IFetcher
     {
-        private readonly Lazy<PriceCache> priceCache = new(() => new PriceCache("./price-cache.bin"));
-        private readonly Lazy<PriceScraper> scraper = new(() => new PriceScraper());
+        private readonly Lazy<PriceScraper> _priceScraper = new(() => new PriceScraper());
 
-        public PriceFetcher() { }
+        public PriceFetcher() {}
 
-        private async Task<DayPrices?> ScrapeMissing(DateTime date)
+        public async Task<IEnumerable<DayPrices>> GetWeekPricesAsync(DateTime date)
         {
-            var prices = await scraper.Value.FetchPrices(date);
-            await priceCache.Value.PopulateCache(prices);
-            return await priceCache.Value.SearchCache(date);
-        }
-
-        public async Task<DayPrices?> GetDayPricesAsync(DateTime date)
-        {
-            return await priceCache.Value.SearchCache(date) ?? await ScrapeMissing(date);
-        }
-
-        public async Task<IList<DayPrices>> GetDayPricesAsync(DateTime begin, DateTime end)
-        {
-            if (end < begin)
-            {
-                (begin, end) = (end, begin);
-            }
-
-            int dayCount = (int)(end - begin).TotalDays + 1;
-            var prices = new List<DayPrices>();
-            for (int i = 0; i < dayCount; i++)
-            {
-                var price = await GetDayPricesAsync(end.AddDays(-1 * i));
-                if (price != null)
-                {
-                    prices.Add(price);
-                }
-            }
-
-            return prices;
+            var scraper = _priceScraper.Value;
+            return await scraper.FetchWeekPrices(date);
         }
     }
 }

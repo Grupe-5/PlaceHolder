@@ -3,22 +3,28 @@ using PuppeteerSharp;
 
 namespace ScraperLib
 {
-    /* TODO: Implement OnProcessExit */
-    sealed internal class PriceBrowser
+    sealed internal class PriceBrowser : IAsyncDisposable
     {
-        private PriceBrowser() { }
-
-        /* TODO: How to use dependency injection here? */
-        private static readonly AsyncLazy<IBrowser> _browser = new AsyncLazy<IBrowser> (async () =>
+        private readonly AsyncLazy<IBrowser> _browser;
+        public PriceBrowser()
         {
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
-            return await Puppeteer.LaunchAsync(new LaunchOptions
+            _browser = new AsyncLazy<IBrowser>(async () =>
             {
-                Headless = true
+                await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+                return await Puppeteer.LaunchAsync(new LaunchOptions
+                {
+                    Headless = false
+                });
             });
-        });
+        }
 
-        public static async Task<IPage> CreatePageAsync(String url, String waitSelector)
+        public async ValueTask DisposeAsync()
+        {
+            var browser = await _browser;
+            await browser.CloseAsync();
+        }
+
+        public async Task<IPage> CreatePageAsync(string url, string waitSelector)
         {
             var browser = await _browser;
             var page = await browser.NewPageAsync();
