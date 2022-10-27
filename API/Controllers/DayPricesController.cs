@@ -1,5 +1,4 @@
-﻿using API.Data;
-using Common;
+﻿using Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace trackingapi.Controllers

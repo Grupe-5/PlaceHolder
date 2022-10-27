@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Common;
-using PuppeteerSharp;
 using System.Text.Json;
 
-namespace API.Data
+namespace Common
 {
     public class DayPricesDbContext : DbContext
     {
         public DayPricesDbContext(DbContextOptions<DayPricesDbContext> options) : base(options)
         {
+
         }
 
         public DbSet<DayPrices> DayPrices => Set<DayPrices>();
