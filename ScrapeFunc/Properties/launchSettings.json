@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ScrapeFunc": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7215"
+    }
+  }
+}

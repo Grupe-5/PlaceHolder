@@ -8,7 +8,7 @@ namespace Common
     {
         public static long DaysSinceUnixEpoch(this DateTime date)
         {
-            return (long)(date.Date - DateTimeOffset.UnixEpoch).TotalDays + 1;
+            return (long)(date.Date - DateTime.UnixEpoch).TotalDays;
         }
     }
 
@@ -18,7 +18,7 @@ namespace Common
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long DaysSinceUnixEpoch { get; }
         public double[] HourlyPrices { get; }
-        public DateTime Date { get => DateTimeOffset.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
+        public DateTime Date { get => DateTime.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
 
 
         [JsonConstructor]

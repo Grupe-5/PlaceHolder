@@ -4,21 +4,17 @@ using Nito.AsyncEx;
 
 namespace ScraperLib
 {
-    internal struct PageData
-    {
-        public string[] tableHead;
-        public string[] tableBody;
-    }
-
-    internal sealed class PricePage
+    public sealed class PricePage : IPricePage
     {
         private readonly AsyncLazy<IPage> _page;
-        private readonly SemaphoreSlim _pageSemaphore = new(1, 1);
-        public PricePage(PriceBrowser browser)
+        public PricePage(IPriceBrowser browser)
         {
             _page = new AsyncLazy<IPage>(async () =>
             {
-                return await browser.CreatePageAsync("https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/LT/Hourly/?view=table", "#datatable");
+                var page = await browser.CreatePageAsync();
+                await page.GoToAsync("https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/LT/Hourly/?view=table");
+                await page.WaitForSelectorAsync("#datatable");
+                return page;
             });
         }
 
@@ -37,15 +33,12 @@ namespace ScraperLib
                 await page.WaitForNetworkIdleAsync();
                 return true;
             }
-            catch { return false;  }
+            catch { return false; }
         }
 
         public async Task<PageData> GetPageDataAsync(DateTime date)
         {
-            using var sem = await _pageSemaphore.LockAsync();
-
             var page = await _page;
-            Console.WriteLine($"Started getting {date:yyyy-MM-dd}");
             await SetPageDate(date);
 
             var jsSelectDates = @"Array.from(document.querySelector('#datatable').querySelectorAll('table thead tr th')).filter(th => !th.classList.contains('row-name')).map(th => th.innerText);";
@@ -54,7 +47,6 @@ namespace ScraperLib
             PageData ret;
             ret.tableHead = await page.EvaluateExpressionAsync<string[]>(jsSelectDates);
             ret.tableBody = await page.EvaluateExpressionAsync<string[]>(jsSelectPrices);
-            Console.WriteLine($"Finished getting getting {date:yyyy-MM-dd}");
             return ret;
         }
     }
