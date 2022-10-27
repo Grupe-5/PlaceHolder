@@ -39,4 +39,4 @@ jobs:
           app-name: 'gp3-scrape'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_16EBA50074C3485CB0521545C85ABA68 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_00AF94AE34CF4D918126F8D21E3F4077 }}
