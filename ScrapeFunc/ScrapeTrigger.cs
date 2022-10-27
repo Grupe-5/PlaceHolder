@@ -40,7 +40,7 @@ namespace ScrapeFunc
                 .Select(i => i.DaysSinceUnixEpoch)
                 .Where(i => i >= lastAvailable && i <= latestDate).ToHashSet();
 
-            var missingDays = wantedDays.Where(i => !availableDays.Contains(i)).Select(i => DateTimeOffset.UnixEpoch.AddDays(i).Date).ToHashSet();
+            var missingDays = wantedDays.Where(i => !availableDays.Contains(i)).Select(i => DateTime.UnixEpoch.AddDays(i).Date).ToHashSet();
             if (!missingDays.Any())
             {
                 _logger.LogInformation("All available dates present");
