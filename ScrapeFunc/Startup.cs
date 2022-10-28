@@ -14,9 +14,6 @@ namespace ScrapeFunc
         {
             var conf = builder.GetContext().Configuration;
 
-            /* TODO: For some reason IBrowserFetcher injection doesn't work.
-            builder.Services.AddSingleton<IBrowserFetcher, BrowserFetcher>();
-            */
             builder.Services.AddSingleton<IPriceBrowser, PriceBrowser>();
             builder.Services.AddSingleton<IPricePage, PricePage>();
             builder.Services.AddSingleton<IFetcher, PriceFetcher>();
