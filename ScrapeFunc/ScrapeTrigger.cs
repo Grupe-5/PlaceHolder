@@ -10,8 +10,8 @@ namespace ScrapeFunc
 {
     public class ScrapeTrigger
     {
-        private readonly long lastAvailable = DateTime.ParseExact("2021-01-01", "yyyy-MM-dd", null).DaysSinceUnixEpoch();
-        private readonly long newDataHours = 14;
+        private static readonly long lastAvailable = DateTime.ParseExact("2021-01-01", "yyyy-MM-dd", null).DaysSinceUnixEpoch();
+        private static readonly long newDataHoursUTC = 11;
 
         private readonly ILogger<ScrapeTrigger> _logger;
         private readonly IFetcher _fetcher;
@@ -27,7 +27,7 @@ namespace ScrapeFunc
         private async Task LoadMissingData()
         {
             var latestDate = DateTime.Today.DaysSinceUnixEpoch();
-            if (DateTime.Now >= DateTime.Today.AddHours(newDataHours))
+            if (DateTime.Now >= DateTime.Today.AddHours(newDataHoursUTC))
             {
                 latestDate = DateTime.Today.AddDays(1).DaysSinceUnixEpoch();
             }
@@ -82,7 +82,7 @@ namespace ScrapeFunc
         }
 
         [FunctionName("Scrape")]
-        public async Task Run([TimerTrigger("0 14 * * *")]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 11 * * *")]TimerInfo myTimer)
         {
             _logger.LogInformation($"Running scraper at: {DateTime.Now}");
             await LoadMissingData();
