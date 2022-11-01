@@ -8,6 +8,7 @@
       }
     },
     "logLevel": {
+      "default": "Warning",
       "Scrape": "Information"
     }
   }

@@ -10,6 +10,11 @@ namespace Common
         {
             return (long)(date.Date - DateTime.UnixEpoch).TotalDays;
         }
+
+        public static DateTime FromUnixEpoch(long days)
+        {
+            return DateTime.UnixEpoch.AddDays(days).Date;
+        }
     }
 
     public class DayPrices : IComparable<DayPrices>
@@ -18,8 +23,7 @@ namespace Common
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long DaysSinceUnixEpoch { get; }
         public double[] HourlyPrices { get; }
-        public DateTime Date { get => DateTime.UnixEpoch.AddDays(DaysSinceUnixEpoch).Date; }  
-
+        public DateTime Date => DateTimeExtension.FromUnixEpoch(DaysSinceUnixEpoch);
 
         [JsonConstructor]
         public DayPrices(long daysSinceUnixEpoch, double[] hourlyPrices)

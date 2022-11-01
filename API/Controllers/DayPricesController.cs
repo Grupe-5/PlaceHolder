@@ -1,10 +1,13 @@
 ﻿using Common;
+using Common.DB;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace trackingapi.Controllers
+namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DayPricesController : ControllerBase
     {
         private readonly DayPricesDbContext _context;

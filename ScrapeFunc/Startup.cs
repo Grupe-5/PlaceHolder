@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.DB;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +15,9 @@ namespace ScrapeFunc
         {
             var conf = builder.GetContext().Configuration;
 
-            builder.Services.AddSingleton<IPriceBrowser, PriceBrowser>();
-            builder.Services.AddSingleton<IPricePage, PricePage>();
-            builder.Services.AddSingleton<IFetcher, PriceFetcher>();
+            builder.Services.AddScoped<IPriceBrowser, PriceBrowser>();
+            builder.Services.AddScoped<IPricePage, PricePage>();
+            builder.Services.AddScoped<IFetcher, PriceFetcher>();
 
             var dbStr = conf.GetConnectionString("SqlServer");
             builder.Services.AddDbContext<DayPricesDbContext>(o => o

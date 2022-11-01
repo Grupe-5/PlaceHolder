@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace Common
+namespace Common.DB
 {
     public class DayPricesDbContext : DbContext
     {
