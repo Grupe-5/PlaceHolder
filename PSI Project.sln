@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScraperLib", "ScraperLib\Sc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{385B1829-EB92-4999-AE4E-A8602E926CA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapeFunc", "ScrapeFunc\ScrapeFunc.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapeFunc", "ScrapeFunc\ScrapeFunc.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

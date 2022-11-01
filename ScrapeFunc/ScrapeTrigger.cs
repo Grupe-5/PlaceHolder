@@ -1,5 +1,7 @@
 using Common;
+using Common.DB;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -11,21 +13,24 @@ namespace ScrapeFunc
     public class ScrapeTrigger
     {
         private static readonly long lastAvailable = DateTime.ParseExact("2021-01-01", "yyyy-MM-dd", null).DaysSinceUnixEpoch();
-        private static readonly long newDataHoursUTC = 11;
+        private const long newDataHoursUTC = 12;
 
         private readonly ILogger<ScrapeTrigger> _logger;
-        private readonly IFetcher _fetcher;
-        private readonly DayPricesDbContext _dbContext;
+        private readonly IServiceProvider _services;
 
-        public ScrapeTrigger(IFetcher fetcher, ILogger<ScrapeTrigger> logger, DayPricesDbContext dbContext)
+        public ScrapeTrigger(IServiceProvider services, ILogger<ScrapeTrigger> logger)
         {
-            _fetcher = fetcher;
             _logger = logger;
-            _dbContext = dbContext;
+            _services = services;
         }
 
         private async Task LoadMissingData()
         {
+            using IServiceScope scope = _services.CreateScope();
+
+            var dbContext = scope.ServiceProvider.GetRequiredService<DayPricesDbContext>();
+            var fetcher = scope.ServiceProvider.GetRequiredService<IFetcher>();
+
             var latestDate = DateTime.Today.DaysSinceUnixEpoch();
             if (DateTime.Now >= DateTime.Today.AddHours(newDataHoursUTC))
             {
@@ -36,7 +41,7 @@ namespace ScrapeFunc
                 .Range(0, (int)(latestDate - lastAvailable + 1))
                 .Select(i => latestDate - i).ToHashSet();
 
-            var availableDays = _dbContext.DayPrices
+            var availableDays = dbContext.DayPrices
                 .Select(i => i.DaysSinceUnixEpoch)
                 .Where(i => i >= lastAvailable && i <= latestDate).ToHashSet();
 
@@ -56,7 +61,7 @@ namespace ScrapeFunc
             {
                 var prevMissing = missingDays.Count;
                 _logger.LogInformation("Fetching {date}", missingDays.First().ToString("yyyy-MM-dd"));
-                var fetched = await _fetcher.GetWeekPricesAsync(missingDays.First());
+                var fetched = await fetcher.GetWeekPricesAsync(missingDays.First());
                 foreach (var day in fetched)
                 {
                     if (missingDays.Contains(day.Date))
@@ -77,12 +82,12 @@ namespace ScrapeFunc
                 _logger.LogWarning("Giving up on getting: {date}", string.Join(',', missingDays.Select(i => i.ToString("yyyy-MM-dd")).ToArray()));
             }
 
-            await _dbContext.DayPrices.AddRangeAsync(newlyFetched.Values);
-            await _dbContext.SaveChangesAsync();
+            await dbContext.DayPrices.AddRangeAsync(newlyFetched.Values);
+            await dbContext.SaveChangesAsync();
         }
 
         [FunctionName("Scrape")]
-        public async Task Run([TimerTrigger("0 11 * * *")]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 * * * *")]TimerInfo myTimer)
         {
             _logger.LogInformation($"Running scraper at: {DateTime.Now}");
             await LoadMissingData();
