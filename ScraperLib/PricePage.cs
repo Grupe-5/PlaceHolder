@@ -1,7 +1,7 @@
-﻿using System.Globalization;
-using PuppeteerSharp;
+﻿using Microsoft.Extensions.Logging;
 using Nito.AsyncEx;
-using Microsoft.Extensions.Logging;
+using PuppeteerSharp;
+using System.Globalization;
 
 namespace ScraperLib
 {
