@@ -15,18 +15,18 @@ env:
   DOTNET_VERSION: '6.0.x' # .NET version
 
 jobs:
-  prefetch:
+  prefetch-build-upload:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
       
       - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           
-      - name: 'Resolve Prefetch Dependencies Using Dotnet'
+      - name: 'Resolve Prefetch dependencies'
         shell: bash
         run: |
           pushd './${{ env.BROWSER_PREFETCH_PATH }}'
@@ -34,12 +34,8 @@ jobs:
           dotnet build --configuration Release --no-restore
           dotnet run --no-restore -- ../${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
           popd
-
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    needs: prefetch
-    steps:
-      - name: 'Resolve Project Dependencies Using Dotnet'
+          
+      - name: 'Resolve Function dependencies'
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
