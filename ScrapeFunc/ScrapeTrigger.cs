@@ -95,7 +95,7 @@ namespace ScrapeFunc
         }
 
         [FunctionName("Scrape")]
-        public async Task Run([TimerTrigger("0 * * * *", RunOnStartup = true)]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 * * * *")]TimerInfo myTimer)
         {
             _logger.LogInformation($"Running scraper at: {DateTime.Now}");
             await LoadMissingData();
