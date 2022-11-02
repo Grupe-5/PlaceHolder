@@ -9,25 +9,50 @@ namespace ScraperLib
         private readonly AsyncLazy<IBrowser> _browser;
         private readonly ILogger<PriceBrowser> _logger;
 
-        public PriceBrowser(ILogger<PriceBrowser> logger)
+        public PriceBrowser(ILogger<PriceBrowser> logger, BrowserFetcherOptions? opts = null)
         {
             _logger = logger;
             _browser = new AsyncLazy<IBrowser>(async () =>
             {
-                BrowserFetcherOptions opts = new()
-                {
-                    Path = Path.GetTempPath()
-                };
-                var fetcher = Puppeteer.CreateBrowserFetcher(opts);
+                var fetcher = CreateFetcher(opts);
                 fetcher.DownloadProgressChanged += Fetcher_DownloadProgressChanged;
-                var revInfo = await fetcher.DownloadAsync();
+                if (!fetcher.LocalRevisions().Any())
+                {
+                    _logger.LogInformation("Downloading chromium");
+                    await fetcher.DownloadAsync();
+                }
+                else
+                {
+                    _logger.LogInformation("Using already available chromium");
+                }
+
+                if (!fetcher.LocalRevisions().Any())
+                {
+                    throw new FileNotFoundException("Failed to download browser!");
+                }
+
+                var revInfo = fetcher.LocalRevisions().FirstOrDefault();
                 LaunchOptions launchOptions = new()
                 {
                     Headless = true,
-                    ExecutablePath = fetcher.GetExecutablePath(revInfo.Revision),
+                    ExecutablePath = fetcher.GetExecutablePath(revInfo)
                 };
                 return await Puppeteer.LaunchAsync(launchOptions);
             });
+        }
+
+        public static IBrowserFetcher CreateFetcher(BrowserFetcherOptions? opts = null)
+        {
+            IBrowserFetcher fetcher;
+            if (opts == null)
+            {
+                fetcher = new BrowserFetcher();
+            }
+            else
+            {
+                fetcher = Puppeteer.CreateBrowserFetcher(opts);
+            }
+            return fetcher;
         }
 
         private int lastPercentage = -10;

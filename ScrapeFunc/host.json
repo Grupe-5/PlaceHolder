@@ -3,12 +3,11 @@
   "logging": {
     "applicationInsights": {
       "samplingSettings": {
-        "isEnabled": false,
+        "isEnabled": true,
         "excludedTypes": "Request"
       }
     },
     "logLevel": {
-      "default": "Warning",
       "Scrape": "Information"
     }
   }
