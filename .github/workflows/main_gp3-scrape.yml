@@ -1,0 +1,53 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy dotnet core app to Azure Function App - gp3-win-scrape
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'ScrapeFunc/' # Project path
+  BROWSER_PREFETCH_PATH: 'ScrapeFunc.Prefetch/' # Browser prefetch project path
+  DOTNET_VERSION: '6.0.x' # .NET version
+
+jobs:
+  prefetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+      - uses: actions/checkout@v3
+      
+      - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: 'Resolve Prefetch Dependencies Using Dotnet'
+        shell: bash
+        run: |
+          pushd './${{ env.BROWSER_PREFETCH_PATH }}'
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+          dotnet run --no-restore -- ../${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
+          popd
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: prefetch
+    steps:
+      - name: 'Resolve Project Dependencies Using Dotnet'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet build --configuration Release --output ./output
+          popd
+          
+      - name: Archive build results
+        uses: actions/upload-artifact@v3
+        with:
+          name: fetcher-output
+          path: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'

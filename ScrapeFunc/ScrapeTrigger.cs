@@ -13,7 +13,7 @@ namespace ScrapeFunc
     public class ScrapeTrigger
     {
         private static readonly long lastAvailable = DateTime.ParseExact("2021-01-01", "yyyy-MM-dd", null).DaysSinceUnixEpoch();
-        private const long newDataHoursUTC = 12;
+        private const long newDataHoursNordpool = 13;
 
         private readonly ILogger<ScrapeTrigger> _logger;
         private readonly IServiceProvider _services;
@@ -24,6 +24,14 @@ namespace ScrapeFunc
             _services = services;
         }
 
+        private static bool IsTommorowDataAvailable()
+        {
+            TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+            DateTime nordPoolRefreshDate = DateTime.SpecifyKind(DateTime.Today.AddHours(newDataHoursNordpool), DateTimeKind.Unspecified);
+            DateTimeOffset dto = new DateTimeOffset(nordPoolRefreshDate, tzi.GetUtcOffset(nordPoolRefreshDate));
+            return DateTime.UtcNow >= dto.UtcDateTime;
+        }
+
         private async Task LoadMissingData()
         {
             using IServiceScope scope = _services.CreateScope();
@@ -32,7 +40,7 @@ namespace ScrapeFunc
             var fetcher = scope.ServiceProvider.GetRequiredService<IFetcher>();
 
             var latestDate = DateTime.Today.DaysSinceUnixEpoch();
-            if (DateTime.Now >= DateTime.Today.AddHours(newDataHoursUTC))
+            if (IsTommorowDataAvailable())
             {
                 latestDate = DateTime.Today.AddDays(1).DaysSinceUnixEpoch();
             }
@@ -87,7 +95,7 @@ namespace ScrapeFunc
         }
 
         [FunctionName("Scrape")]
-        public async Task Run([TimerTrigger("0 * * * *")]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 * * * *", RunOnStartup = true)]TimerInfo myTimer)
         {
             _logger.LogInformation($"Running scraper at: {DateTime.Now}");
             await LoadMissingData();

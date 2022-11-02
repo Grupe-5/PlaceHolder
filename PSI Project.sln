@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapeFunc", "ScrapeFunc\ScrapeFunc.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapeFunc.Prefetch", "ScrapeFunc.Prefetch\ScrapeFunc.Prefetch.csproj", "{92CE107D-D547-4CBA-9CB2-E3B064E66C94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{A9729BB8-EB53-46B7-BF67-3958A3A84E81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9729BB8-EB53-46B7-BF67-3958A3A84E81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9729BB8-EB53-46B7-BF67-3958A3A84E81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92CE107D-D547-4CBA-9CB2-E3B064E66C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92CE107D-D547-4CBA-9CB2-E3B064E66C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92CE107D-D547-4CBA-9CB2-E3B064E66C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92CE107D-D547-4CBA-9CB2-E3B064E66C94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
