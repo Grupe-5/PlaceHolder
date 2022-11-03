@@ -1,4 +1,6 @@
-﻿namespace GP3.Common.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GP3.Common.Entities
 {
     public enum IntegrationCallbackReason
     {
@@ -7,7 +9,8 @@
 
     public class IntegrationCallback
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        [Key]
+        public Guid Id { get; set; }
         public IntegrationCallbackReason CallbackReason { get; set; }
         public string CallbackUrl { get; set; } = null!;
     }
