@@ -52,10 +52,7 @@ namespace GP3.Funcs
 
                 var tokenResult = await _tokenProvider.ValidateToken(req);
                 if (tokenResult.Status != AccessTokenStatus.Valid)
-                    _logger.LogWarning("Invalid access token!");
-                /*                if (tokenResult.Status != AccessTokenStatus.Valid)
-                                    return new UnauthorizedObjectResult("Invalid access token");
-                */
+                    return new UnauthorizedObjectResult("Invalid access token");
 
                 string date = req.Query["date"];
                 if (!DateTime.TryParse(date, out DateTime dateVal))
@@ -75,7 +72,6 @@ namespace GP3.Funcs
                 _logger.LogError("Server encountered an error: {0}", e.Message);
                 return new BadRequestObjectResult("Web server encountered an error");
             }
-
         }
     }
 }
