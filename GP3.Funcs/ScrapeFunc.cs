@@ -1,5 +1,6 @@
-using Common;
-using Common.DB;
+using GP3.Common.DB;
+using GP3.Common.Entities;
+using GP3.Scraper;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,17 +9,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ScrapeFunc
+namespace GP3.Funcs
 {
-    public class ScrapeTrigger
+    public class ScrapeFunc
     {
         private static readonly long lastAvailable = DateTime.ParseExact("2021-01-01", "yyyy-MM-dd", null).DaysSinceUnixEpoch();
         private const long newDataHoursNordpool = 13;
 
-        private readonly ILogger<ScrapeTrigger> _logger;
+        private readonly ILogger<ScrapeFunc> _logger;
         private readonly IServiceProvider _services;
 
-        public ScrapeTrigger(IServiceProvider services, ILogger<ScrapeTrigger> logger)
+        public ScrapeFunc(IServiceProvider services, ILogger<ScrapeFunc> logger)
         {
             _logger = logger;
             _services = services;
@@ -36,8 +37,8 @@ namespace ScrapeFunc
         {
             using IServiceScope scope = _services.CreateScope();
 
-            var dbContext = scope.ServiceProvider.GetRequiredService<DayPricesDbContext>();
-            var fetcher = scope.ServiceProvider.GetRequiredService<IFetcher>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<DayPriceDbContext>();
+            var fetcher = scope.ServiceProvider.GetRequiredService<IPriceFetcher>();
 
             var latestDate = DateTime.Today.DaysSinceUnixEpoch();
             if (IsTommorowDataAvailable())
@@ -64,7 +65,7 @@ namespace ScrapeFunc
                 _logger.LogInformation("Trying to fetch: {date}", string.Join(',', missingDays.Select(i => i.ToString("yyyy-MM-dd")).ToArray()));
             }
 
-            Dictionary<DateTime, DayPrices> newlyFetched = new();
+            Dictionary<DateTime, DayPrice> newlyFetched = new();
             while (true)
             {
                 var prevMissing = missingDays.Count;
@@ -95,11 +96,11 @@ namespace ScrapeFunc
         }
 
         [FunctionName("Scrape")]
-        public async Task Run([TimerTrigger("0 * * * *")]TimerInfo myTimer)
+        public async Task Run([TimerTrigger("0 * * * *")]TimerInfo funcTimer)
         {
             _logger.LogInformation($"Running scraper at: {DateTime.Now}");
             await LoadMissingData();
-            _logger.LogInformation($"Next run scheduled for: {myTimer.Schedule.GetNextOccurrence(DateTime.Now)}");
+            _logger.LogInformation($"Next run scheduled for: {funcTimer.Schedule.GetNextOccurrence(DateTime.Now)}");
         }
     }
 }
