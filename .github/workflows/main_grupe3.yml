@@ -1,0 +1,39 @@
+name: Build & Deploy Azure functions
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AZURE_FUNCTIONAPP_NAME: 'grupe3'
+  AZURE_FUNCTIONAPP_PACKAGE_NAME: 'GP3.Funcs' # Project path
+  DOTNET_VERSION: '6.0.x' # .NET version
+
+jobs:
+  prefetch-build-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: 'Resolve Function dependencies'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_NAME }}'
+          dotnet build --configuration Release --output ./output
+          popd
+          
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_NAME }}/output'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_SCRAPE_PUBLISH_PROFILE }}
