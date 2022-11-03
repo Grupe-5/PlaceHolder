@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace Client;
+namespace GP3.Client;
 
 [Application]
 public class MainApplication : MauiApplication

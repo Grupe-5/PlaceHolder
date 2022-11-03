@@ -1,4 +1,4 @@
-namespace Client;
+namespace GP3.Client;
 
 public partial class SettingsPage : ContentPage
 {

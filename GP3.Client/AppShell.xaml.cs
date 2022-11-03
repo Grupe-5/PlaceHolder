@@ -1,4 +1,4 @@
-﻿namespace Client;
+﻿namespace GP3.Client;
 
 public partial class AppShell : Shell
 {
@@ -10,6 +10,5 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
 		Routing.RegisterRoute(nameof(HistoryMonthAddPage), typeof(HistoryMonthAddPage));	
 		Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
-
     }
 }

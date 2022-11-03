@@ -1,11 +1,10 @@
-﻿using Client.Model;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using Client.Services;
+using GP3.Client.Services;
 using CommunityToolkit.Mvvm.Input;
+using GP3.Client.Models;
 
-
-namespace Client.ViewModels;
+namespace GP3.Client.ViewModels;
 public partial class HistoryViewModel : BaseViewModel
 {
     HistoryService historyService;

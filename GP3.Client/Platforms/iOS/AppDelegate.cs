@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Client;
+namespace GP3.Client;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

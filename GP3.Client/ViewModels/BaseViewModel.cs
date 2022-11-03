@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.ViewModels;
+namespace GP3.Client.ViewModels;
 
 public partial class BaseViewModel : ObservableObject
 {
