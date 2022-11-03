@@ -1,4 +1,4 @@
-﻿namespace ScraperLib
+﻿namespace GP3.Scraper
 {
     public struct PageData
     {

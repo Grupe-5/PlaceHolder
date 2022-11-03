@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Common
+namespace GP3.Common.Entities
 {
     public static class DateTimeExtension
     {
@@ -17,7 +17,7 @@ namespace Common
         }
     }
 
-    public class DayPrices : IComparable<DayPrices>
+    public class DayPrice : IComparable<DayPrice>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -26,7 +26,7 @@ namespace Common
         public DateTime Date => DateTimeExtension.FromUnixEpoch(DaysSinceUnixEpoch);
 
         [JsonConstructor]
-        public DayPrices(long daysSinceUnixEpoch, double[] hourlyPrices)
+        public DayPrice(long daysSinceUnixEpoch, double[] hourlyPrices)
         {
             if (hourlyPrices == null || hourlyPrices.Length != 24)
             {
@@ -37,20 +37,20 @@ namespace Common
             HourlyPrices = hourlyPrices.ToArray();
         }
 
-        public DayPrices(DateTime date, double[] prices) : this(date.DaysSinceUnixEpoch(), prices) {}
+        public DayPrice(DateTime date, double[] prices) : this(date.DaysSinceUnixEpoch(), prices) { }
 
-        public int CompareTo(DayPrices? other)
+        public int CompareTo(DayPrice? other)
         {
             if (other == null)
             {
                 return 1;
             }
 
-            if (this.DaysSinceUnixEpoch < other.DaysSinceUnixEpoch)
+            if (DaysSinceUnixEpoch < other.DaysSinceUnixEpoch)
             {
                 return -1;
             }
-            else if (this.DaysSinceUnixEpoch > other.DaysSinceUnixEpoch)
+            else if (DaysSinceUnixEpoch > other.DaysSinceUnixEpoch)
             {
                 return 1;
             }
@@ -58,9 +58,9 @@ namespace Common
             return 0;
         }
 
-        public bool HasSamePrices(DayPrices other)
+        public bool HasSamePrices(DayPrice other)
         {
-            return this.HourlyPrices.SequenceEqual(other.HourlyPrices);
+            return HourlyPrices.SequenceEqual(other.HourlyPrices);
         }
     }
 }

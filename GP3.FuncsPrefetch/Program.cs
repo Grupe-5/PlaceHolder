@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using GP3.Scraper;
 using PuppeteerSharp;
-using ScraperLib;
 
 namespace ScrapeFunc.Prefetch
 {

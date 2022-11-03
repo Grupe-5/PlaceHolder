@@ -1,6 +1,6 @@
 ﻿using PuppeteerSharp;
 
-namespace ScraperLib
+namespace GP3.Scraper
 {
     public interface IPriceBrowser
     {

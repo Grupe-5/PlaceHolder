@@ -2,7 +2,7 @@
 using Nito.AsyncEx;
 using PuppeteerSharp;
 
-namespace ScraperLib
+namespace GP3.Scraper
 {
     public sealed class PriceBrowser : IPriceBrowser, IAsyncDisposable, IDisposable
     {

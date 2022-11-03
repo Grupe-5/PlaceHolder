@@ -3,7 +3,7 @@ using Nito.AsyncEx;
 using PuppeteerSharp;
 using System.Globalization;
 
-namespace ScraperLib
+namespace GP3.Scraper
 {
     public sealed class PricePage : IPricePage
     {

@@ -8,7 +8,13 @@
       }
     },
     "logLevel": {
-      "Scrape": "Information"
+      "Scrape": "Information",
+      "default": "Information"
+    }
+  },
+  "extensions": {
+    "http": {
+      "routePrefix": ""
     }
   }
 }
