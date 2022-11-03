@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{8413F1DC-FC1E-40E9-A665-9C930D636FD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Common", "GP3.Common\GP3.Common.csproj", "{47160189-F61E-4952-B07E-BA4280199CC5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{47160189-F61E-4952-B07E-BA4280199CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Scraper", "GP3.Scraper\GP3.Scraper.csproj", "{F98D27EB-07EE-40F7-B513-663E581271CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScraperLib", "ScraperLib\ScraperLib.csproj", "{F98D27EB-07EE-40F7-B513-663E581271CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Client", "GP3.Client\GP3.Client.csproj", "{385B1829-EB92-4999-AE4E-A8602E926CA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{385B1829-EB92-4999-AE4E-A8602E926CA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Funcs", "GP3.Funcs\GP3.Funcs.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScrapeFunc", "ScrapeFunc\ScrapeFunc.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrapeFunc.Prefetch", "ScrapeFunc.Prefetch\ScrapeFunc.Prefetch.csproj", "{92CE107D-D547-4CBA-9CB2-E3B064E66C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.FuncsPrefetch", "GP3.FuncsPrefetch\GP3.FuncsPrefetch.csproj", "{92CE107D-D547-4CBA-9CB2-E3B064E66C94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8413F1DC-FC1E-40E9-A665-9C930D636FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8413F1DC-FC1E-40E9-A665-9C930D636FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8413F1DC-FC1E-40E9-A665-9C930D636FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8413F1DC-FC1E-40E9-A665-9C930D636FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{47160189-F61E-4952-B07E-BA4280199CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47160189-F61E-4952-B07E-BA4280199CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47160189-F61E-4952-B07E-BA4280199CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU

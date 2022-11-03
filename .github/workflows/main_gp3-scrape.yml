@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy dotnet core app to Azure Function App - gp3-win-scrape
+name: Build & Deploy Azure functions
 
 on:
   push:
@@ -11,8 +8,8 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'gp3-scrape'
-  AZURE_FUNCTIONAPP_PACKAGE_NAME: 'ScrapeFunc' # Project path
-  BROWSER_PREFETCH_NAME: 'ScrapeFunc.Prefetch' # Browser prefetch project path
+  AZURE_FUNCTIONAPP_PACKAGE_NAME: 'GP3.Funcs' # Project path
+  BROWSER_PREFETCH_NAME: 'GP3.FuncsPrefetch' # Browser prefetch project path
   DOTNET_VERSION: '6.0.x' # .NET version
 
 jobs:
