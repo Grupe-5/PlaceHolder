@@ -1,23 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GP3.Common.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace Common.DB
+namespace GP3.Common.DB
 {
-    public class DayPricesDbContext : DbContext
+    public class DayPriceDbContext : DbContext
     {
-        public DayPricesDbContext(DbContextOptions<DayPricesDbContext> options) : base(options)
+        public DayPriceDbContext(DbContextOptions<DayPriceDbContext> options) : base(options)
         {
 
         }
 
-        public DbSet<DayPrices> DayPrices => Set<DayPrices>();
+        public DbSet<DayPrice> DayPrices => Set<DayPrice>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Entity<DayPrices>()
+                .Entity<DayPrice>()
                 .HasKey(e => new { e.DaysSinceUnixEpoch });
-            modelBuilder.Entity<DayPrices>()
+            modelBuilder.Entity<DayPrice>()
                 .Property(e => e.HourlyPrices)
                 .HasConversion(
                     v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
