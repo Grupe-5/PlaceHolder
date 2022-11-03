@@ -1,7 +1,6 @@
-using Client.ViewModels;
-using System.Text.RegularExpressions;
+using GP3.Client.ViewModels;
 
-namespace Client;
+namespace GP3.Client;
 
 public partial class RegisterPage : ContentPage
 {
@@ -12,6 +11,7 @@ public partial class RegisterPage : ContentPage
         BindingContext = vm;
 	}
 
+    /*
     private void ClearEntryField()
     {
         //Username.Text = string.Empty;
@@ -79,4 +79,5 @@ public partial class RegisterPage : ContentPage
         ClearEntryField();
         await Shell.Current.GoToAsync(nameof(HomePage));
     }
+    */
 }

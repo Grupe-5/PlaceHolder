@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Client.RegisterPage">
-
+             xmlns:model="clr-namespace:GP3.Client.Model"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+             x:DataType="viewmodel:RegisterViewModel"
+             x:Class="GP3.Client.RegisterPage">
     <Grid>
         <StackLayout Margin="20" Padding="0,20">
             <Label Margin="0,50" TextColor="#000" Text="Register an Account"  FontAttributes="Bold"  FontSize="35" HorizontalTextAlignment="Center"></Label>
             <StackLayout>
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
-                    <Entry  Placeholder="Username"
-                            IsTextPredictionEnabled="False"
-                            x:Name="Username"
-                            FontSize="20"
-                            TextColor="Black" 
-                            Margin="5,0"
-                            PlaceholderColor="#BDBDBD" />
+                    <Entry Placeholder="Email"
+                           IsTextPredictionEnabled="False"
+                           x:Name="Username"
+                           Text="{Binding Email}"
+                           FontSize="20"
+                           TextColor="Black" 
+                           Margin="5,0"
+                           PlaceholderColor="#BDBDBD" />
                 </Grid>
 
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50" BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6"/>
                     <Entry Placeholder="Password"
                            x:Name="Password"
+                           Text="{Binding Password}"
                            FontSize="20"
                            TextColor="Black" 
                            Margin="5,0"
@@ -41,9 +45,10 @@
             </StackLayout>
 
             <StackLayout Margin="0,16">
-                <Button Clicked="CheckRegex" 
+                <Button IsEnabled="{Binding IsNotBusy}"
+                        Command="{Binding RegisterCommand}"
                         TextColor="White" 
-                        Text="Register now"
+                        Text="Register to firebase"
                         FontSize="25" 
                         CornerRadius="10" 
                         BackgroundColor="#4C34C2" ></Button>
