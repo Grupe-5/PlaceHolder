@@ -1,8 +1,8 @@
-﻿using Common;
+﻿using GP3.Common.Entities;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 
-namespace ScraperLib
+namespace GP3.Scraper
 {
     static class StringExtension
     {
@@ -13,7 +13,7 @@ namespace ScraperLib
         }
     }
 
-    public class PriceFetcher : IFetcher
+    public class PriceFetcher : IPriceFetcher
     {
         private readonly IPricePage _page;
         private readonly ILogger<PriceFetcher> _logger;
@@ -23,16 +23,16 @@ namespace ScraperLib
             _logger = logger;
         }
 
-        private static DayPrices ParseSingleDay(PageData data, int dayOffset)
+        private static DayPrice ParseSingleDay(PageData data, int dayOffset)
         {
             var dayDate = DateTime.ParseExact(data.tableHead[dayOffset], "dd-MM-yyyy", CultureInfo.InvariantCulture);
             var priceArr = Enumerable
                 .Range(0, 24)
                 .Select(y => data.tableBody[y * data.tableHead.Length + dayOffset].ParseDoubleFallback(0.0));
-            return new DayPrices(dayDate, priceArr.ToArray());
+            return new DayPrice(dayDate, priceArr.ToArray());
         }
 
-        public async Task<IEnumerable<DayPrices>> GetWeekPricesAsync(DateTime date)
+        public async Task<IEnumerable<DayPrice>> GetWeekPricesAsync(DateTime date)
         {
             var data = await _page.GetPageDataAsync(date);
             if (data.tableHead.Length == 0)

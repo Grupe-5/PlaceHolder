@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\GP3.Common\GP3.Common.csproj" />
   </ItemGroup>
 
 </Project>
