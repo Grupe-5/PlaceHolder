@@ -7,6 +7,8 @@ using Microsoft.Azure.Functions.Extensions.JwtCustomHandler.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PuppeteerSharp;
+using System.IO;
 
 [assembly: FunctionsStartup(typeof(GP3.Funcs.Startup))]
 namespace GP3.Funcs
@@ -19,6 +21,10 @@ namespace GP3.Funcs
 
             /* TODO: Replace these with scrutor scan */
             builder.Services.AddScoped<IPriceBrowser, PriceBrowser>();
+            builder.Services.AddSingleton<BrowserFetcherOptions>(_ =>
+                new BrowserFetcherOptions { Path = Path.GetTempPath() }
+            );
+
             builder.Services.AddScoped<IPricePage, PricePage>();
             builder.Services.AddScoped<IPriceFetcher, PriceFetcher>();
 
