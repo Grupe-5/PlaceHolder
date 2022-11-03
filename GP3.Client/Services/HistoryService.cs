@@ -1,12 +1,22 @@
-﻿using Client.Model;
+﻿using GP3.Client.Refit;
+using GP3.Client.Models;
 
-namespace Client.Services
+namespace GP3.Client.Services
 {
     public class HistoryService
     {
+        private readonly IReadingApi _readingApi;
+        public HistoryService(IReadingApi readingApi)
+        {
+            _readingApi = readingApi;
+        }
+
         List<MonthReading> monthReadingsList = new List<MonthReading>();
         public async Task<List<MonthReading>> GetReadings()
         {
+            /* TODO: API doesn't have such endpoint yet
+            var readings = await _readingApi.GetReadingsAsync();
+            */
 
             if (monthReadingsList?.Count > 0)
                 return monthReadingsList;
@@ -14,14 +24,15 @@ namespace Client.Services
             MonthReading monthReadingItem;
             for (int i = 0; i < 5; i++)
             {
-                monthReadingItem = new MonthReading();
-                monthReadingItem.payedAmount = 420.5 + i;
-                monthReadingItem.usedKwh = 69;
-                monthReadingItem.month = MonthReading.Months.March.ToString();
+                monthReadingItem = new MonthReading
+                {
+                    PayedAmount = 420.5 + i,
+                    UsedKwh = 69,
+                    Month = Month.March
+                };
                 monthReadingsList.Add(monthReadingItem);
             }
             // GET API
-
             return monthReadingsList;
         }
 
@@ -29,7 +40,6 @@ namespace Client.Services
         {
             monthReadingsList.Remove(monthReading);
             // DELETE API
-
             return true;
         }
 
@@ -37,10 +47,7 @@ namespace Client.Services
         {
             monthReadingsList.Add(monthReading);
             // PUT API
-            Console.WriteLine(monthReading.month);
             return true;
         }
-
-
     }
 }

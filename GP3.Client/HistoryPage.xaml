@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:Client.Model"
-             xmlns:viewmodel="clr-namespace:Client.ViewModels"
+             xmlns:model="clr-namespace:GP3.Client.Models"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
              x:DataType="viewmodel:HistoryViewModel"
-             x:Class="Client.HistoryPage">
+             x:Class="GP3.Client.HistoryPage">
     <StackLayout Padding="10,10,10,10">
         <HorizontalStackLayout HorizontalOptions="Center" Margin="0,15,0,30">
             <Label Text="{Binding Title}" FontSize="25" FontAttributes="Bold"/>
@@ -29,7 +29,7 @@
                     <VerticalStackLayout Padding="10,10,8,10" Spacing="4" >
 
                         <Grid ColumnDefinitions="*, 2*" Padding="10,0,15,0"  RowDefinitions="*">
-                            <Label Text="{Binding month}" Grid.Column="0" FontSize="20"/>
+                            <Label Text="{Binding Month}" Grid.Column="0" FontSize="20"/>
                             
                             <Image Source="trashempty.svg" Grid.Column="1" HeightRequest="23" HorizontalOptions="End">
                                 <Image.GestureRecognizers>
@@ -43,12 +43,12 @@
 
                         <Grid ColumnDefinitions="*, 2*" RowDefinitions="*" Padding="10,0,15,20" Margin="0,15,0,0">
                             <HorizontalStackLayout Grid.Column="0" >
-                                <Label  Text="{Binding usedKwh}" FontSize="20"/>
+                                <Label  Text="{Binding UsedKwh}" FontSize="20"/>
                                 <Label Text="kWh" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
                             </HorizontalStackLayout>
 
                             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
-                                <Label  Text="{Binding payedAmount}" FontSize="20" />
+                                <Label  Text="{Binding PayedAmount}" FontSize="20" />
                                 <Label Text="€" FontAttributes="Bold" FontSize="18" VerticalOptions="End" TextColor="#4C34C2"/>
                             </HorizontalStackLayout>
 
