@@ -16,26 +16,21 @@ namespace GP3.Scraper
             {
                 var fetcher = CreateFetcher(opts);
                 fetcher.DownloadProgressChanged += Fetcher_DownloadProgressChanged;
-                if (!fetcher.LocalRevisions().Any())
+                var info = await fetcher.GetRevisionInfoAsync();
+                if (!info.Local)
                 {
                     _logger.LogInformation("Downloading chromium");
-                    await fetcher.DownloadAsync();
+                    info = await fetcher.DownloadAsync(info.Revision);
                 }
                 else
                 {
-                    _logger.LogInformation("Using already available chromium");
+                    _logger.LogInformation("Chromium available on-disk");
                 }
 
-                if (!fetcher.LocalRevisions().Any())
-                {
-                    throw new FileNotFoundException("Failed to download browser!");
-                }
-
-                var revInfo = fetcher.LocalRevisions().FirstOrDefault();
                 LaunchOptions launchOptions = new()
                 {
                     Headless = true,
-                    ExecutablePath = fetcher.GetExecutablePath(revInfo)
+                    ExecutablePath = info.ExecutablePath
                 };
                 return await Puppeteer.LaunchAsync(launchOptions);
             });
