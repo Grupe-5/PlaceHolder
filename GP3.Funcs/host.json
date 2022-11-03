@@ -9,7 +9,7 @@
     },
     "logLevel": {
       "Scrape": "Information",
-      "default": "Information"
+      "PriceHttpGet": "Information"
     }
   },
   "extensions": {

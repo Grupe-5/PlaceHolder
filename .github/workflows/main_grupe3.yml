@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'gp3-scrape'
+  AZURE_FUNCTIONAPP_NAME: 'grupe3'
   AZURE_FUNCTIONAPP_PACKAGE_NAME: 'GP3.Funcs' # Project path
   BROWSER_PREFETCH_NAME: 'GP3.FuncsPrefetch' # Browser prefetch project path
   DOTNET_VERSION: '6.0.x' # .NET version
@@ -24,6 +24,13 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           
+      - name: 'Resolve Function dependencies'
+        shell: bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_NAME }}'
+          dotnet build --configuration Release --output ./output
+          popd
+          
       - name: 'Resolve Prefetch dependencies'
         shell: bash
         run: |
@@ -31,13 +38,6 @@ jobs:
           dotnet restore
           dotnet build --configuration Release --no-restore
           dotnet run --no-restore -- ../${{ env.AZURE_FUNCTIONAPP_PACKAGE_NAME }}/output
-          popd
-          
-      - name: 'Resolve Function dependencies'
-        shell: bash
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_NAME }}'
-          dotnet build --configuration Release --output ./output
           popd
           
       - name: 'Run Azure Functions Action'
