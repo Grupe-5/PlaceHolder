@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ScrapeFunc.Prefetch": {
-      "commandName": "Project",
-      "commandLineArgs": "./"
-    }
-  }
-}
