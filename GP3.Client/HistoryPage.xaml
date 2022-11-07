@@ -30,7 +30,7 @@
 
                         <Grid ColumnDefinitions="*, 2*" Padding="10,0,15,0"  RowDefinitions="*">
                             <Label Text="{Binding Month}" Grid.Column="0" FontSize="20"/>
-                            
+
                             <Image Source="trashempty.svg" Grid.Column="1" HeightRequest="23" HorizontalOptions="End">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer 
@@ -64,7 +64,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
 
         <StackLayout Margin="0,75">
             <Button IsEnabled="{Binding IsNotBusy}" 

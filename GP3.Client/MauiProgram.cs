@@ -33,6 +33,9 @@ public static class MauiProgram
         builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
 
+        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<HomeViewModel>();
+
         /* Services */
         builder.Services.AddSingleton<HistoryService>();
         builder.Services.AddSingleton<AuthService>();
