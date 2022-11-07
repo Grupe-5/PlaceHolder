@@ -58,12 +58,12 @@ namespace GP3.Funcs.Functions.Timer
                 if (msg.lowestPrice.ScheduledEnqueueTime > DateTime.UtcNow)
                 {
                     _logger.LogInformation($"Enqueued LP msg for {msg.lowestPrice.ScheduledEnqueueTime}");
-                    // await sender.SendMessageAsync(msg.lowestPrice);
+                    await sender.SendMessageAsync(msg.lowestPrice);
                 }
                 if (msg.highestPrice.ScheduledEnqueueTime > DateTime.UtcNow)
                 {
                     _logger.LogInformation($"Enqueued HP msg for {msg.highestPrice.ScheduledEnqueueTime}");
-                    // await sender.SendMessageAsync(msg.highestPrice);
+                    await sender.SendMessageAsync(msg.highestPrice);
                 }
             }
         }
