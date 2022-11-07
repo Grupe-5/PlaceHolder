@@ -1,5 +1,7 @@
 ﻿using GP3.Common.DB;
 using GP3.Common.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GP3.Common.Repositories
 {
@@ -12,15 +14,10 @@ namespace GP3.Common.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<DayPrice?> GetByDateAsync(DateTime date)
-        {
-            return await GetByUnixDaysAsync(date.DaysSinceUnixEpoch());
-        }
-
-        public async Task<DayPrice?> GetByUnixDaysAsync(long daysSinceUnixEpoch)
-        {
-            return await _dbContext.DayPrices.FindAsync(daysSinceUnixEpoch);
-        }
+        public async Task<DayPrice?> GetDayPriceAsync(DateTime date)
+            => await GetDayPriceAsync(date.DaysSinceUnixEpoch());
+        public async Task<DayPrice?> GetDayPriceAsync(long daysSinceUnixEpoch)
+            => await _dbContext.DayPrices.FindAsync(daysSinceUnixEpoch);
 
         public async Task AddAsync(DayPrice price)
         {
@@ -30,8 +27,21 @@ namespace GP3.Common.Repositories
 
         public async Task AddMultipleAsync(IEnumerable<DayPrice> prices)
         {
-            await _dbContext.DayPrices.AddRangeAsync(prices);
+            foreach (var price in prices)
+            {
+                try
+                {
+                    await _dbContext.DayPrices.AddAsync(price);
+                }
+                catch { }
+            }
             await _dbContext.SaveChangesAsync();
         }
+
+        public IEnumerable<DayPrice> GetBetween(DateTime start, DateTime end)
+            => GetBetween(start.DaysSinceUnixEpoch(), end.DaysSinceUnixEpoch());
+
+        public IEnumerable<DayPrice> GetBetween(long start, long end)
+            => _dbContext.DayPrices.Where(i => i.DaysSinceUnixEpoch >= start && i.DaysSinceUnixEpoch <= end);
     }
 }
