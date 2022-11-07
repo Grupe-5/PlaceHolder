@@ -4,7 +4,8 @@
     "fileLoggingMode": "always",
     "applicationInsights": {
       "samplingSettings": {
-        "isEnabled": true
+        "isEnabled": true,
+        "excludedTypes": "Request"
       }
     },
     "logLevel": {
