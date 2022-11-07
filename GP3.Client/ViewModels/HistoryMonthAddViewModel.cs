@@ -1,19 +1,18 @@
-﻿
-
-using Client.Model;
-using Client.Services;
+﻿using GP3.Client.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using GP3.Client.Models;
 
-namespace Client.ViewModels
+namespace GP3.Client.ViewModels
 {
     [QueryProperty("MonthReadings", "MonthReadings")]
     public partial class HistoryMonthAddViewModel : BaseViewModel
     {
-
-        public HistoryMonthAddViewModel()
+        private readonly HistoryService _historyService;
+        public HistoryMonthAddViewModel(HistoryService historyService)
         {
+            _historyService = historyService;
             monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames;
         }
 
@@ -21,7 +20,7 @@ namespace Client.ViewModels
         string[] monthNames;
 
         [ObservableProperty]
-        string selectedMonth;
+        Month selectedMonth;
 
         [ObservableProperty]
         string kwhUsed;
@@ -43,11 +42,8 @@ namespace Client.ViewModels
         {
             /* ADD VALIDATION */
             MonthReading monthReadingItem = new MonthReading(selectedMonth, Double.Parse(pricePayed), int.Parse(kwhUsed));
-            
-            HistoryService historyService = new HistoryService();
-            await historyService.AddMonth(monthReadingItem);
+            await _historyService.AddMonth(monthReadingItem);
             monthReadings.Add(monthReadingItem);
-
             await GoBackAsync();
         }
     }

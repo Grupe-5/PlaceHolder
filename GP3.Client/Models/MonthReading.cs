@@ -1,19 +1,9 @@
-﻿
-namespace Client.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class MonthReading
+namespace GP3.Client.Models
 {
-    public MonthReading()
-    {
-
-    }
-    public MonthReading(string month, double payedAmount, int usedKwh)
-    {
-        this.month = month;
-        this.payedAmount = payedAmount;
-        this.usedKwh = usedKwh;
-    }
-    public enum Months
+    public enum Month
     {
         January,
         February,
@@ -29,9 +19,18 @@ public class MonthReading
         December
     };
 
-    public String month { get; set; }
-    public double payedAmount { get; set; }
-    public int usedKwh { get; set; }
+    public class MonthReading
+    {
+        public MonthReading() {}
+        public MonthReading(Month month, double payedAmount, int usedKwh)
+        {
+            Month = month;
+            PayedAmount = payedAmount;
+            UsedKwh = usedKwh;
+        }
 
+        public Month Month { get; set; }
+        public double PayedAmount { get; set; }
+        public int UsedKwh { get; set; }
+    }
 }
-

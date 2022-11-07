@@ -1,6 +1,6 @@
-using Client.ViewModels;
+using GP3.Client.ViewModels;
 
-namespace Client;
+namespace GP3.Client;
 
 public partial class StatisticsPage : ContentPage
 {

@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Client;
+namespace GP3.Client;
 
 public class Program
 {

@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Client.ViewModels
+namespace GP3.Client.ViewModels
 {
     public partial class StatisticsViewModel : ObservableObject
     {
