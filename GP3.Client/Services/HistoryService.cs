@@ -41,6 +41,5 @@ namespace Client.Services
             return true;
         }
 
-
     }
 }

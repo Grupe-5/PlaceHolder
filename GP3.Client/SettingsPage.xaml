@@ -1,12 +1,106 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Client.SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Settings!"
-            FontSize="Large"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="Client.SettingsPage"
+             xmlns:viewmodel="clr-namespace:Client.ViewModels"
+             x:DataType="viewmodel:SettingsViewModel">
+    
+    <StackLayout Padding="10,10,10,10" >
+        <HorizontalStackLayout HorizontalOptions="Center" Margin="0,15,0,0">
+            <Label Text="{Binding Title}" FontSize="25" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Start" Margin="20,30,0,15">
+            <Label Text="Account" TextColor="#4C34C2" FontSize="20" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+        <StackLayout Padding="23,0" >
+            <Grid ColumnDefinitions="20,*, 2*" RowDefinitions="*">
+                <Image Grid.Column="0" Source="profile.svg" Margin="0,0,2,0" HeightRequest="20"/>
+                <Label Grid.Column="1" Margin="6,0,8,0" Text="Profile" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End">
+                    <Image Source="bluearrow.svg" Margin="0,2,2,0" HeightRequest="20"/>
+                </VerticalStackLayout>
+            </Grid>
+            <Grid ColumnDefinitions="20,*, 2*" Margin="0,10,0,0" RowDefinitions="*">
+                <Image Grid.Column="0" Source="location.svg" Margin="0,0,2,0" HeightRequest="20"/>
+                
+                <Picker ItemsSource="{Binding UserSettings.locations}"
+                        SelectedItem="{Binding UserSettings.userLocation}"      
+                        Grid.Column="1" 
+                        Margin="6,0,8,0"
+                        TextColor="Black"
+                        Title="Region"
+                        FontSize="20"
+                        />
+
+                <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End" VerticalOptions="Center">
+                    <Image Source="bluearrow.svg" Margin="0,0,2,0" HeightRequest="20" />
+                </VerticalStackLayout>
+            </Grid>
+            <Grid ColumnDefinitions="20,*, 2*" Margin="0,10,0,0" RowDefinitions="*">
+                <Image Grid.Column="0" Source="boxarrowleft.svg" Margin="0,0,2,0" HeightRequest="25"/>
+                <Label Grid.Column="1" Margin="6,0,8,0" Text="Sign Out" FontSize="18" FontAttributes="Bold"/>
+            </Grid>
+            
+        </StackLayout>
+        
+        <HorizontalStackLayout HorizontalOptions="Start" Margin="20,25,0,15">
+            <Label Text="Notifications" TextColor="#4C34C2" FontSize="20" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+        <StackLayout Padding="23,0">
+            <Grid ColumnDefinitions="*, *"  RowDefinitions="*">
+                <Label Grid.Column="0" Margin="0,0,8,0" Text="Price Change" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                    <Switch IsToggled="{Binding UserSettings.priceChangeNotf}" HeightRequest="30"/>
+                </VerticalStackLayout>
+            </Grid>
+            <Grid ColumnDefinitions="*, *" Margin="0,10,0,0"  RowDefinitions="*">
+                <Label Grid.Column="0" Margin="0,0,8,0" Text="Lowest Price" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                    <Switch IsToggled="{Binding UserSettings.lowestPriceNotf}"  HeightRequest="30"/>
+                </VerticalStackLayout>
+            </Grid>
+        </StackLayout>
+
+        <StackLayout Margin="0,25,0,0">
+            <Button IsEnabled="{Binding IsNotBusy}" 
+                    Command="{Binding SaveSettingsCommand}"
+                    Padding="10" 
+                    TextColor="White" 
+                    Text="Save Settings" 
+                    FontSize="18" 
+                    FontAttributes="Bold"
+                    CornerRadius="10" 
+                    BackgroundColor="#4C34C2">
+            </Button>
+        </StackLayout>
+
+        <HorizontalStackLayout HorizontalOptions="Start" Margin="20,70,0,15">
+            <Label  Text="Support" TextColor="#4C34C2" FontSize="20" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+        
+        <StackLayout Padding="23,0">
+            <Grid ColumnDefinitions="20,*, 2*" RowDefinitions="*">
+                <Image Grid.Column="0" Source="help.svg" Margin="0,0,2,0" HeightRequest="20"/>
+                <Label Grid.Column="1" Margin="6,0,8,0" Text="Help" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End">
+                    <Image Source="bluearrow.svg" Margin="0,2,2,0" HeightRequest="20"/>
+                </VerticalStackLayout>
+            </Grid>
+            
+            <Grid ColumnDefinitions="20,*, 2*" Margin="0,10,0,0" RowDefinitions="*">
+                <Image Grid.Column="0" Source="lock.svg" Margin="0,0,2,0" HeightRequest="20"/>
+                <Label Grid.Column="1" Margin="6,0,8,0" Text="Privacy" FontSize="20"/>
+                <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End">
+                    <Image Source="bluearrow.svg" Margin="0,2,2,0" HeightRequest="20"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="23,*" Margin="0,15,0,0" RowDefinitions="*" >
+                <Image Grid.Column="0" Source="envelope.svg" Margin="0,0,2,0" HeightRequest="20"/>
+                <Label Grid.Column="1" Margin="6,0,8,0" Text="PlaceHolder@gp3.com" FontAttributes="Bold" FontSize="18"/>
+            </Grid>
+        </StackLayout>
+
+    </StackLayout>
 </ContentPage>

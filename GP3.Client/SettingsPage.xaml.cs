@@ -1,9 +1,12 @@
+using Client.ViewModels;
+
 namespace Client;
 
 public partial class SettingsPage : ContentPage
 {
-	public SettingsPage()
+	public SettingsPage(SettingsViewModel vm)
 	{
-		InitializeComponent();
-	}
+        InitializeComponent();
+		BindingContext = vm;
+    }
 }
