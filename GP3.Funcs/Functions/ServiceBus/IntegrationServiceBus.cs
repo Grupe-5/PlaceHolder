@@ -49,6 +49,7 @@ namespace GP3.Funcs.Functions.ServiceBus
             }
 
             var integrations = (await _integrations.GetIntegrationsAsync()).Where(i => i.CallbackReason == reason);
+            _logger.LogInformation($"Calling {integrations.Count()} {reason} hooks");
             var cachePolicy = AsyncRequestCollapserPolicy.Create();
             await integrations.ForEachAsync(integration => cachePolicy.ExecuteAsync(
                     (_, token) => SendRequest(integration, token),

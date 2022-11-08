@@ -31,9 +31,6 @@ namespace GP3.Funcs.Functions.HTTP
         [OpenApiSecurity("bearer_auth", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter(name: "date", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "Date in yyyy-MM-dd format")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(DayPrice), Description = "Price found")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.NotFound, contentType: "text/plain", bodyType: typeof(string), Description = "Price not found")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.BadRequest, contentType: "text/plain", bodyType: typeof(string), Description = "Invalid date")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.Unauthorized, contentType: "text/plain", bodyType: typeof(string), Description = "Invalid token")]
         public async Task<IActionResult> GetPrice([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = Routes.Price)] HttpRequest req)
             => await _reqAuthService.HandledAuthAction(req, async (req, _) =>
             {

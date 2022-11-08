@@ -32,8 +32,8 @@ namespace GP3.Funcs.Functions.HTTP
         [OpenApiOperation(operationId: "Send integration notification")]
         [OpenApiSecurity("bearer_auth", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter(name: "reason", In = ParameterLocation.Query, Required = true, Type = typeof(IntegrationCallbackReason), Description = "Callback reason")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "plain/text", bodyType: typeof(string), Description = "Callback OK")]
-        public async Task<IActionResult> AddIntegration([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = Routes.Admin)] HttpRequest req,
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "Callback OK")]
+        public async Task<IActionResult> SendIntegrationNotification([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = Routes.Admin)] HttpRequest req,
             [ServiceBus(ConnStrings.IntegrationQ, Connection = ConnStrings.IntegrationQConn)] ServiceBusSender sender) =>
             await _reqAuthService.HandledAuthAction(req, async (req, principal) =>
             {

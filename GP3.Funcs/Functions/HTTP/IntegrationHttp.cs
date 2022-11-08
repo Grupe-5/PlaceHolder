@@ -32,7 +32,7 @@ namespace GP3.Funcs.Functions.HTTP
         [FunctionName("IntegrationHttpGet")]
         [OpenApiOperation(operationId: "Get Integrations")]
         [OpenApiSecurity("bearer_auth", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IntegrationCallback), Description = "Price found")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IntegrationCallback), Description = "Found integrations")]
         public async Task<IActionResult> GetIntegrations([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = Routes.Integration)] HttpRequest req) =>
             await _reqAuthService.HandledAuthAction(req, async (req, principal) => 
             {
@@ -49,7 +49,7 @@ namespace GP3.Funcs.Functions.HTTP
         [OpenApiOperation(operationId: "Add Integrations")]
         [OpenApiSecurity("bearer_auth", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiRequestBody("application/json", typeof(IntegrationCallback), Required = true)]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IntegrationCallback), Description = "Price found")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IntegrationCallback), Description = "Added integration")]
         public async Task<IActionResult> AddIntegration([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = Routes.Integration)] HttpRequest req) =>
             await _reqAuthService.HandledAuthAction(req, async (req, principal) =>
             {
@@ -86,6 +86,7 @@ namespace GP3.Funcs.Functions.HTTP
         [OpenApiOperation(operationId: "Delete integration")]
         [OpenApiSecurity("bearer_auth", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter(name: "id", In = ParameterLocation.Query, Required = true, Type = typeof(int), Description = "Id of integration to remove")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "Removed integration")]
         public async Task<IActionResult> DeleteIntegration([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = Routes.Integration)] HttpRequest req) =>
             await _reqAuthService.HandledAuthAction(req, async (req, principal) =>
             {
