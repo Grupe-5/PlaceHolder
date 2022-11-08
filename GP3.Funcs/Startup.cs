@@ -14,8 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
-using Polly.Contrib.DuplicateRequestCollapser;
+using Polly.Extensions.Http;
+using Polly.Timeout;
 using PuppeteerSharp;
+using System;
 using System.IO;
 using System.Net.Http;
 
@@ -45,7 +47,11 @@ namespace GP3.Funcs
 
             builder.Services
                 .AddHttpClient<IntegrationServiceBus>()
-                .AddPolicyHandler(AsyncRequestCollapserPolicy.Create().AsAsyncPolicy<HttpResponseMessage>());
+                .AddPolicyHandler(HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .Or<TimeoutRejectedException>()
+                    .RetryAsync(2))
+                .AddPolicyHandler(Policy.TimeoutAsync<HttpResponseMessage>(TimeSpan.FromMilliseconds(500)));
 
             builder.Services.AddStackExchangeRedisCache(o => o.Configuration = conf.GetConnectionString(ConnStrings.Redis));
 
