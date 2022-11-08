@@ -9,10 +9,9 @@
       }
     },
     "logLevel": {
-      "default": "Information",
-      "Host.Results": "Information",
-      "Function": "Information",
-      "Host.Aggregator": "Information"
+      "default": "Error",
+      "GP3.Funcs.Services": "Information",
+      "GP3.Funcs.Functions": "Information"
     }
   },
   "extensions": {
