@@ -4,10 +4,13 @@ using GP3.Common.Extensions;
 using GP3.Common.Repositories;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+using Polly;
+using Polly.Contrib.DuplicateRequestCollapser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GP3.Funcs.Functions.ServiceBus
@@ -25,11 +28,11 @@ namespace GP3.Funcs.Functions.ServiceBus
             _logger = logger;
         }
 
-        private async Task SendRequest(IntegrationCallback integration)
+        private async Task SendRequest(IntegrationCallback integration, CancellationToken cToken)
         {
             try
             {
-                await _client.PostAsJsonAsync(integration.CallbackUrl, integration.CallbackReason);
+                await _client.PostAsJsonAsync(integration.CallbackUrl, integration.CallbackReason, cToken);
             }
             catch (Exception e)
             {
@@ -38,7 +41,7 @@ namespace GP3.Funcs.Functions.ServiceBus
         }
 
         [FunctionName("IntegrationFunc")]
-        public async Task Run([ServiceBusTrigger(ConnStrings.IntegrationQ, Connection = ConnStrings.IntegrationQConn)] string reasonStr)
+        public async Task Run([ServiceBusTrigger(ConnStrings.IntegrationQ, Connection = ConnStrings.IntegrationQConn)] string reasonStr, CancellationToken cToken)
         {
             if (!Enum.TryParse<IntegrationCallbackReason>(reasonStr, out var reason))
             {
@@ -46,9 +49,13 @@ namespace GP3.Funcs.Functions.ServiceBus
                 return;
             }
 
-            /* Make this more 'safe' with polly policies (shorter timeout, less retries)  */
             var integrations = (await _integrations.GetIntegrationsAsync()).Where(i => i.CallbackReason == reason);
-            await integrations.ForEachAsync(integration => SendRequest(integration));
+            var cachePolicy = AsyncRequestCollapserPolicy.Create();
+            await integrations.ForEachAsync(integration => cachePolicy.ExecuteAsync(
+                    (_, token) => SendRequest(integration, token),
+                    new Context(integration.CallbackUrl),
+                    cToken));
+            _logger.LogInformation("Finished sending requests");
         }
     }
 }
