@@ -27,21 +27,19 @@ namespace GP3.Funcs.Functions.Timer
             public ServiceBusMessage highestPrice;
         }
 
-        private static ServiceBusMessage CreateMessage (DateTime date, int hour, IntegrationCallbackReason reason)
+        private static PriceMessages GeneratePriceMessage (DayPrice price)
         {
-            var msg = new ServiceBusMessage(reason.ToString());
-            msg.ScheduledEnqueueTime = date.Date.AddHours(hour).CESTtoUTC();
-            return msg;
-        }
-
-        private PriceMessages GeneratePriceMessage (DayPrice price)
-        {
-            var minPriceHour = Array.IndexOf(price.HourlyPrices, price.HourlyPrices.Min());
-            var maxPriceHour = Array.IndexOf(price.HourlyPrices, price.HourlyPrices.Max());
-
             PriceMessages x;
-            x.lowestPrice = CreateMessage(price.Date, minPriceHour, IntegrationCallbackReason.LowestPrice);
-            x.highestPrice = CreateMessage(price.Date, maxPriceHour, IntegrationCallbackReason.HighestPrice);
+            x.lowestPrice = new (IntegrationCallbackReason.LowestPrice.ToString())
+            {
+                ScheduledEnqueueTime = price.LowestPriceTimeUTC()
+            };
+
+            x.highestPrice = new (IntegrationCallbackReason.HighestPrice.ToString())
+            {
+                ScheduledEnqueueTime = price.HighestPriceTimeUTC()
+            };
+
             return x;
         }
 

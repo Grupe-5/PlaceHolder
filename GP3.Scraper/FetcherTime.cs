@@ -21,13 +21,13 @@ namespace GP3.Scraper
         public static DateTime LowestPriceTimeUTC(this DayPrice price)
         {
             var hour = Array.IndexOf(price.HourlyPrices, price.HourlyPrices.Min());
-            return CESTtoUTC(price.Date.Date).AddHours(hour);
+            return price.Date.Date.AddHours(hour).CESTtoUTC();
         }
 
         public static DateTime HighestPriceTimeUTC(this DayPrice price)
         {
             var hour = Array.IndexOf(price.HourlyPrices, price.HourlyPrices.Max());
-            return CESTtoUTC(price.Date.Date).AddHours(hour);
+            return price.Date.Date.AddHours(hour).CESTtoUTC();
         }
 
         public static bool IsTommorowDataAvailable()
