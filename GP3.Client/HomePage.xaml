@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+             xmlns:model="clr-namespace:GP3.Client.Models"
+             x:DataType="viewmodel:HomeViewModel"
              x:Class="GP3.Client.HomePage">
     <VerticalStackLayout>
         <Label 
-            Text="Home!"
+            Text="{Binding Title}"
             FontSize="Large"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <CollectionView 
+            ItemsSource="{Binding HourPricesFormated}"
+            SelectionMode="None"
+            HeightRequest="500">
+            <CollectionView.ItemTemplate  Padding="20">
+                <DataTemplate x:DataType="model:HourPriceFormated">
+                    <Grid Padding="10,0,15,20" >
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding priceHour}" Margin="0,0,15,0" FontAttributes="Bold" FontSize="20" VerticalOptions="End" TextColor="#4C34C2"/>
+                            <Label Text="{Binding priceNumber}" FontSize="20" FontAttributes="Bold"/>
+                            <Label Text="€" FontSize="20" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

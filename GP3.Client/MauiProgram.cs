@@ -33,6 +33,10 @@ public static class MauiProgram
         builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
 
+        Client/FetchingFromPriceApi
+        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<HomeViewModel>();
+
         builder.Services.AddSingleton<SettingsPage>();
         builder.Services.AddSingleton<SettingsViewModel>();
 

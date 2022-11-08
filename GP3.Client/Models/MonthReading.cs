@@ -18,7 +18,6 @@ namespace GP3.Client.Models
         November,
         December
     };
-
     public class MonthReading
     {
         public MonthReading() {}
@@ -28,7 +27,6 @@ namespace GP3.Client.Models
             PayedAmount = payedAmount;
             UsedKwh = usedKwh;
         }
-
         public Month Month { get; set; }
         public double PayedAmount { get; set; }
         public int UsedKwh { get; set; }
