@@ -33,9 +33,14 @@ public static class MauiProgram
         builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
 
+        builder.Services.AddSingleton<SettingsPage>();
+        builder.Services.AddSingleton<SettingsViewModel>();
+
         /* Services */
         builder.Services.AddSingleton<HistoryService>();
         builder.Services.AddSingleton<AuthService>();
+        builder.Services.AddSingleton<SettingsService>();
+
 
         /* TODO: Make these options configurable */
         var apiRetryCount = 3;
