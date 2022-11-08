@@ -8,6 +8,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Net;
@@ -18,10 +19,12 @@ namespace GP3.Funcs.Functions.HTTP
     public class AdminHttp
     {
         private readonly ReqAuthService _reqAuthService;
+        private readonly ILogger<AdminHttp> _logger;
 
-        public AdminHttp(ReqAuthService reqAuthService)
+        public AdminHttp(ReqAuthService reqAuthService, ILogger<AdminHttp> logger)
         {
             _reqAuthService = reqAuthService;
+            _logger = logger;
         }
 
 
@@ -45,6 +48,7 @@ namespace GP3.Funcs.Functions.HTTP
                 }
 
                 await sender.SendMessageAsync(new ServiceBusMessage(reason.ToString()));
+                _logger.LogInformation($"Sent {reason} service bus message");
                 return new OkObjectResult($"Sent {reason} event");
             });
     }
