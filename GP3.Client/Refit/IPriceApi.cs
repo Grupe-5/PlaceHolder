@@ -7,7 +7,7 @@ namespace GP3.Client.Refit
     [Headers("Authorization: Bearer")]
     public interface IPriceApi
     {
-        [Get("/" + Routes.GetPrice)]
+        [Get("/" + Routes.Price)]
         Task<DayPrice> GetPriceAsync(string date);
     }
 }

@@ -54,7 +54,6 @@ public static class MauiProgram
 
         builder.Services
             .AddResilientApi<IPriceApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout)
-            .AddResilientApi<IReadingApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout)
             .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
 
         return builder.Build();
