@@ -1,11 +1,8 @@
 ﻿using GP3.Common.Entities;
-using GP3.Common.Repositories;
 using GP3.Scraper;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GP3.Funcs.Services

@@ -1,7 +1,5 @@
 ﻿using GP3.Common.DB;
 using GP3.Common.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata.Ecma335;
 
 namespace GP3.Common.Repositories
 {

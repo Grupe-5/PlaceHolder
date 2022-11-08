@@ -1,5 +1,4 @@
-﻿using GP3.Common.DB;
-using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore.Design;
 
 using Context = GP3.Common.DB.IntegrationDbContext;
 namespace GP3.Funcs.DesignTimeDB

@@ -1,5 +1,4 @@
 ﻿using GP3.Common.Constants;
-using GP3.Funcs.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

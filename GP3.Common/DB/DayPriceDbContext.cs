@@ -1,7 +1,6 @@
 ﻿using GP3.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Text.Json;
 
 namespace GP3.Common.DB
