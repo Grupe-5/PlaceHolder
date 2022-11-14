@@ -12,6 +12,7 @@
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
                     <Entry Placeholder="Email"
+                           Keyboard="Email"
                            IsTextPredictionEnabled="False"
                            x:Name="Username"
                            Text="{Binding Email}"
@@ -37,6 +38,7 @@
                     <Entry Placeholder="Repeat your password"
                            Margin="0,10"
                            x:Name="RepeatedPassword"
+                           Text="{Binding RepeatedPassword}"
                            FontSize="20"
                            TextColor="Black"
                            PlaceholderColor="#BDBDBD" 
