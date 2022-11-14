@@ -1,0 +1,27 @@
+name: Run tests
+
+on: [push]
+
+env:
+  DOTNET_TESTING_PROJECT: 'GP3.Tests'
+  DOTNET_VERSION: '6.0.x' # .NET version
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: 'Run tests'
+        shell: bash
+        run: |
+          pushd './${{ env.DOTNET_TESTING_PROJECT }}'
+          dotnet build --configuration Release --output ./output
+          dotnet test
+          popd
