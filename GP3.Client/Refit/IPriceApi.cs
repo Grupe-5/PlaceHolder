@@ -9,5 +9,8 @@ namespace GP3.Client.Refit
     {
         [Get("/" + Routes.Price)]
         Task<DayPrice> GetPriceAsync(string date);
+
+        [Get("/" + Routes.PriceOffset)]
+        Task<double[]> GetPriceOffsetAsync(string date);
     }
 }
