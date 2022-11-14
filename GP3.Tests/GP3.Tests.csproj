@@ -22,9 +22,13 @@
 
   <ItemGroup>
     <Folder Include="Funcs\" />
-    <Folder Include="Common\" />
     <Folder Include="Client\" />
     <Folder Include="Scraper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GP3.Common\GP3.Common.csproj" />
+    <ProjectReference Include="..\GP3.Scraper\GP3.Scraper.csproj" />
   </ItemGroup>
 
 </Project>
