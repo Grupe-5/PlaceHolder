@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GP3.Common\GP3.Common.csproj" />
+    <ProjectReference Include="..\GP3.Funcs\GP3.Funcs.csproj" />
     <ProjectReference Include="..\GP3.Scraper\GP3.Scraper.csproj" />
   </ItemGroup>
 
