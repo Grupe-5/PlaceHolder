@@ -1,0 +1,2 @@
+[![Coverage Status](https://coveralls.io/repos/github/Grupe-3/PlaceHolder/badge.svg?branch=main)](https://coveralls.io/github/Grupe-3/PlaceHolder?branch=main)
+# GP3 - Electricity saving application (Name pending)
