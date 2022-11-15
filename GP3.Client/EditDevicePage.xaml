@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GP3.Client.EditDevicePage"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+             x:DataType="viewmodel:EditDeviceViewModel">
+
+    <StackLayout Padding="20">
+
+        <StackLayout Padding="0,20,0,25">
+                <Label 
+                    Text="{Binding Title}"
+                    FontSize="25"
+                    HorizontalOptions="Center" />
+                <HorizontalStackLayout 
+                    BackgroundColor="#4C34C2" 
+                    HeightRequest="3" 
+                    WidthRequest="190" 
+                    Margin="5" 
+                    HorizontalOptions="Center"/>
+        </StackLayout>
+
+        <Grid ColumnDefinitions="*, *" RowDefinitions="*,*,*,*,*,*,*,*" RowSpacing="10" >
+       
+            <VerticalStackLayout Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="Start" >
+                <Grid>
+                    <Frame HeightRequest="50" 
+                           BackgroundColor="#F6F6F6" 
+                           CornerRadius="10" 
+                           BorderColor="#F6F6F6"/>
+
+                    <Entry Placeholder="Name" 
+                           Text="{Binding Device.deviceName}"
+                           Keyboard="Numeric"
+                           FontSize="18"
+                           TextColor="Black" Margin="5,0"
+                           PlaceholderColor="#BDBDBD"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.ColumnSpan="2" Grid.Row="2" HorizontalOptions="Start" >
+                <Grid>
+                    <Frame HeightRequest="50" 
+                           BackgroundColor="#F6F6F6" 
+                           CornerRadius="10" 
+                           BorderColor="#F6F6F6"/>
+
+                    <Entry Placeholder="Device type" 
+                           Text="{Binding Device.deviceType}"
+                           Keyboard="Numeric"
+                           FontSize="18"
+                           TextColor="Black" Margin="5,0"
+                           PlaceholderColor="#BDBDBD"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="0,10,0,0"  Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Start">
+                <Grid Padding="5,0,0,0" Grid.Column="1" Grid.Row="1" ColumnDefinitions="175,25" RowDefinitions="*">
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="Turn On Lowest: " Grid.Column="0" FontSize="18" />
+                    </VerticalStackLayout>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="0,10,0,0" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start">
+                <Switch IsToggled="{Binding Device.turnOnLowest}" Grid.Column="1" HeightRequest="30"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout IsVisible="{Binding Device.turnOnLowest}" Grid.Column="0" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center">
+                <VerticalStackLayout  Padding="5,0,0,0" >
+                    <Label Text="Run For (h):" Grid.Column="0" FontSize="18" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout IsVisible="{Binding Device.turnOnLowest}" Grid.Column="1" Grid.Row="4" HorizontalOptions="Start" >
+                <Grid WidthRequest="85">
+                    <Frame HeightRequest="50" 
+                           BackgroundColor="#F6F6F6" 
+                           CornerRadius="10" 
+                           BorderColor="#F6F6F6"/>
+
+                    <Entry Text="{Binding Device.runFor}"
+                           Keyboard="Numeric"
+                           FontSize="18"
+                           TextColor="Black" Margin="5,0"
+                           PlaceholderColor="#BDBDBD"/>
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="0,10,0,0"  Grid.ColumnSpan="2" Grid.Row="5"  >
+                <Label Text="Turn On Time" FontSize="18" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="0" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center">
+                <VerticalStackLayout Padding="5,0,0,0" >
+                    <Label Text="Start time:" Grid.Column="0" FontSize="18" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" Grid.Row="6"  >
+                <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.startTime}" />
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="0" Grid.Row="7" HorizontalOptions="Start" VerticalOptions="Center">
+                <VerticalStackLayout Padding="5,0,0,0" >
+                    <Label Text="End time:" Grid.Column="0" FontSize="18" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Column="1" Grid.Row="7"  >
+                <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.endTime}" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid RowDefinitions="*" ColumnDefinitions="*">
+            <Button Margin="0,35,0,0"
+                    TextColor="White" 
+                    FontSize="20"
+                    CornerRadius="30"
+                    Text="Update Information"
+                    />
+        </Grid>
+
+        <Frame 
+                CornerRadius="30"
+                BorderColor="#cc0000"
+                Padding="0"
+                Margin="0,15,0,0">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer  >
+                </TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+          
+            <Grid  ColumnDefinitions="auto,30" RowDefinitions="50" HorizontalOptions="Center" ColumnSpacing="10">
+                <Label Grid.Column="0" Text="Remove this device" TextColor="#cc0000" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                <Image Grid.Column="1" Source="trashred.svg" HeightRequest="20" VerticalOptions="Center"/>
+            </Grid>
+
+        </Frame>
+
+
+    </StackLayout>
+</ContentPage>

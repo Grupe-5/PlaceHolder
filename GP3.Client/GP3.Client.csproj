@@ -59,6 +59,7 @@
 	  <None Remove="Resources\Images\boxarrowleft.svg" />
 	  <None Remove="Resources\Images\calendar.svg" />
 	  <None Remove="Resources\Images\envelope.svg" />
+	  <None Remove="Resources\Images\gear.svg" />
 	  <None Remove="Resources\Images\help.svg" />
 	  <None Remove="Resources\Images\History.svg" />
 	  <None Remove="Resources\Images\home.svg" />
@@ -67,10 +68,14 @@
 	  <None Remove="Resources\Images\lock.svg" />
 	  <None Remove="Resources\Images\pencil.svg" />
 	  <None Remove="Resources\Images\pencilblue.svg" />
+	  <None Remove="Resources\Images\plus.svg" />
+	  <None Remove="Resources\Images\plusblack.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\Settings.svg" />
+	  <None Remove="Resources\Images\toaster.png" />
 	  <None Remove="Resources\Images\trashempty.svg" />
 	  <None Remove="Resources\Images\trashfull.svg" />
+	  <None Remove="Resources\Images\trashred.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -88,6 +93,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="EditDevicePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="HistoryMonthAddPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
