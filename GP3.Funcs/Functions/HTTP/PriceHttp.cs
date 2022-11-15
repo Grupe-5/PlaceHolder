@@ -64,18 +64,17 @@ namespace GP3.Funcs.Functions.HTTP
                 List<double> priceCollection = new();
 
                 var priceDay = await _priceRepository.GetDayPriceAsync(dateVal);
-                if (priceDay == null)
+                if (priceDay != null)
                 {
-                    return new OkObjectResult(priceCollection);
+                    priceCollection.AddRange(priceDay.HourlyPrices.Skip(dateVal.Hour));
+                    var priceNext = await _priceRepository.GetDayPriceAsync(dateVal.AddDays(1));
+                    if (priceNext != null)
+                    {
+                        priceCollection.AddRange(priceNext.HourlyPrices.Take(dateVal.Hour));
+                    }
                 }
 
-                priceCollection.AddRange(priceDay.HourlyPrices.Skip(dateVal.Hour));
-                var priceNext = await _priceRepository.GetDayPriceAsync(dateVal.AddDays(1));
-                if (priceNext != null)
-                {
-                    priceCollection.AddRange(priceNext.HourlyPrices.Take(dateVal.Hour));
-                }
-
+                priceCollection.AddRange(Enumerable.Range(0, 24 - priceCollection.Count).Select(i => 0.0));
                 return new OkObjectResult(priceCollection);
             });
     }
