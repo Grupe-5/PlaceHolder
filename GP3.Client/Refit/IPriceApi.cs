@@ -22,7 +22,7 @@ namespace GP3.Client.Refit
         }
         public static async Task<DayPrice> GetPriceOffsetAsync(this IPriceApi api, DateTime date)
         {
-            var prices = await api.GetPriceOffsetAsync(date.ToUniversalTime().ToString("yyyy-MM-dd:HH"));
+            var prices = await api.GetPriceOffsetAsync(date.Date.ToUniversalTime().ToString("yyyy-MM-dd:HH"));
             return new DayPrice(date, prices);
         }
     }
