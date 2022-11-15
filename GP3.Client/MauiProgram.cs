@@ -47,6 +47,9 @@ public static class MauiProgram
         builder.Services.AddTransient<EditDevicePage>();
         builder.Services.AddTransient<EditDeviceViewModel>();
 
+        builder.Services.AddTransient<AddDevicePage>();
+        builder.Services.AddTransient<AddDeviceViewModel>();
+
         /* Services */
         builder.Services.AddSingleton<HistoryService>();
         builder.Services.AddSingleton<AuthService>();

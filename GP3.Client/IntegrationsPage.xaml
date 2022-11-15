@@ -42,18 +42,26 @@
                                        WidthRequest="100"
                                        HeightRequest="100"/>
 
-                                <VerticalStackLayout Padding="5,0,0,0" Grid.Column="1" Grid.Row="0"  HorizontalOptions="Start" VerticalOptions="Center">
-                                    <Label Text="{Binding deviceName}" FontSize="18" FontAttributes="Bold"/>
+                                <VerticalStackLayout Padding="5,0,0,0" 
+                                                     Grid.Column="1" 
+                                                     Grid.Row="0"  
+                                                     HorizontalOptions="Start" 
+                                                     VerticalOptions="Center">
+                                    <Label Text="{Binding DeviceName}" FontSize="18" FontAttributes="Bold"/>
                                 </VerticalStackLayout>
 
                                 <Grid Padding="5,0,0,0" Grid.Column="1" Grid.Row="1" ColumnDefinitions="100,25" RowDefinitions="*">
                                     <VerticalStackLayout VerticalOptions="Center">
                                         <Label Text="Working:" Grid.Column="0" FontSize="15" />
                                     </VerticalStackLayout>
-                                    <Switch IsToggled="{Binding isRunning}" Grid.Column="1" HeightRequest="30"/>
+                                    <Switch IsToggled="{Binding IsRunning}" Grid.Column="1" HeightRequest="30"/>
                                 </Grid>
 
-                                <VerticalStackLayout Padding="5,0,25,0" Grid.Column="2" Grid.Row="0"  HorizontalOptions="End" VerticalOptions="Center">
+                                <VerticalStackLayout Padding="5,0,25,0" 
+                                                     Grid.Column="2" 
+                                                     Grid.Row="0"  
+                                                     HorizontalOptions="End" 
+                                                     VerticalOptions="Center">
                                     <Image Source="pencilblue.svg" HeightRequest="23">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer 
@@ -69,7 +77,6 @@
 
             </CollectionView.ItemTemplate>
 
-
         </CollectionView>
         <Frame  
                 Grid.Row="3" 
@@ -84,10 +91,7 @@
                 <Label Grid.Column="0" Text="Add New Device" TextColor="#4C34C2" FontSize="20" FontAttributes="Bold"/>
                 <Image Grid.Column="1" Source="plus.svg" HeightRequest="20"/>
             </Grid>
-
         </Frame>
-        
-
     </Grid>
 
 </ContentPage>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,53 +8,61 @@ using System.Threading.Tasks;
 
 namespace GP3.Client.Models
 {
-    public class DeviceIntegration
+    public class DeviceIntegration : ObservableObject
     {
-        public DeviceIntegration(int deviceId, string deviceName, string deviceType, TimeSpan startTime, TimeSpan endTime, Boolean isRunning)
+        public DeviceIntegration()
+        {
+
+        }
+        public DeviceIntegration(int deviceId, string deviceName, string deviceType, TimeSpan startTime, TimeSpan endTime, bool isRunning, double runFor, bool turnOnLowest)
         {
             this.deviceId = deviceId;
-            this.deviceName = deviceName; 
             this.deviceType = deviceType;
             this.startTime = startTime; 
             this.endTime = endTime;
             this.imageUlr = "toaster.png";
+            this.turnOnLowest = turnOnLowest;
+            this.runFor = runFor;
 
-            this.workingDays = new bool[10];
-            for(int i = 0; i < 7; i++)
-            {
-                workingDays[i] = i % 2 == 0;
-               
-            }
-            turnOnLowest = true;
-            this.isRunning = false;
+            this.DeviceName = deviceName; 
+            this.IsRunning = false;
         }
-        
-        private int deviceId { get; set; }
-
-        public bool isRunning { get; set; }
-
-        public string imageUlr { get; set; }
-
-        public string deviceName { get; set; }
+        public int deviceId { get; }
+        public string imageUlr { get; }
 
         public string deviceType { get; set; }
         public bool turnOnLowest { get; set; }
-        
         public double runFor { get; set; }
         public TimeSpan startTime { get; set; }
-
         public TimeSpan endTime { get; set; }
 
-        bool [] workingDays { get; set; }
+        private string deviceName;
+        private bool isRunning;
+        public string DeviceName
+        {
+            get => deviceName;
+            set => SetProperty(ref deviceName, value);
+        }
+        public bool IsRunning
+        {
+            get => isRunning;
+            set => SetProperty(ref isRunning, value);
+        }
 
         public DeviceIntegration Clone()
         {
-            DeviceIntegration newObj = new DeviceIntegration(deviceId, deviceName, deviceType, startTime, endTime, isRunning);
-            for(int i = 0; i < 7; i++){
-                newObj.workingDays[i] = workingDays[i];
-            }
+            DeviceIntegration newObj = new DeviceIntegration(deviceId, deviceName, deviceType, startTime, endTime, isRunning, runFor, turnOnLowest);
             return newObj;
+        }
 
+        public void Clone(DeviceIntegration ToClone)
+        {
+            DeviceName = ToClone.DeviceName;
+            deviceType = ToClone.deviceType;
+            turnOnLowest = ToClone.turnOnLowest;
+            runFor = ToClone.runFor;
+            startTime = ToClone.startTime;
+            endTime = ToClone.endTime;
         }
     }
 }

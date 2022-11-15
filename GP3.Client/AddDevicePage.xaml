@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GP3.Client.EditDevicePage"
+             x:Class="GP3.Client.AddDevicePage"
              xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
-             x:DataType="viewmodel:EditDeviceViewModel">
+             x:DataType="viewmodel:AddDeviceViewModel">
 
     <StackLayout Padding="20">
         <StackLayout Padding="0,0,0,25">
-                <Label 
+            <Label 
                     Text="{Binding Title}"
                     FontSize="25"
                     HorizontalOptions="Center"/>
-                <HorizontalStackLayout 
+            <HorizontalStackLayout 
                     BackgroundColor="#4C34C2" 
                     HeightRequest="3" 
                     WidthRequest="190" 
@@ -20,7 +20,7 @@
         </StackLayout>
 
         <Grid ColumnDefinitions="*, *" RowDefinitions="*,*,*,*,*,*,*,*" RowSpacing="10">
-            
+
             <VerticalStackLayout Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="Start">
                 <Grid>
                     <Frame HeightRequest="50" 
@@ -95,7 +95,7 @@
                     <Label Text="Start time:" Grid.Column="0" FontSize="18"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Grid.Column="1" Grid.Row="6">
                 <Frame HeightRequest="45" 
                        BackgroundColor="#F6F6F6" 
@@ -104,13 +104,13 @@
                        WidthRequest="90"
                        HorizontalOptions="Start"/>
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout  Grid.Column="1" Grid.Row="6">
                 <StackLayout Padding="5,0,0,0">
                     <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.startTime}"/>
                 </StackLayout>
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Grid.Column="0" Grid.Row="7" HorizontalOptions="Start" VerticalOptions="Center">
                 <VerticalStackLayout Padding="5,0,0,0">
                     <Label Text="End time:" Grid.Column="0" FontSize="18" />
@@ -125,7 +125,7 @@
                            WidthRequest="90"
                            HorizontalOptions="Start"/>
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Grid.Column="1" Grid.Row="7">
                 <StackLayout Padding="5,0,0,0">
                     <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.endTime}" />
@@ -135,33 +135,11 @@
 
         <Grid Padding="0,20,0,0" RowDefinitions="*" ColumnDefinitions="*">
             <Button Margin="0,35,0,0"
-                    Command="{Binding UpdateDeviceInformationCommand}"
+                    Command="{Binding AddNewDeviceCommand}"
                     TextColor="White" 
                     FontSize="20"
                     CornerRadius="30"
                     Text="Update Information"/>
         </Grid>
-
-        <Frame CornerRadius="30"
-               BorderColor="#cc0000"
-               Padding="0"
-               Margin="0,15,0,0">
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer
-                    Command="{Binding DeleteDeviceCommand}">
-                </TapGestureRecognizer>
-            </Frame.GestureRecognizers>
-
-            <Grid  ColumnDefinitions="auto,30" RowDefinitions="50" HorizontalOptions="Center" ColumnSpacing="10">
-                <Label Grid.Column="0" 
-                       Text="Remove this device" 
-                       TextColor="#cc0000" 
-                       FontSize="20" 
-                       FontAttributes="Bold" 
-                       VerticalOptions="Center"/>
-                <Image Grid.Column="1" Source="trashred.svg" HeightRequest="20" VerticalOptions="Center"/>
-            </Grid>
-
-        </Frame>
     </StackLayout>
 </ContentPage>

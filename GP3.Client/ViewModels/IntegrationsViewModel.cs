@@ -1,13 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
-using GP3.Client.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GP3.Client.ViewModels
 {
@@ -20,22 +14,24 @@ namespace GP3.Client.ViewModels
             Title = "Integrations page";
             DeviceIntegration integrations;
 
+            /* Call API */
+            /* Only for testing */
             bool isRunning = false;
-
             for (int i = 0; i < 5; i++)
             {
-                integrations = new(69*i, "Noice " + i.ToString(), "Washer " + i.ToString(), new TimeSpan(i, i, i), new TimeSpan(i, i, i), isRunning);
-
+                integrations = new(69*i, "Noice " + i.ToString(), "Washer " + i.ToString(), new TimeSpan(i, i, i), new TimeSpan(i, i, i), isRunning, i*i, isRunning);
                 isRunning = !isRunning;
                 DevicesIntegrations.Add(integrations);
             }
-
-
         }
 
         [RelayCommand]
         async Task EditDevice(DeviceIntegration currDevice)
         {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
             DeviceIntegration deviceCopy = currDevice.Clone();
 
             await Shell.Current.GoToAsync($"{nameof(EditDevicePage)}", true,
@@ -43,20 +39,23 @@ namespace GP3.Client.ViewModels
                 {
                     {"Devices", DevicesIntegrations },
                     {"Device", deviceCopy },
-                });                
+                });
+            IsBusy = false;
         }
 
         [RelayCommand]
         async Task AddNewDevice()
         {
+            if (IsBusy)
+                return;
 
-            //await Shell.Current.GoToAsync($"{nameof(EditDevicePage)}", true,
-            //    new Dictionary<string, object>
-            //    {
-            //        {"Devices", DevicesIntegrations },
-            //        {"DeviceName", null },
-            //        {"IsUpdatePage", false }
-            //    });
+            IsBusy = true;
+            await Shell.Current.GoToAsync($"{nameof(AddDevicePage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"Devices", DevicesIntegrations },
+                });
+            IsBusy = false;
         }
     }
 }
