@@ -1,15 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using GP3.Client.Models;
+﻿using GP3.Client.Models;
 using GP3.Client.Refit;
-using GP3.Common.Entities;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static GP3.Client.ViewModels.HomeViewModel;
 
 namespace GP3.Client.ViewModels
 {
@@ -21,8 +12,8 @@ namespace GP3.Client.ViewModels
 
         public HomeViewModel(IPriceApi priceApi)
         {
-            Title = "Home";
             _priceApi = priceApi;
+            Title = "Home";
             GetPricesAsync();
         }
 
@@ -31,8 +22,7 @@ namespace GP3.Client.ViewModels
             try
             {
                 IsBusy = true;
-
-                var prices = await _priceApi.GetPriceAsync(DateTime.UtcNow.Date.ToString("yyyy-MM-dd"));
+                var prices = await _priceApi.GetPriceOffsetAsync(DateTime.Today);
 
                 int index = 0;
                 HourPriceFormated hourPriceFormated;
