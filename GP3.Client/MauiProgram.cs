@@ -1,25 +1,27 @@
-﻿using GP3.Client.Refit;
+﻿using DevExpress.Maui;
+using GP3.Client.Refit;
 using GP3.Client.Services;
 using GP3.Client.ViewModels;
 namespace GP3.Client;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .UseDevExpress()
+            .ConfigureFonts(fonts =>
+            {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Bold.ttf", "OpenSansBold");
                 fonts.AddFont("Sitka.ttc", "Sitka");
             });
 
         /* Pages and viewmodels should be transient */
-		builder.Services.AddTransient<MainPage>();
-		builder.Services.AddTransient<MainViewModel>();
+        builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<MainViewModel>();
 
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<RegisterViewModel>();
@@ -27,8 +29,8 @@ public static class MauiProgram
         builder.Services.AddTransient<HistoryPage>();
         builder.Services.AddTransient<HistoryViewModel>();
 
-		builder.Services.AddTransient<HistoryMonthAddViewModel>();
-		builder.Services.AddTransient<HistoryMonthAddPage>();
+        builder.Services.AddTransient<HistoryMonthAddViewModel>();
+        builder.Services.AddTransient<HistoryMonthAddPage>();
 
         builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
@@ -56,5 +58,5 @@ public static class MauiProgram
             .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
 
         return builder.Build();
-	}
+    }
 }
