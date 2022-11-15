@@ -7,16 +7,18 @@ namespace GP3.Common.Entities
     public static class DateTimeExtension
     {
         public static long DaysSinceUnixEpoch(this DateTime date)
-        {
-            return (long)(date.Date - DateTime.UnixEpoch).TotalDays;
-        }
+            => (long)(date.Date - DateTime.UnixEpoch).TotalDays;
 
         public static DateTime FromUnixEpoch(long days)
-        {
-            return DateTime.UnixEpoch.AddDays(days).Date;
-        }
+            => DateTime.UnixEpoch.AddDays(days).Date;
     }
 
+    /*
+     * TODO: Overhaul for compatibility with different timezones.
+     * Should save time in UTC in DB with price
+     * Then, App can query for specific hour interval converted to UTC
+     * Any non-available hours can be displayed in-app as empty graph
+     */
     public class DayPrice : IComparable<DayPrice>
     {
         [Key]
@@ -59,8 +61,6 @@ namespace GP3.Common.Entities
         }
 
         public bool HasSamePrices(DayPrice other)
-        {
-            return HourlyPrices.SequenceEqual(other.HourlyPrices);
-        }
+            => HourlyPrices.SequenceEqual(other.HourlyPrices);
     }
 }

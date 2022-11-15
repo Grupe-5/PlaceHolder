@@ -2,9 +2,9 @@
 {
     public static class Routes
     {
-        public const string GetPrice = "getPrice";
-        public const string GetReadings = "getReadings";
-        public const string AddReading = "addReading";
-        public const string RemoveReading = "removeReading";
+        public const string Admin = "funcAdmin";
+        public const string Price = "price";
+        public const string PriceOffset = "priceOffset";
+        public const string Integration = "integration";
     }
 }

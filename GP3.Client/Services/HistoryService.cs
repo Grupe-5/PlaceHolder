@@ -5,10 +5,8 @@ namespace GP3.Client.Services
 {
     public class HistoryService
     {
-        private readonly IReadingApi _readingApi;
-        public HistoryService(IReadingApi readingApi)
+        public HistoryService()
         {
-            _readingApi = readingApi;
         }
 
         List<MonthReading> monthReadingsList = new List<MonthReading>();

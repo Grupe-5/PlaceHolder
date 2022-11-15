@@ -32,6 +32,8 @@ namespace GP3.Scraper
             return new DayPrice(dayDate, priceArr.ToArray());
         }
 
+        public async Task<IEnumerable<DayPrice>> GetWeekPricesAsync(long daysSinceUnixEpoch)
+            => await GetWeekPricesAsync(DateTimeExtension.FromUnixEpoch(daysSinceUnixEpoch));
         public async Task<IEnumerable<DayPrice>> GetWeekPricesAsync(DateTime date)
         {
             var data = await _page.GetPageDataAsync(date);

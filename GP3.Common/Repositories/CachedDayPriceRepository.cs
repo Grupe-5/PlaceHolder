@@ -1,5 +1,5 @@
-﻿using GP3.Common.DB;
-using GP3.Common.Entities;
+﻿using GP3.Common.Entities;
+using GP3.Common.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 
@@ -49,12 +49,10 @@ namespace GP3.Common.Repositories
             await _dayPriceRepository.AddMultipleAsync(prices);
         }
 
-        public async Task<DayPrice?> GetByDateAsync(DateTime date)
-        {
-            return await GetByUnixDaysAsync(date.DaysSinceUnixEpoch());
-        }
+        public async Task<DayPrice?> GetDayPriceAsync(DateTime date)
+            => await GetDayPriceAsync(date.DaysSinceUnixEpoch());
 
-        public async Task<DayPrice?> GetByUnixDaysAsync(long daysSinceUnixEpoch)
+        public async Task<DayPrice?> GetDayPriceAsync(long daysSinceUnixEpoch)
         {
             DayPrice? val = null;
             var key = daysSinceUnixEpoch.ToString();
@@ -72,7 +70,7 @@ namespace GP3.Common.Repositories
                 _logger.LogError($"Encountered cache error: {e.Message}");
             }
 
-            val = await _dayPriceRepository.GetByUnixDaysAsync(daysSinceUnixEpoch);
+            val = await _dayPriceRepository.GetDayPriceAsync(daysSinceUnixEpoch);
             if (val != null)
             {
                 try
@@ -86,5 +84,11 @@ namespace GP3.Common.Repositories
             }
             return val;
         }
+
+        public IEnumerable<DayPrice> GetBetween(DateTime start, DateTime end)
+            => _dayPriceRepository.GetBetween(start, end);
+
+        public IEnumerable<DayPrice> GetBetween(long start, long end)
+            => _dayPriceRepository.GetBetween(start, end);
     }
 }
