@@ -33,6 +33,7 @@ namespace GP3.Client.Services
 
         public async Task LoadAuth()
         {
+            /* TODO: Replace SecureStorage with IBarrel. */
             string authJson = await SecureStorage.GetAsync("auth_token");
             if (authJson != null)
             {
