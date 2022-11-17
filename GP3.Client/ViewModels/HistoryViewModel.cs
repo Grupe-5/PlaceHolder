@@ -27,7 +27,6 @@ public partial class HistoryViewModel : BaseViewModel
             {
                 {"MonthReadings", MonthReadings }
             });
-
     }
 
     [RelayCommand]

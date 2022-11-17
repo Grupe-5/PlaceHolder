@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.RegularExpressions;
+using GP3.Client.Models;
+using Firebase.Auth;
 
 namespace GP3.Client.ViewModels
 {
@@ -69,15 +71,20 @@ namespace GP3.Client.ViewModels
                 return;
             }
 
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                await Shell.Current.DisplayAlert("Error!", "Please fill all fields.", "OK");
+                return;
+            }
             try
             {
                 IsBusy = true;
                 await authService.RegisterAsync(email, password);
                 await Shell.Current.GoToAsync(nameof(HomePage));
             }
-            catch (Exception ex)
+            catch (FirebaseAuthException ex)
             {
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                await Shell.Current.DisplayAlert("Error!", APIErrorParser.ParseErrorToString(ex), "OK");
             }
             finally
             {
