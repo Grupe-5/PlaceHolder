@@ -1,4 +1,6 @@
-﻿using GP3.Client.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using GP3.Client.Models;
 using GP3.Client.Refit;
 using System.Collections.ObjectModel;
 
@@ -8,6 +10,7 @@ namespace GP3.Client.ViewModels
     {
         private readonly IPriceApi _priceApi;
 
+        
         public ObservableCollection<HourPriceFormated> HourPricesFormated { get; } = new();
 
         public HomeViewModel(IPriceApi priceApi)
@@ -15,9 +18,18 @@ namespace GP3.Client.ViewModels
             _priceApi = priceApi;
             Title = "Home";
             GetPricesAsync();
+            
+            currHour = DateTime.Now.Hour;
+            /* TODO GET this */
+            currUserLowPriceDefinition = 300;
         }
 
-        async public void GetPricesAsync()
+        [ObservableProperty]
+        public int currUserLowPriceDefinition;
+
+        [ObservableProperty]
+        public int currHour;
+         async public void GetPricesAsync()
         {
             try
             {
@@ -26,6 +38,7 @@ namespace GP3.Client.ViewModels
 
                 int index = 0;
                 HourPriceFormated hourPriceFormated;
+
                 foreach (var price in prices.HourlyPrices)
                 {
                     hourPriceFormated = new HourPriceFormated(price, index);
@@ -42,5 +55,7 @@ namespace GP3.Client.ViewModels
                 IsBusy = false;
             }
         }
+
+
     }
 }
