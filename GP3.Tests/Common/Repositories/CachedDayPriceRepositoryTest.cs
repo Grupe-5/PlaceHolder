@@ -1,13 +1,10 @@
 ﻿using GP3.Common.Entities;
-using GP3.Common.Extensions;
 using GP3.Common.Repositories;
-using Grpc.Core;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace GP3.Tests.Common.Repositories
 {
