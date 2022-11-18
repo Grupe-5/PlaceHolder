@@ -29,8 +29,6 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         public async void UpdateDeviceInformation()
         {
-            /* TODO ADD Validation */
-            /* TODO Call API */
             if (IsBusy || devices is null)
                 return;
 
@@ -46,8 +44,6 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         public async void DeleteDevice()
         {
-            /* TODO ADD Validation */
-            /* TODO Call API */
             devices.Remove(getCurrDevice());
 
             await GoBackAsync();
