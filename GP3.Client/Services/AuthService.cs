@@ -41,7 +41,7 @@ namespace GP3.Client.Services
             }
         }
 
-        public async Task<bool> IsSignedIn()
+        public bool IsSignedIn()
         {
             return auth != null && !auth.IsExpired();
         }
@@ -82,6 +82,29 @@ namespace GP3.Client.Services
                 Console.WriteLine("Refreshing expired auth token");
                 auth = await authProvider.RefreshAuthAsync(auth);
             }
+        }
+
+        public static string ParseErrorToString(FirebaseAuthException ex)
+        {
+
+            string errorText = "";
+
+            switch (ex.Reason)
+            {
+                case AuthErrorReason.InvalidEmailAddress:
+                    errorText = "Email address and/or password is invalid";
+                    break;
+
+                case AuthErrorReason.UserNotFound:
+                    errorText = "This user does not exist";
+                    break;
+
+                default:
+                    errorText = ex.Message;
+                    break;
+            }
+
+            return errorText;
         }
     }
 }

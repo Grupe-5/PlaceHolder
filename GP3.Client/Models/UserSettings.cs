@@ -11,8 +11,9 @@ public class UserSettings
         
     }
 
-    public Boolean priceChangeNotf { get; set; }
-    public Boolean lowestPriceNotf { get; set; }
+    public double lowPriceMark { get; set; }
+    public bool priceChangeNotf { get; set; }
+    public bool lowestPriceNotf { get; set; }
     public String[] locations { get; set; }
     public String userLocation { get; set; }
 

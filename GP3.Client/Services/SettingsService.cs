@@ -11,6 +11,7 @@
             userSettings.locations = new string[1];
             userSettings.locations[0] = "Lithuania";
             userSettings.userLocation = "Lithuania";
+            userSettings.lowPriceMark = 300;
 
             // GET API
             return userSettings;

@@ -16,11 +16,10 @@ public partial class AddDeviceViewModel: BaseViewModel
     public AddDeviceViewModel()
     {
         Title = "Add Device";
-        device = new DeviceIntegration();
     }
 
     [ObservableProperty]
-    public DeviceIntegration device;
+    public DeviceIntegration device = new();
 
     [ObservableProperty]
     public ObservableCollection<DeviceIntegration> devices;
@@ -29,8 +28,8 @@ public partial class AddDeviceViewModel: BaseViewModel
     public async void AddNewDevice()
     {
 
-        /* ADD Validation */
-        /* Call API */
+        /* TODO ADD Validation */
+        /* TODO Call API */
         DeviceIntegration CurrDevice = device.Clone();
         devices.Add(CurrDevice);
 

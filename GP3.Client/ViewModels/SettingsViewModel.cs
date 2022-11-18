@@ -12,9 +12,9 @@ namespace GP3.Client.ViewModels
         public SettingsViewModel(SettingsService settingsService)
         {
             _settingsService = settingsService;
-            userSettings = new();
-            Title = "Settings";
             
+            Title = "Settings";
+
             GetSettingsAsync();
         }
 
@@ -41,6 +41,24 @@ namespace GP3.Client.ViewModels
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        public async void OpenMailApp()
+        {
+            if (Email.Default.IsComposeSupported)
+            {
+
+                string[] recipients = new[] { "nedasgulb@gmail.com "};
+
+                var message = new EmailMessage
+                {
+                    BodyFormat = EmailBodyFormat.PlainText,
+                    To = new List<string>(recipients)
+                };
+
+                await Email.Default.ComposeAsync(message);
+            }
+        }
         
         async public void GetSettingsAsync()
         {
@@ -60,6 +78,8 @@ namespace GP3.Client.ViewModels
                 IsBusy = false;
             }
         }
+
+
 
     }
 }

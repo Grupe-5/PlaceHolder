@@ -6,31 +6,30 @@
              xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
              x:DataType="viewmodel:HomeViewModel"
              x:Class="GP3.Client.HomePage">
-
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    
     <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" x:Name="scrollViewObj">
-
-        <dxc:ChartView WidthRequest="750" HeightRequest="700">
+        <dxc:ChartView WidthRequest="750" HeightRequest="750">
             <dxc:ChartView.Series>
-                <dxc:LineSeries MarkersVisible="True">
-                    <dxc:LineSeries.HintOptions>
-                        <dxc:SeriesHintOptions PointTextPattern="{}{A}:00 {V} €/MWh"/>
-                    </dxc:LineSeries.HintOptions>
-                    <dxc:LineSeries.Data>
+                <dxc:StepLineSeries>
+                    <dxc:StepLineSeries.Data>
                         <dxc:SeriesDataAdapter DataSource="{Binding HourPricesFormated }"
                                            ArgumentDataMember="intHour">
                             <dxc:ValueDataMember Type="Value" Member="priceNumber"/>
                         </dxc:SeriesDataAdapter>
-                    </dxc:LineSeries.Data>
+                    </dxc:StepLineSeries.Data>
 
-                    <dxc:LineSeries.Style>
+                    <dxc:StepLineSeries.Style>
                         <dxc:LineSeriesStyle Stroke="#7145a7" StrokeThickness="2" MarkerSize="8">
                             <dxc:LineSeriesStyle.MarkerStyle>
                                 <dxc:MarkerStyle Fill="#4C34C2"/>
                             </dxc:LineSeriesStyle.MarkerStyle>
                         </dxc:LineSeriesStyle>
-                    </dxc:LineSeries.Style>
-                </dxc:LineSeries>
+                    </dxc:StepLineSeries.Style>
 
+                </dxc:StepLineSeries>
             </dxc:ChartView.Series>
 
             <dxc:ChartView.AxisY>
@@ -63,9 +62,9 @@
                         </dxc:AxisLabel>
                     </dxc:NumericAxisY.Label>
                     <dxc:NumericAxisY.ConstantLines>
-                        <dxc:NumericConstantLine AxisValue="{Binding CurrUserLowPriceDefinition}" ShowBehind="True">
+                        <dxc:NumericConstantLine AxisValue="{Binding CurrUserLowPriceDefinition}" ShowBehind="False">
                             <dxc:NumericConstantLine.Title>
-                                <dxc:ConstantLineTitle Text="User's 'Low Price' Treshold">
+                                <dxc:ConstantLineTitle Text="User's 'Low Price'">
                                     <dxc:ConstantLineTitle.Style>
                                         <dxc:TitleStyle>
                                             <dxc:TitleStyle.TextStyle>
@@ -78,7 +77,7 @@
                             </dxc:NumericConstantLine.Title>
 
                             <dxc:NumericConstantLine.Style>
-                                <dxc:ConstantLineStyle Stroke="#E23636" Dashes="1 2" Thickness="2"/>
+                                <dxc:ConstantLineStyle Stroke="#E23636" Dashes="1 2" Thickness="3"/>
                             </dxc:NumericConstantLine.Style>
                         </dxc:NumericConstantLine>
 
@@ -113,12 +112,12 @@
 
                     <dxc:NumericAxisX.ConstantLines>
 
-                        <dxc:NumericConstantLine  AxisValue="{Binding CurrHour}" ShowBehind="True">
+                        <dxc:NumericConstantLine  AxisValue="{Binding CurrHour}" ShowBehind="False">
                             <dxc:NumericConstantLine.Title>
                                 <dxc:ConstantLineTitle Text=" "/>
                             </dxc:NumericConstantLine.Title>
                             <dxc:NumericConstantLine.Style>
-                                <dxc:ConstantLineStyle Stroke="#4c34c2" Dashes="1 1" Thickness="2"/>
+                                <dxc:ConstantLineStyle Stroke="#4c34c2" Dashes="3 1" Thickness="3"/>
                             </dxc:NumericConstantLine.Style>
                         </dxc:NumericConstantLine>
 
@@ -139,7 +138,6 @@
                     <dxc:Hint.Behavior>
                         <dxc:TooltipHintBehavior/>
                     </dxc:Hint.Behavior>
-
                 </dxc:Hint>
             </dxc:ChartView.Hint>
         </dxc:ChartView>

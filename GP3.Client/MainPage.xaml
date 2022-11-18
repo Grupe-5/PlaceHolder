@@ -21,6 +21,7 @@
                 <Grid Margin="0,16">
                     <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="#F6F6F6" />
                     <Entry Placeholder="Email" 
+                           Keyboard="Email"
                            Text="{Binding Email}"
                            FontSize="20"
                            TextColor="Black" Margin="5,0"
@@ -46,9 +47,8 @@
                     FontSize="20"  />
 
             </StackLayout>
-        
+
             <StackLayout Margin="0,100">
-                <!-- TODO: Show error when login failed -->
                 <Button Command="{Binding LogInCommand}"  TextColor="White" Text="Log In" FontSize="25" CornerRadius="10" BackgroundColor="#4C34C2" ></Button>
                 <Label Margin="0,10" TextColor="#4C34C2" Text="Forgot Your password?"  FontAttributes="Bold"  FontSize="20" HorizontalTextAlignment="Center"></Label>
             </StackLayout>

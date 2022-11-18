@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GP3.Client.Models
+﻿namespace GP3.Client.Models
 {
     public class HourPriceFormated
     {
