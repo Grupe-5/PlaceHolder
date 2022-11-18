@@ -21,6 +21,7 @@ namespace GP3.Client.Refit
         public static IServiceCollection AddResilientApi<T>(this IServiceCollection service, string uri, int retryCount, TimeSpan retryWait, TimeSpan timeout) where T : class
         {
             service.AddTransient<AuthMessageHandler>();
+            service.AddTransient<CacheMessageHandler>();
 
             AsyncRetryPolicy<HttpResponseMessage> retryPolicy = HttpPolicyExtensions
                 .HandleTransientHttpError()
@@ -47,6 +48,8 @@ namespace GP3.Client.Refit
                 .AddPolicyHandler(timeoutPolicy)
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(uri))
                 .AddHttpMessageHandler<AuthMessageHandler>();
+                /* Temporarily disable generic cache message handler */
+                // .AddHttpMessageHandler<CacheMessageHandler>();
 
             return service;
         }

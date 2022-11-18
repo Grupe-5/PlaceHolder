@@ -2,6 +2,9 @@
 using GP3.Client.Refit;
 using GP3.Client.Services;
 using GP3.Client.ViewModels;
+using MonkeyCache;
+using MonkeyCache.FileStore;
+
 namespace GP3.Client;
 
 public static class MauiProgram
@@ -55,6 +58,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<AuthService>();
         builder.Services.AddSingleton<SettingsService>();
 
+        /* TODO: Replace with actual connectivity service */
+        builder.Services.AddSingleton<IConnectivityService, VoidConnectivityService>();
+
+        builder.Services.AddSingleton<IBarrel>(_ => {
+            Barrel.ApplicationId = "gp3.client";
+            return Barrel.Current;
+        });
 
         /* TODO: Make these options configurable */
         var apiRetryCount = 3;
@@ -65,6 +75,8 @@ public static class MauiProgram
         builder.Services
             .AddResilientApi<IPriceApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout)
             .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
+
+        builder.Services.Decorate<IPriceApi, CachedPriceApi>();
 
         return builder.Build();
     }

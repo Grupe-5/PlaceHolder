@@ -47,7 +47,6 @@ namespace GP3.Scraper
                 return true;
             }
 
-
             _logger.LogInformation($"Setting page date to {date:yyyy-MM-dd}");
             var page = await _page;
             var dateVal = date.ToString("dd MMM yyyy", CultureInfo.InvariantCulture);

@@ -8,9 +8,11 @@ namespace GP3.Client.Refit
     public interface IPriceApi
     {
         [Get("/" + Routes.Price)]
+        [Cache(60 * 5, true)]
         Task<DayPrice> GetPriceAsync(string date);
 
         [Get("/" + Routes.PriceOffset)]
+        [Cache(60 * 5, true)]
         Task<double[]> GetPriceOffsetAsync(string date);
     }
 

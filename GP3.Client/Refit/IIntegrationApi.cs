@@ -8,6 +8,7 @@ namespace GP3.Client.Refit
     public interface IIntegrationApi
     {
         [Get("/" + Routes.Integration)]
+        [Cache(60*5, true)]
         Task<IEnumerable<IntegrationCallback>> GetIntegrationsAsync();
 
         [Post("/" + Routes.Integration)]
