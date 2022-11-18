@@ -1,10 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GP3.Client.Models
 {
@@ -20,12 +14,12 @@ namespace GP3.Client.Models
             this.deviceType = deviceType;
             this.startTime = startTime; 
             this.endTime = endTime;
-            this.imageUlr = "toaster.png";
+            imageUlr = "toaster.png";
             this.turnOnLowest = turnOnLowest;
             this.runFor = runFor;
 
-            this.DeviceName = deviceName; 
-            this.IsRunning = false;
+            DeviceName = deviceName; 
+            IsRunning = false;
         }
         public int deviceId { get; }
         public string imageUlr { get; }

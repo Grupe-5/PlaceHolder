@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using GP3.Client.Refit;
 using System.Collections.ObjectModel;
@@ -9,8 +8,6 @@ namespace GP3.Client.ViewModels
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly IPriceApi _priceApi;
-
-        
         public ObservableCollection<HourPriceFormated> HourPricesFormated { get; } = new();
 
         public HomeViewModel(IPriceApi priceApi)
@@ -20,6 +17,7 @@ namespace GP3.Client.ViewModels
             GetPricesAsync();
             
             currHour = DateTime.Now.Hour;
+
             /* TODO GET this */
             currUserLowPriceDefinition = 300;
         }
@@ -55,7 +53,5 @@ namespace GP3.Client.ViewModels
                 IsBusy = false;
             }
         }
-
-
     }
 }

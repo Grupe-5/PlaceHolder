@@ -19,13 +19,12 @@ namespace GP3.Client.ViewModels
         private async void SkipLoginIfValid()
         {
             await authService.LoadAuth();
-            if (await authService.IsSignedIn())
+            if (authService.IsSignedIn())
             {
                 await Shell.Current.GoToAsync(nameof(HomePage));
             }
         }
         
-
         [ObservableProperty]
         string email;
 
@@ -41,15 +40,17 @@ namespace GP3.Client.ViewModels
                 await Shell.Current.DisplayAlert("Error!", "Please fill all fields.", "OK");
                 return;
             }
+
             try
             {
                 IsBusy = true;
                 await authService.LoginAsync(email, password);
+
                 await Shell.Current.GoToAsync(nameof(HomePage));
             }
             catch (FirebaseAuthException ex)
             {
-                await Shell.Current.DisplayAlert("Error!", APIErrorParser.ParseErrorToString(ex), "OK");
+                await Shell.Current.DisplayAlert("Error!", AuthService.ParseErrorToString(ex), "OK");
             }
             finally
             {
@@ -61,12 +62,6 @@ namespace GP3.Client.ViewModels
         async Task GoToRegister()
         {
             await Shell.Current.GoToAsync(nameof(RegisterPage));
-        }
-
-        [RelayCommand]
-        async Task GoToForgotPassword()
-        {
-            await Shell.Current.DisplayAlert("Error!", "Not implemented!", "OK");
         }
     }
 }

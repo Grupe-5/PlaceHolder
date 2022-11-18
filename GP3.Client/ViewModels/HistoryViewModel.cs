@@ -7,12 +7,12 @@ using GP3.Client.Models;
 namespace GP3.Client.ViewModels;
 public partial class HistoryViewModel : BaseViewModel
 {
-    HistoryService historyService;
+    HistoryService _historyService;
     public ObservableCollection<MonthReading> MonthReadings { get; } = new();
 
     public HistoryViewModel(HistoryService historyService)
     {
-        this.historyService = historyService;
+        _historyService = historyService;
         Title = "HistoryPage";
 
         GetMonthReadingsAsync();   
@@ -38,7 +38,7 @@ public partial class HistoryViewModel : BaseViewModel
         {
             IsBusy = true;
             
-            if (await historyService.DeleteReading(monthReading))
+            if (await _historyService.DeleteReading(monthReading))
             {
                 MonthReadings.Remove(monthReading);
             }
@@ -63,7 +63,7 @@ public partial class HistoryViewModel : BaseViewModel
         try
         {
             IsBusy = true;
-            var readings = await historyService.GetReadings();
+            var readings = await _historyService.GetReadings();
 
             if (MonthReadings.Count != 0)
                 MonthReadings.Clear();

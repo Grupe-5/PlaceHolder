@@ -23,6 +23,7 @@ namespace GP3.Client.ViewModels
                 isRunning = !isRunning;
                 DevicesIntegrations.Add(integrations);
             }
+            /* TESTING */
         }
 
         [RelayCommand]

@@ -20,25 +20,23 @@ namespace GP3.Client.ViewModels
             Title = "Update Device";
         }
 
-
         [ObservableProperty]
         public DeviceIntegration device;
 
         [ObservableProperty]
         public ObservableCollection<DeviceIntegration> devices;
 
-
         [RelayCommand]
         public async void UpdateDeviceInformation()
         {
-            /* ADD Validation */
-            /* Call API */
+            /* TODO ADD Validation */
+            /* TODO Call API */
             if (IsBusy || devices is null)
                 return;
 
             DeviceIntegration currDevice = getCurrDevice();
             if (currDevice is null)
-                await Shell.Current.DisplayAlert("Error!", "Something wen horribly wrong!", "OK");
+                await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
 
             currDevice.Clone(device);
 
@@ -48,8 +46,8 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         public async void DeleteDevice()
         {
-            /* ADD Validation */
-            /* Call API */
+            /* TODO ADD Validation */
+            /* TODO Call API */
             devices.Remove(getCurrDevice());
 
             await GoBackAsync();

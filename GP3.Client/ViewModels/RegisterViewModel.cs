@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.RegularExpressions;
-using GP3.Client.Models;
 using Firebase.Auth;
 
 namespace GP3.Client.ViewModels
@@ -10,6 +9,11 @@ namespace GP3.Client.ViewModels
     public partial class RegisterViewModel : BaseViewModel
     {
         readonly AuthService authService;
+
+        public RegisterViewModel(AuthService authService)
+        {
+            this.authService = authService;
+        }
 
         [ObservableProperty]
         string email;
@@ -19,20 +23,6 @@ namespace GP3.Client.ViewModels
 
         [ObservableProperty]
         string repeatedPassword;
-
-        public RegisterViewModel(AuthService authService)
-        {
-            this.authService = authService;
-        }
-
-        bool IsValidPasswordRegex(string password)
-        {
-            bool isPassword = Regex.IsMatch(
-                password,
-                @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])(?=^[^"",']+$).{8,}$");
-            return isPassword;
-        }
-
 
         [RelayCommand]
         public async Task RegisterAsync()
@@ -46,7 +36,7 @@ namespace GP3.Client.ViewModels
                     "Error",
                     "Passwords do not match",
                     "OK");
-               
+
                 return;
             }
 
@@ -84,12 +74,20 @@ namespace GP3.Client.ViewModels
             }
             catch (FirebaseAuthException ex)
             {
-                await Shell.Current.DisplayAlert("Error!", APIErrorParser.ParseErrorToString(ex), "OK");
+                await Shell.Current.DisplayAlert("Error!", AuthService.ParseErrorToString(ex), "OK");
             }
             finally
             {
                 IsBusy = false;
             }
+        }
+
+        bool IsValidPasswordRegex(string password)
+        {
+            bool isPassword = Regex.IsMatch(
+                password,
+                @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])(?=^[^"",']+$).{8,}$");
+            return isPassword;
         }
     }
 }

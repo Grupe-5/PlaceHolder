@@ -40,7 +40,7 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         async Task OnAdd()
         {
-            /* ADD VALIDATION */
+            /* TODO Add validation */
             MonthReading monthReadingItem = new MonthReading(selectedMonth, Double.Parse(pricePayed), int.Parse(kwhUsed));
             await _historyService.AddMonth(monthReadingItem);
             monthReadings.Add(monthReadingItem);
