@@ -53,5 +53,11 @@ namespace GP3.Tests.Scraper
                 Assert.That(values.Max(i => i), Is.EqualTo(values[index]));
             });
         }
+
+        [Test]
+        public void TestMinDateIs20210101()
+        {
+            Assert.That(new DateTime(2021, 01, 01), Is.EqualTo(FetcherTime.MinDate));
+        }
     }
 }

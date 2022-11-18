@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Client", "GP3.Client\GP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Funcs", "GP3.Funcs\GP3.Funcs.csproj", "{A9729BB8-EB53-46B7-BF67-3958A3A84E81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GP3.Tests", "GP3.Tests\GP3.Tests.csproj", "{219A61F2-4534-42B4-AA82-8CA1CBF08EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GP3.Tests", "GP3.Tests\GP3.Tests.csproj", "{219A61F2-4534-42B4-AA82-8CA1CBF08EF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
