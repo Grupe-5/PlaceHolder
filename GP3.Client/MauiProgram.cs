@@ -4,11 +4,27 @@ using GP3.Client.Services;
 using GP3.Client.ViewModels;
 using MonkeyCache;
 using MonkeyCache.FileStore;
+using System.Runtime.ExceptionServices;
 
 namespace GP3.Client;
 
 public static class MauiProgram
 {
+    public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        var exception = e.ExceptionObject as Exception;
+        // Log somewhere
+        Console.WriteLine("\nEXCEPTION WAS CAUGHT\n");
+        Console.WriteLine($"\nApp - OnUnhandledException - An exception occurred: {exception}\n");
+    }
+
+    public static void FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+    {
+        Exception exception = e.Exception;
+        // Log somewhere
+        Console.WriteLine("\nEXCEPTION WAS CAUGHT\n");
+        Console.WriteLine($"\nApp - handled exception occurred: {exception}\n");
+    }
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
@@ -21,6 +37,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Bold.ttf", "OpenSansBold");
                 fonts.AddFont("Sitka.ttc", "Sitka");
             });
+
+        AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+        AppDomain.CurrentDomain.FirstChanceException += FirstChanceException;
 
         /* Pages and viewmodels should be transient */
         builder.Services.AddTransient<MainPage>();
