@@ -12,18 +12,15 @@ public static class MauiProgram
 {
     public static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        var exception = e.ExceptionObject as Exception;
-        // Log somewhere
-        Console.WriteLine("\nEXCEPTION WAS CAUGHT\n");
-        Console.WriteLine($"\nApp - OnUnhandledException - An exception occurred: {exception}\n");
+        Exception exception = (Exception)e.ExceptionObject;
+        bool Terminating = e.IsTerminating;
+        Console.WriteLine($"\nException occurred: {exception}\nTerminating?: {Terminating}\n");
     }
 
-    public static void FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+    public static void OnFirstChanceException(object sender, FirstChanceExceptionEventArgs e)
     {
         Exception exception = e.Exception;
-        // Log somewhere
-        Console.WriteLine("\nEXCEPTION WAS CAUGHT\n");
-        Console.WriteLine($"\nApp - handled exception occurred: {exception}\n");
+        Console.WriteLine($"\nUnhandled Exception occurred: {exception}\n");
     }
     public static MauiApp CreateMauiApp()
     {
@@ -39,7 +36,7 @@ public static class MauiProgram
             });
 
         AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-        AppDomain.CurrentDomain.FirstChanceException += FirstChanceException;
+        AppDomain.CurrentDomain.FirstChanceException += OnFirstChanceException;
 
         /* Pages and viewmodels should be transient */
         builder.Services.AddTransient<MainPage>();
