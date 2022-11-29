@@ -11,7 +11,7 @@ namespace GP3.Client.ViewModels
 
         public IntegrationsViewModel()
         {
-            Title = "Integrations page";
+            Title = "Devices Management";
             DeviceIntegration integrations;
 
             /* Call API */

@@ -92,6 +92,7 @@ namespace GP3.Client.Services
             switch (ex.Reason)
             {
                 case AuthErrorReason.InvalidEmailAddress:
+                case AuthErrorReason.WrongPassword:
                     errorText = "Email address and/or password is invalid";
                     break;
 

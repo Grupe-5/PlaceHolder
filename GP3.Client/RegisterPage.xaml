@@ -7,7 +7,7 @@
              x:Class="GP3.Client.RegisterPage">
     <Grid>
         <StackLayout Margin="20" Padding="0,20">
-            <Label Margin="0,50" 
+            <Label Margin="0,30" 
                    TextColor="#000" 
                    Text="Register an Account"  
                    FontAttributes="Bold"  
@@ -55,8 +55,8 @@
                            CornerRadius="10" 
                            BorderColor="#F6F6F6"/>
                     
-                    <Entry Placeholder="Repeat your password"
-                           Margin="0,10"
+                    <Entry Placeholder="Confirm password"
+                           Margin="5,0"
                            x:Name="RepeatedPassword"
                            Text="{Binding RepeatedPassword}"
                            FontSize="20"
