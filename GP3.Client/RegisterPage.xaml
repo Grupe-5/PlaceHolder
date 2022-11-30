@@ -14,13 +14,13 @@
                    FontSize="30" 
                    HorizontalTextAlignment="Center"/>
             <StackLayout>
-                <Grid Margin="0,16">
+                <Grid Margin="0,16,0,0">
                     <Frame Opacity="0.3" 
                            HeightRequest="50"  
                            BackgroundColor="#F6F6F6" 
                            CornerRadius="10" 
-                           BorderColor="#F6F6F6" />
-                    
+                           BorderColor="{Binding EmailFieldBorderColor}"/>
+
                     <Entry Placeholder="Email"
                            Keyboard="Email"
                            IsTextPredictionEnabled="False"
@@ -29,16 +29,23 @@
                            FontSize="20"
                            TextColor="Black" 
                            Margin="5,0"
-                           PlaceholderColor="#BDBDBD"/>
+                           PlaceholderColor="#BDBDBD">
+                        <Entry.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EmailClickedCommand}">
+                            </TapGestureRecognizer>
+                        </Entry.GestureRecognizers>                       
+                    </Entry>
                 </Grid>
-
-                <Grid Margin="0,16">
+                <Grid>
+                    <Label Padding="10,5,0,0" Text="{Binding EmailErrorText}" TextColor="#E23636" />
+                </Grid>
+                <Grid Margin="0,20,0,16">
                     <Frame Opacity="0.3" 
                            HeightRequest="50" 
                            BackgroundColor="#F6F6F6" 
                            CornerRadius="10" 
-                           BorderColor="#F6F6F6"/>
-                    
+                           BorderColor="{Binding PswFieldBorderColor}"/>
+
                     <Entry Placeholder="Password"
                            x:Name="Password"
                            Text="{Binding Password}"
@@ -46,15 +53,20 @@
                            TextColor="Black" 
                            Margin="5,0"
                            PlaceholderColor="#BDBDBD" 
-                           IsPassword="True"/>
+                           IsPassword="True">
+                        <Entry.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PswClickedCommand}">
+                            </TapGestureRecognizer>
+                        </Entry.GestureRecognizers>
+                    </Entry>
                 </Grid>
                 <Grid>
                     <Frame Opacity="0.3" 
                            HeightRequest="50" 
                            BackgroundColor="#F6F6F6" 
                            CornerRadius="10" 
-                           BorderColor="#F6F6F6"/>
-                    
+                           BorderColor="{Binding PswRepeatFieldBorderColor}"/>
+
                     <Entry Placeholder="Confirm password"
                            Margin="5,0"
                            x:Name="RepeatedPassword"
@@ -62,7 +74,15 @@
                            FontSize="20"
                            TextColor="Black"
                            PlaceholderColor="#BDBDBD" 
-                           IsPassword="True"/>
+                           IsPassword="True">
+                        <Entry.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PswRepeatClickedCommand}">
+                            </TapGestureRecognizer>
+                        </Entry.GestureRecognizers>
+                    </Entry>
+                </Grid>
+                <Grid>
+                    <Label Padding="10,5,0,0" Text="{Binding PswErrorText}" TextColor="#E23636" />
                 </Grid>
             </StackLayout>
 
@@ -74,6 +94,12 @@
                         FontSize="25" 
                         CornerRadius="10" 
                         BackgroundColor="#4C34C2"/>
+            </StackLayout>
+            <StackLayout Margin="0,50,0,0">
+                <ActivityIndicator 
+                   HeightRequest="80"
+                   IsRunning="{Binding IsBusy}"
+                   Color="#4C34C2" />
             </StackLayout>
         </StackLayout>
     </Grid>

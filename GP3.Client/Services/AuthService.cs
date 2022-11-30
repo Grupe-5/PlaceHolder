@@ -100,8 +100,12 @@ namespace GP3.Client.Services
                     errorText = "This user does not exist";
                     break;
 
+                case AuthErrorReason.EmailExists:
+                    errorText = "Acount with this email is already registred!";
+                    break;
+
                 default:
-                    errorText = ex.Message;
+                    errorText = "Unknown Error Occured...";
                     break;
             }
 

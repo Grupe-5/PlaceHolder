@@ -17,7 +17,10 @@ namespace GP3.Client.ViewModels
         {
             this.authService = authService;
             SkipLoginIfValid();
-            
+
+            emailFieldBorderColor = greyColor;
+            pswFieldBorderColor = greyColor;
+
             email = "";
             HideError();
         }
