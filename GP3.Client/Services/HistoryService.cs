@@ -12,15 +12,11 @@ namespace GP3.Client.Services
         List<MonthReading> monthReadingsList = new List<MonthReading>();
         public async Task<List<MonthReading>> GetReadings()
         {
-            /* TODO: API doesn't have such endpoint yet
-            var readings = await _readingApi.GetReadingsAsync();
-            */
-
             if (monthReadingsList?.Count > 0)
                 return monthReadingsList;
 
             MonthReading monthReadingItem;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 monthReadingItem = new MonthReading
                 {
