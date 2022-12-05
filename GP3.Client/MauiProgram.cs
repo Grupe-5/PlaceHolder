@@ -79,6 +79,7 @@ public static class MauiProgram
             .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
 
         builder.Services.Decorate<IPriceApi, CachedPriceApi>();
+        builder.Services.Decorate<IIntegrationApi, CachedIntegrationApi>();
 
         return builder.Build();
     }

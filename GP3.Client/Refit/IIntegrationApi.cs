@@ -11,7 +11,7 @@ namespace GP3.Client.Refit
         Task<IEnumerable<IntegrationCallback>> GetIntegrationsAsync();
 
         [Post("/" + Routes.Integration)]
-        IntegrationCallback AddIntegrationAsync(IntegrationCallback integration);
+        Task<IntegrationCallback> AddIntegrationAsync(IntegrationCallback integration);
 
         [Delete("/" + Routes.Integration)]
         Task RemoveIntegrationAsync(IntegrationCallback integration);
