@@ -19,10 +19,10 @@ public partial class AddDeviceViewModel: BaseViewModel
     }
 
     [ObservableProperty]
-    public DeviceIntegration device = new();
+    public IntegrationFormatted device = new();
 
     [ObservableProperty]
-    public ObservableCollection<DeviceIntegration> devices;
+    public ObservableCollection<IntegrationFormatted> devices;
 
     [RelayCommand]
     public async void AddNewDevice()
@@ -30,7 +30,8 @@ public partial class AddDeviceViewModel: BaseViewModel
 
         /* TODO ADD Validation */
         /* TODO Call API */
-        DeviceIntegration CurrDevice = device.Clone();
+        /* TODO: Clone here */
+        IntegrationFormatted CurrDevice = device;
         devices.Add(CurrDevice);
 
         await GoBackAsync();

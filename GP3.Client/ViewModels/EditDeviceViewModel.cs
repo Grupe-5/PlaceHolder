@@ -21,10 +21,10 @@ namespace GP3.Client.ViewModels
         }
 
         [ObservableProperty]
-        public DeviceIntegration device;
+        public IntegrationFormatted device;
 
         [ObservableProperty]
-        public ObservableCollection<DeviceIntegration> devices;
+        public ObservableCollection<IntegrationFormatted> devices;
 
         [RelayCommand]
         public async void UpdateDeviceInformation()
@@ -32,11 +32,12 @@ namespace GP3.Client.ViewModels
             if (IsBusy || devices is null)
                 return;
 
-            DeviceIntegration currDevice = getCurrDevice();
+            IntegrationFormatted currDevice = getCurrDevice();
             if (currDevice is null)
                 await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
 
-            currDevice.Clone(device);
+            /* TODO: Do clone here */
+            currDevice = device;
 
             await GoBackAsync();
         }
@@ -53,9 +54,9 @@ namespace GP3.Client.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        private DeviceIntegration getCurrDevice()
+        private IntegrationFormatted getCurrDevice()
         {
-            return devices.Where(x => x.deviceId == device.deviceId).First();
+            return devices.Where(x => x.Id == device.Id).First();
         }
 
     }
