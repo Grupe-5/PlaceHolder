@@ -56,6 +56,11 @@ namespace GP3.Client.Services
             catch { throw; }
         }
 
+        public void NullAuth()
+        {
+            SecureStorage.Remove("auth_token");
+        }
+
         public async Task LoginAsync(string email, string password)
         {
             try
@@ -83,6 +88,7 @@ namespace GP3.Client.Services
                 auth = await authProvider.RefreshAuthAsync(auth);
             }
         }
+
 
         public static string ParseErrorToString(FirebaseAuthException ex)
         {
