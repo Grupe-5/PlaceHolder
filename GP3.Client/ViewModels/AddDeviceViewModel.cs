@@ -3,12 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using GP3.Client.Refit;
 using GP3.Common.Entities;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GP3.Client.ViewModels;
 
