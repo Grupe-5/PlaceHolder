@@ -1,10 +1,11 @@
-﻿using DevExpress.Maui;
+﻿using Android.OS;
+using DevExpress.Maui;
 using GP3.Client.Refit;
 using GP3.Client.Services;
 using GP3.Client.ViewModels;
 using MonkeyCache;
 using MonkeyCache.FileStore;
-
+using Sentry;
 
 namespace GP3.Client;
 
@@ -16,6 +17,12 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseSentry(options =>
+            {
+                // The DSN is the only required setting.
+                options.Dsn = "https://369041dcedd24381ad160911a69b287c@o4504267915264000.ingest.sentry.io/4504293859852288";
+
+            })
             .UseDevExpress()
             .ConfigureFonts(fonts =>
             {
