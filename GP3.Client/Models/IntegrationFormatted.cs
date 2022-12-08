@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace GP3.Client.Models
 {
-    public class IntegrationFormatted : IntegrationCallback
+    public class IntegrationFormatted : IntegrationCallback, ICloneable
     {
-
+        public IntegrationFormatted(IntegrationCallback obj) : base(obj) {}
+        public object Clone()
+        {
+            var itg = (IntegrationFormatted) MemberwiseClone();
+            itg.CallbackUrl = (string)CallbackUrl.Clone();
+            itg.User = (string)User.Clone();
+            return itg;
+        }
     }
 }
