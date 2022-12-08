@@ -1,4 +1,3 @@
-﻿using Android.OS;
 using DevExpress.Maui;
 using GP3.Client.Refit;
 using GP3.Client.Services;
