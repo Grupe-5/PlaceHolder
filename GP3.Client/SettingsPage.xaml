@@ -39,9 +39,17 @@
                         <Image Source="bluearrow.svg" Margin="0,0,2,0" HeightRequest="20" />
                     </VerticalStackLayout>
                 </Grid>
-                <Grid ColumnDefinitions="20,*, 2*" Margin="0,10,0,0" RowDefinitions="*">
-                    <Image Grid.Column="0" Source="boxarrowleft.svg" Margin="0,0,2,0" HeightRequest="25"/>
-                    <Label Grid.Column="1" Margin="6,0,8,0" Text="Sign Out" FontSize="18" FontAttributes="Bold"/>
+                <Grid>
+                    <Button
+                        Command="{Binding SignOutCommand}"
+                        Padding="10"
+                        TextColor="White" 
+                        Text="Sign Out" 
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        CornerRadius="10"
+                        BackgroundColor="#4C34C2">
+                    </Button>
                 </Grid>
 
             </StackLayout>

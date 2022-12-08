@@ -17,17 +17,17 @@
         <Tab Title="History" Icon="history.svg">
             <ShellContent
             ContentTemplate="{DataTemplate local:HistoryPage}"
-            Route="MainPage" />
+            Route="HistoryPage" />
         </Tab>
         <Tab Title="Integrations" Icon="integrations.svg">
             <ShellContent
             ContentTemplate="{DataTemplate local:IntegrationsPage}"
-            Route="MainPage" />
+            Route="IntegrationsPage" />
         </Tab>
         <Tab Title="Settings" Icon="settings.svg">
             <ShellContent
             ContentTemplate="{DataTemplate local:SettingsPage}"
-            Route="MainPage" />
+            Route="SettingsPage" />
         </Tab>
     </TabBar>
 

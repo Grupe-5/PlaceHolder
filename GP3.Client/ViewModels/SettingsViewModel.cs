@@ -2,17 +2,18 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-
 namespace GP3.Client.ViewModels
 {
     public partial class SettingsViewModel : BaseViewModel
     {
         private readonly SettingsService _settingsService;
+        private readonly AuthService _authService;
 
-        public SettingsViewModel(SettingsService settingsService)
+        public SettingsViewModel(SettingsService settingsService, AuthService authService)
         {
             _settingsService = settingsService;
-            
+            _authService = authService;
+
             Title = "Settings";
 
             GetSettingsAsync();
@@ -20,6 +21,13 @@ namespace GP3.Client.ViewModels
 
         [ObservableProperty]
         UserSettings userSettings;
+
+        [RelayCommand]
+        async Task SignOut()
+        {
+            _authService.NullAuth();
+            await Shell.Current.GoToAsync("///" + nameof(MainPage));
+        }
 
         [RelayCommand]
         async public void SaveSettings()
