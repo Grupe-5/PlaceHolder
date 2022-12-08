@@ -39,18 +39,27 @@ namespace GP3.Client.ViewModels
             if (IsBusy || devices is null)
                 return;
 
-            IntegrationFormatted currDevice = getCurrDevice();
-            if (currDevice is null)
+            try
             {
-                await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
+                IsBusy = true;
+                IntegrationFormatted currDevice = getCurrDevice();
+                if (currDevice is null)
+                    await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
+                else
+                {
+                    await _api.RemoveIntegrationAsync(currDevice);
+                    await _api.AddIntegrationAsync(Device);
+                }
             }
-            else
+            catch (Exception e)
             {
-                await _api.RemoveIntegrationAsync(currDevice);
-                await _api.AddIntegrationAsync(Device);
+                await Shell.Current.DisplayAlert("Error!", "Failed to update callback!", "OK");
             }
-
-            await GoBackAsync();
+            finally
+            {
+                IsBusy = false;
+                await GoBackAsync();
+            }
         }
 
         [RelayCommand]
