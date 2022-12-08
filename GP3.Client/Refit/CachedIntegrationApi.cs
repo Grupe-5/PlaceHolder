@@ -2,6 +2,7 @@
 using GP3.Common.Entities;
 using Microsoft.Extensions.Logging;
 using MonkeyCache;
+using System.Text.Json;
 
 namespace GP3.Client.Refit
 {
@@ -19,6 +20,7 @@ namespace GP3.Client.Refit
             _barrel = barrel;
             _logger = logger;
             _connectivity = connectivity;
+            _barrel.Empty(barrelPrefix);
         }
 
         public async Task<IEnumerable<IntegrationCallback>> GetIntegrationsAsync()
@@ -47,11 +49,17 @@ namespace GP3.Client.Refit
 
         public async Task<IntegrationCallback> AddIntegrationAsync(IntegrationCallback integration)
         {
+            if (!_connectivity.IsConnected())
+            {
+                _logger.LogError("No internet connection!");
+                throw new Exception("No internet connection!");
+            }
+
             var ret = await _api.AddIntegrationAsync(integration);
             if (_barrel.Exists(barrelPrefix))
             {
-                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix);
-                cachedIntegrations.Where(i => i.Id != integration.Id);
+                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix)
+                    .Where(i => i.Id != integration.Id).Append(ret);
                 _barrel.Add(key: barrelPrefix, data: cachedIntegrations, expireIn: barrelDuration);
             }
 
@@ -65,8 +73,7 @@ namespace GP3.Client.Refit
             await _api.RemoveIntegrationAsync(integration);
             if (_barrel.Exists(barrelPrefix))
             {
-                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix);
-                cachedIntegrations.Where(i => i.Id != integration.Id);
+                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix).Where(i => i.Id != integration.Id);
                 _barrel.Add(key: barrelPrefix, data: cachedIntegrations, expireIn: barrelDuration);
             }
         }
