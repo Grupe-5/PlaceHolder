@@ -46,9 +46,29 @@ namespace GP3.Client.Refit
         }
 
         public async Task<IntegrationCallback> AddIntegrationAsync(IntegrationCallback integration)
-            => await _api.AddIntegrationAsync(integration);
+        {
+            var ret = await _api.AddIntegrationAsync(integration);
+            if (_barrel.Exists(barrelPrefix))
+            {
+                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix);
+                cachedIntegrations.Where(i => i.Id != integration.Id);
+                _barrel.Add(key: barrelPrefix, data: cachedIntegrations, expireIn: barrelDuration);
+            }
+
+            integration.Id = ret.Id;
+            integration.User = ret.User;
+            return ret;
+        }
 
         public async Task RemoveIntegrationAsync(IntegrationCallback integration)
-            => await _api.RemoveIntegrationAsync(integration);
+        {
+            await _api.RemoveIntegrationAsync(integration);
+            if (_barrel.Exists(barrelPrefix))
+            {
+                var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix);
+                cachedIntegrations.Where(i => i.Id != integration.Id);
+                _barrel.Add(key: barrelPrefix, data: cachedIntegrations, expireIn: barrelDuration);
+            }
+        }
     }
 }
