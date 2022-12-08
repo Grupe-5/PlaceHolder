@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
+using GP3.Client.Refit;
+using GP3.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,11 +16,16 @@ namespace GP3.Client.ViewModels
     [QueryProperty("Device", "Device")]
     public partial class EditDeviceViewModel: BaseViewModel
     {
-
-        public EditDeviceViewModel()
+        public IIntegrationApi _api;
+        public EditDeviceViewModel(IIntegrationApi api)
         {
             Title = "Update Device";
+            reasonNames = Enum.GetNames(typeof(IntegrationCallbackReason));
+            _api = api;
         }
+
+        [ObservableProperty]
+        string[] reasonNames;
 
         [ObservableProperty]
         public IntegrationFormatted device;
@@ -34,10 +41,14 @@ namespace GP3.Client.ViewModels
 
             IntegrationFormatted currDevice = getCurrDevice();
             if (currDevice is null)
+            {
                 await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
-
-            /* TODO: Do clone here */
-            currDevice = device;
+            }
+            else
+            {
+                await _api.RemoveIntegrationAsync(currDevice);
+                await _api.AddIntegrationAsync(Device);
+            }
 
             await GoBackAsync();
         }
@@ -45,8 +56,8 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         public async void DeleteDevice()
         {
-            devices.Remove(getCurrDevice());
-
+            var curr = getCurrDevice();
+            await _api.RemoveIntegrationAsync(curr);
             await GoBackAsync();
         }
         private async Task GoBackAsync()
@@ -56,8 +67,7 @@ namespace GP3.Client.ViewModels
 
         private IntegrationFormatted getCurrDevice()
         {
-            return devices.Where(x => x.Id == device.Id).First();
+            return devices.Where(x => x.Id == Device.Id).First();
         }
-
     }
 }

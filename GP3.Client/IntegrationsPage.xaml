@@ -62,14 +62,17 @@
                         </Frame>
                     </Grid>
                 </DataTemplate>
-
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-        <Frame  
+
+        <Grid ColumnDefinitions="auto,30" RowDefinitions="30" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="10">
+            <ActivityIndicator HeightRequest="200" IsRunning="{Binding IsRefreshing}" Color="#4C34C2"/>
+        </Grid>
+        <Frame
                 Grid.Row="3" 
                 Grid.ColumnSpan="3"
-                Margin="10,40,10,10"
+                Margin="10,30,10,00"
                 BorderColor="#4C34C2">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding AddNewDeviceCommand}">

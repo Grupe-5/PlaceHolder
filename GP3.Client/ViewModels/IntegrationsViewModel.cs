@@ -1,8 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using DevExpress.Maui.Core.Internal;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using GP3.Client.Refit;
-using GP3.Common.Entities;
 using System.Collections.ObjectModel;
 
 
@@ -11,13 +10,15 @@ namespace GP3.Client.ViewModels
     public partial class IntegrationsViewModel: BaseViewModel
     {
         private readonly IIntegrationApi _api;
-        public ObservableCollection<IntegrationCallback> Integrations { get; } = new();
+        public ObservableCollection<IntegrationFormatted> Integrations { get; } = new();
+
+        [ObservableProperty]
+        bool isRefreshing;
 
         public IntegrationsViewModel(IIntegrationApi api)
         {
             Title = "Devices Management";
             _api = api;
-            RefreshIntegrationsAsync();
         }
 
         [RelayCommand]
@@ -27,13 +28,13 @@ namespace GP3.Client.ViewModels
                 return;
 
             IsBusy = true;
-            // IntegrationFormatted deviceCopy = currDevice.Clone();
+            IntegrationFormatted deviceCopy = (IntegrationFormatted)currDevice.Clone();
 
             await Shell.Current.GoToAsync($"{nameof(EditDevicePage)}", true,
                 new Dictionary<string, object>
                 {
                     {"Devices", Integrations },
-                    // {"Device", deviceCopy },
+                    {"Device", deviceCopy },
                 });
             IsBusy = false;
         }
@@ -53,14 +54,18 @@ namespace GP3.Client.ViewModels
             IsBusy = false;
         }
 
-        private async Task RefreshIntegrationsAsync()
+        public async Task RefreshIntegrationsAsync()
         {
             try
             {
-                var integrationList = await _api.GetIntegrationsAsync();
                 IsBusy = true;
+                IsRefreshing = true;
+                var integrationList = await _api.GetIntegrationsAsync();
                 Integrations.Clear();
-                Integrations.InsertRange(0, integrationList);
+                foreach (var x in integrationList)
+                {
+                    Integrations.Add(new IntegrationFormatted(x));
+                }
             }
             catch (Exception ex)
             {
@@ -68,6 +73,7 @@ namespace GP3.Client.ViewModels
             }
             finally
             {
+                IsRefreshing = false;
                 IsBusy = false;
             }
         }

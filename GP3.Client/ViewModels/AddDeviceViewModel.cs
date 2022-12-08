@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
+using GP3.Client.Refit;
+using GP3.Common.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,13 +15,22 @@ namespace GP3.Client.ViewModels;
 [QueryProperty("Devices", "Devices")]
 public partial class AddDeviceViewModel: BaseViewModel
 {
-    public AddDeviceViewModel()
+    IIntegrationApi _api;
+    public AddDeviceViewModel(IIntegrationApi api)
     {
         Title = "Add Device";
+        reasonNames = Enum.GetNames(typeof(IntegrationCallbackReason));
+        _api = api;
     }
 
     [ObservableProperty]
-    public IntegrationFormatted device = new();
+    string[] reasonNames;
+
+    [ObservableProperty]
+    string callbackUrl;
+
+    [ObservableProperty]
+    IntegrationCallbackReason callbackReason;
 
     [ObservableProperty]
     public ObservableCollection<IntegrationFormatted> devices;
@@ -27,14 +38,24 @@ public partial class AddDeviceViewModel: BaseViewModel
     [RelayCommand]
     public async void AddNewDevice()
     {
-
-        /* TODO ADD Validation */
-        /* TODO Call API */
-        /* TODO: Clone here */
-        IntegrationFormatted CurrDevice = device;
-        devices.Add(CurrDevice);
-
-        await GoBackAsync();
+        /* POST to server */
+        IntegrationCallback clbk = null;
+        try
+        {
+            clbk = await _api.AddIntegrationAsync(CallbackUrl, CallbackReason);
+        }
+        catch (Exception e)
+        {
+                await Shell.Current.DisplayAlert("Error!", "Failed to save callback!", "OK");
+        }
+        finally
+        {
+            if (clbk != null)
+            {
+                devices.Add(new IntegrationFormatted(clbk));
+            }
+            await GoBackAsync();
+        }
     }
     async Task GoBackAsync()
     {

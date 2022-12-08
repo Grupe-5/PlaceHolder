@@ -9,4 +9,12 @@ public partial class IntegrationsPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
     }
+    
+
+    protected override async void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        await ((IntegrationsViewModel)BindingContext).RefreshIntegrationsAsync();
+        base.OnNavigatedTo(args);
+    }
+
 }
