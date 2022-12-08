@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GP3.Client.Refit
@@ -40,8 +41,14 @@ namespace GP3.Client.Refit
                     });
             }
 
+            RefitSettings settings = new()
+            {
+                Buffered = true,
+                ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions(JsonSerializerDefaults.Web))
+            };
+
             service
-                .AddRefitClient<T>()
+                .AddRefitClient<T>(settings)
                 .AddPolicyHandler(refreshPolicy)
                 .AddPolicyHandler(retryPolicy)
                 .AddPolicyHandler(timeoutPolicy)
