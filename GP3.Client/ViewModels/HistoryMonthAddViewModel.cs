@@ -31,6 +31,12 @@ namespace GP3.Client.ViewModels
         [ObservableProperty]
         ObservableCollection<MonthReading> monthReadings;
 
+        [ObservableProperty]
+        string pricePayedErrorText;
+
+        [ObservableProperty]
+        string kwhErrorText;
+
         [RelayCommand]
         async Task GoBackAsync()
         {
@@ -40,7 +46,26 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         async Task OnAdd()
         {
-            /* TODO Add validation */
+            if(Double.Parse(pricePayed) < 0)
+            {
+                ActivatepricePayedError("Price can't be negative!");
+                return;
+            }
+            if(int.Parse(kwhUsed) < 0)
+            {
+                ActivatekwhError("Kwh can't be negative!");
+                return;
+            }
+
+            async void ActivatepricePayedError(string errorText)
+            {
+                await Shell.Current.DisplayAlert("Error!", errorText, "OK");
+            }
+            async void ActivatekwhError(string errorText)
+            {
+                await Shell.Current.DisplayAlert("Error!", errorText, "OK");
+            }
+
             MonthReading monthReadingItem = new MonthReading(selectedMonth, Double.Parse(pricePayed), int.Parse(kwhUsed));
             await _historyService.AddMonth(monthReadingItem);
             monthReadings.Add(monthReadingItem);
