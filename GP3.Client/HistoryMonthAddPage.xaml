@@ -29,7 +29,7 @@
                            BackgroundColor="#F6F6F6" 
                            CornerRadius="10" 
                            BorderColor="#F6F6F6"/>
-                    
+
                     <Entry Placeholder="€ Payed" 
                            Text="{Binding PricePayed}"
                            Keyboard="Numeric"
