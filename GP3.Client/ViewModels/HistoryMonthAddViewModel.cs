@@ -53,7 +53,7 @@ namespace GP3.Client.ViewModels
             }
             if(int.Parse(kwhUsed) < 0)
             {
-                ActivatekwhError("Kwh can't be negative or null!");
+                ActivatekwhError("Kwh can't be negative!");
                 return;
             }
 
