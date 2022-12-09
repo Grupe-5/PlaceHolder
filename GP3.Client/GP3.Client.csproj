@@ -95,6 +95,7 @@
 	  <PackageReference Include="Refit" Version="6.3.2" />
 	  <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
 	  <PackageReference Include="Scrutor" Version="4.2.0" />
+	  <PackageReference Include="Sentry.Maui" Version="3.24.0-preview.3" />
 	</ItemGroup>
 
 	<ItemGroup>

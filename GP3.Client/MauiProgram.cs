@@ -16,6 +16,12 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseSentry(options =>
+            {
+                // The DSN is the only required setting.
+                options.Dsn = "https://369041dcedd24381ad160911a69b287c@o4504267915264000.ingest.sentry.io/4504293859852288";
+
+            })
             .UseDevExpress()
             .ConfigureFonts(fonts =>
             {
