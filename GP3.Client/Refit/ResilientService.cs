@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GP3.Client.Refit
@@ -21,7 +22,6 @@ namespace GP3.Client.Refit
         public static IServiceCollection AddResilientApi<T>(this IServiceCollection service, string uri, int retryCount, TimeSpan retryWait, TimeSpan timeout) where T : class
         {
             service.AddTransient<AuthMessageHandler>();
-            service.AddTransient<CacheMessageHandler>();
 
             AsyncRetryPolicy<HttpResponseMessage> retryPolicy = HttpPolicyExtensions
                 .HandleTransientHttpError()
@@ -41,15 +41,19 @@ namespace GP3.Client.Refit
                     });
             }
 
+            RefitSettings settings = new()
+            {
+                Buffered = true,
+                ContentSerializer = new SystemTextJsonContentSerializer(new JsonSerializerOptions(JsonSerializerDefaults.Web))
+            };
+
             service
-                .AddRefitClient<T>()
+                .AddRefitClient<T>(settings)
                 .AddPolicyHandler(refreshPolicy)
                 .AddPolicyHandler(retryPolicy)
                 .AddPolicyHandler(timeoutPolicy)
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(uri))
                 .AddHttpMessageHandler<AuthMessageHandler>();
-                /* Temporarily disable generic cache message handler */
-                // .AddHttpMessageHandler<CacheMessageHandler>();
 
             return service;
         }

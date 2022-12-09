@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using DevExpress.Maui.Core.Internal;
 using GP3.Client.Models;
 using GP3.Client.Refit;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ namespace GP3.Client.ViewModels
             _priceApi = priceApi;
             Title = "Home";
             GetPricesAsync();
-            
+
             currHour = DateTime.Now.Hour;
 
             /* TODO GET this */
@@ -27,16 +28,15 @@ namespace GP3.Client.ViewModels
 
         [ObservableProperty]
         public int currHour;
-         async public void GetPricesAsync()
+        async public void GetPricesAsync()
         {
             try
             {
                 IsBusy = true;
                 var prices = await _priceApi.GetPriceOffsetAsync(DateTime.Today);
-
                 int index = 0;
                 HourPriceFormated hourPriceFormated;
-
+                HourPricesFormated.Clear();
                 foreach (var price in prices.HourlyPrices)
                 {
                     hourPriceFormated = new HourPriceFormated(price, index);

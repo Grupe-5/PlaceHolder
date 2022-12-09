@@ -25,6 +25,7 @@
                            Text="{Binding Email}"
                            FontSize="20"
                            TextColor="Black" Margin="5,0"
+                           ReturnType="Next"
                            PlaceholderColor="#BDBDBD">
                         <Entry.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding EmailClickedCommand}">
@@ -40,6 +41,8 @@
                            Text="{Binding Password}"
                            FontSize="20"
                            TextColor="Black" Margin="5,0"
+                           ReturnType="Done"
+                           ReturnCommand="{Binding LogInCommand}"
                            PlaceholderColor="#BDBDBD" IsPassword="True">
                         <Entry.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PswClickedCommand}">

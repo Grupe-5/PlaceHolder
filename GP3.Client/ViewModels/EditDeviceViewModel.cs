@@ -1,12 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
-using System;
-using System.Collections.Generic;
+using GP3.Client.Refit;
+using GP3.Common.Entities;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GP3.Client.ViewModels
 {
@@ -14,17 +11,22 @@ namespace GP3.Client.ViewModels
     [QueryProperty("Device", "Device")]
     public partial class EditDeviceViewModel: BaseViewModel
     {
-
-        public EditDeviceViewModel()
+        public IIntegrationApi _api;
+        public EditDeviceViewModel(IIntegrationApi api)
         {
             Title = "Update Device";
+            reasonNames = Enum.GetNames(typeof(IntegrationCallbackReason));
+            _api = api;
         }
 
         [ObservableProperty]
-        public DeviceIntegration device;
+        string[] reasonNames;
 
         [ObservableProperty]
-        public ObservableCollection<DeviceIntegration> devices;
+        public IntegrationFormatted device;
+
+        [ObservableProperty]
+        public ObservableCollection<IntegrationFormatted> devices;
 
         [RelayCommand]
         public async void UpdateDeviceInformation()
@@ -32,20 +34,34 @@ namespace GP3.Client.ViewModels
             if (IsBusy || devices is null)
                 return;
 
-            DeviceIntegration currDevice = getCurrDevice();
-            if (currDevice is null)
-                await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
-
-            currDevice.Clone(device);
-
-            await GoBackAsync();
+            try
+            {
+                IsBusy = true;
+                IntegrationFormatted currDevice = getCurrDevice();
+                if (currDevice is null)
+                    await Shell.Current.DisplayAlert("Error!", "Something went horribly wrong!", "OK");
+                else
+                {
+                    await _api.RemoveIntegrationAsync(currDevice);
+                    await _api.AddIntegrationAsync(Device);
+                }
+            }
+            catch (Exception e)
+            {
+                await Shell.Current.DisplayAlert("Error!", "Failed to update callback!", "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                await GoBackAsync();
+            }
         }
 
         [RelayCommand]
         public async void DeleteDevice()
         {
-            devices.Remove(getCurrDevice());
-
+            var curr = getCurrDevice();
+            await _api.RemoveIntegrationAsync(curr);
             await GoBackAsync();
         }
         private async Task GoBackAsync()
@@ -53,10 +69,9 @@ namespace GP3.Client.ViewModels
             await Shell.Current.GoToAsync("..");
         }
 
-        private DeviceIntegration getCurrDevice()
+        private IntegrationFormatted getCurrDevice()
         {
-            return devices.Where(x => x.deviceId == device.deviceId).First();
+            return devices.Where(x => x.Id == Device.Id).First();
         }
-
     }
 }

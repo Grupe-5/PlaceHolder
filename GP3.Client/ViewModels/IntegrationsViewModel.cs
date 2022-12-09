@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
+using GP3.Client.Refit;
 using System.Collections.ObjectModel;
 
 
@@ -7,38 +9,31 @@ namespace GP3.Client.ViewModels
 {
     public partial class IntegrationsViewModel: BaseViewModel
     {
-        public ObservableCollection<DeviceIntegration> DevicesIntegrations { get; } = new();
+        private readonly IIntegrationApi _api;
+        public ObservableCollection<IntegrationFormatted> Integrations { get; } = new();
 
-        public IntegrationsViewModel()
+        [ObservableProperty]
+        bool isRefreshing;
+
+        public IntegrationsViewModel(IIntegrationApi api)
         {
             Title = "Devices Management";
-            DeviceIntegration integrations;
-
-            /* Call API */
-            /* Only for testing */
-            bool isRunning = false;
-            for (int i = 0; i < 5; i++)
-            {
-                integrations = new(69*i, "Noice " + i.ToString(), "Washer " + i.ToString(), new TimeSpan(i, i, i), new TimeSpan(i, i, i), isRunning, i*i, isRunning);
-                isRunning = !isRunning;
-                DevicesIntegrations.Add(integrations);
-            }
-            /* TESTING */
+            _api = api;
         }
 
         [RelayCommand]
-        async Task EditDevice(DeviceIntegration currDevice)
+        async Task EditDevice(IntegrationFormatted currDevice)
         {
             if (IsBusy)
                 return;
 
             IsBusy = true;
-            DeviceIntegration deviceCopy = currDevice.Clone();
+            IntegrationFormatted deviceCopy = (IntegrationFormatted)currDevice.Clone();
 
             await Shell.Current.GoToAsync($"{nameof(EditDevicePage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"Devices", DevicesIntegrations },
+                    {"Devices", Integrations },
                     {"Device", deviceCopy },
                 });
             IsBusy = false;
@@ -54,9 +49,33 @@ namespace GP3.Client.ViewModels
             await Shell.Current.GoToAsync($"{nameof(AddDevicePage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"Devices", DevicesIntegrations },
+                    {"Devices", Integrations },
                 });
             IsBusy = false;
+        }
+
+        public async Task RefreshIntegrationsAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                IsRefreshing = true;
+                var integrationList = await _api.GetIntegrationsAsync();
+                Integrations.Clear();
+                foreach (var x in integrationList)
+                {
+                    Integrations.Add(new IntegrationFormatted(x));
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsRefreshing = false;
+                IsBusy = false;
+            }
         }
     }
 }
