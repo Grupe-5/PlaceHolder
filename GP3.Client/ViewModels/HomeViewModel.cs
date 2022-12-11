@@ -15,19 +15,26 @@ namespace GP3.Client.ViewModels
 
         public HomeViewModel(IPriceApi priceApi, SettingsService settingsService)
         {
-            _settingsService = settingsService;
             _priceApi = priceApi;
             Title = "Home";
             GetPricesAsync();
 
             currHour = DateTime.Now.Hour;
 
-            /* TODO GET this */
-            currUserLowPriceDefinition = 300;
+            UserSettings us = settingsService.GetSettings1();
+            if(us != null)
+            {
+                currUserLowPriceDefinition = us.lowPriceMark;
+            }
+            else
+            {
+                currUserLowPriceDefinition = 250;
+            }
+
         }
 
         [ObservableProperty]
-        public int currUserLowPriceDefinition;
+        public double currUserLowPriceDefinition;
 
         [ObservableProperty]
         public int currHour;

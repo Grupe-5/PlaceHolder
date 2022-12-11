@@ -8,7 +8,7 @@ public class UserSettings
 {
     public UserSettings()
     {
-        
+        lowPriceMark = 250;
     }
 
     public double lowPriceMark { get; set; }
