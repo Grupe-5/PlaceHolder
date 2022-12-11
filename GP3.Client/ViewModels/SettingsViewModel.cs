@@ -15,7 +15,6 @@ namespace GP3.Client.ViewModels
             _authService = authService;
 
             Title = "Settings";
-
             GetSettingsAsync();
         }
 
@@ -37,6 +36,7 @@ namespace GP3.Client.ViewModels
             try
             {
                 IsBusy = true;
+                
                 await _settingsService.PutSettings(userSettings);
                 await Shell.Current.DisplayAlert("","Settings saved successfully!","Ok");
             }
@@ -74,8 +74,13 @@ namespace GP3.Client.ViewModels
             {
                 IsBusy = true;
 
-                userSettings = await _settingsService.GetSettings1();
-                
+                userSettings = _settingsService.GetSettings1();
+                if (userSettings == null)
+                {
+                    userSettings = new UserSettings();
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -86,8 +91,6 @@ namespace GP3.Client.ViewModels
                 IsBusy = false;
             }
         }
-
-
 
     }
 }

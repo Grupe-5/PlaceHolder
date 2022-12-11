@@ -2,6 +2,7 @@
 using DevExpress.Maui.Core.Internal;
 using GP3.Client.Models;
 using GP3.Client.Refit;
+using GP3.Client.Services;
 using System.Collections.ObjectModel;
 
 namespace GP3.Client.ViewModels
@@ -9,9 +10,10 @@ namespace GP3.Client.ViewModels
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly IPriceApi _priceApi;
+        private readonly SettingsService _settingsService;
         public ObservableCollection<HourPriceFormated> HourPricesFormated { get; } = new();
 
-        public HomeViewModel(IPriceApi priceApi)
+        public HomeViewModel(IPriceApi priceApi, SettingsService settingsService)
         {
             _priceApi = priceApi;
             Title = "Home";
@@ -19,12 +21,20 @@ namespace GP3.Client.ViewModels
 
             currHour = DateTime.Now.Hour;
 
-            /* TODO GET this */
-            currUserLowPriceDefinition = 300;
+            UserSettings us = settingsService.GetSettings1();
+            if(us != null)
+            {
+                currUserLowPriceDefinition = us.lowPriceMark;
+            }
+            else
+            {
+                currUserLowPriceDefinition = 250;
+            }
+
         }
 
         [ObservableProperty]
-        public int currUserLowPriceDefinition;
+        public double currUserLowPriceDefinition;
 
         [ObservableProperty]
         public int currHour;

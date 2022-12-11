@@ -63,7 +63,8 @@ namespace GP3.Client.ViewModels
             {
                 IsBusy = true;
                 await authService.LoginAsync(email, password);
-                HideError();
+
+                ClearData();
                 await Shell.Current.GoToAsync(nameof(HomePage));
 
             }
@@ -81,6 +82,8 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         async Task GoToRegister()
         {
+            HideError();
+            errorText = "";
             await Shell.Current.GoToAsync(nameof(RegisterPage));
         }
 
@@ -120,6 +123,17 @@ namespace GP3.Client.ViewModels
             PswFieldBorderColor = greyColor;
             EmailFieldBorderColor = greyColor;
         }
+
+        void ClearData()
+        {
+            PswFieldBorderColor = greyColor;
+            EmailFieldBorderColor = greyColor;
+            ErrorText = "";
+            Email = "";
+            Password = "";
+        }
+
+ 
 
     }
 }

@@ -1,25 +1,39 @@
-﻿namespace GP3.Client.Services
+﻿
+using Newtonsoft.Json;
+
+namespace GP3.Client.Services
 {
     public class SettingsService
     {
-        UserSettings userSettings;
-        public async Task<UserSettings> GetSettings1()
-        {            
-            userSettings = new UserSettings();
-            userSettings.priceChangeNotf = true;
-            userSettings.lowestPriceNotf = true;
-            userSettings.locations = new string[1];
-            userSettings.locations[0] = "Lithuania";
-            userSettings.userLocation = "Lithuania";
-            userSettings.lowPriceMark = 300;
-
-            // GET API
+        private string fullPath;
+        public SettingsService()
+        {
+            string path = FileSystem.Current.CacheDirectory;
+            fullPath = Path.Combine(path, "UserSetting.txt");
+        }
+        public UserSettings GetSettings1()
+        {
+           
+            string userSettingsJson = File.ReadAllText(fullPath);
+            UserSettings userSettings = JsonConvert.DeserializeObject<UserSettings>(userSettingsJson);
+            
             return userSettings;
         }
 
         public async Task<bool> PutSettings(UserSettings userSettings)
         {
-            // PUT API   
+            string userSettingsJson = JsonConvert.SerializeObject(userSettings);
+
+            try
+            {
+                File.WriteAllText(fullPath, userSettingsJson);
+            }
+            catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+                return false;
+            }
+
             return true;
         }
     }

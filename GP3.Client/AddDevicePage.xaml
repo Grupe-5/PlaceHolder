@@ -46,7 +46,7 @@
 
                     <Picker ItemsSource="{Binding ReasonNames}" 
                         SelectedItem="{Binding CallbackReason}"
-                        Title="Month"
+                        Title="Turn On reason"
                         TextColor="Black"
                         FontSize="18"
                         TitleColor="#BDBDBD"
@@ -92,7 +92,7 @@
                     TextColor="White" 
                     FontSize="20"
                     CornerRadius="30"
-                    Text="Update Information"/>
+                    Text="Add Device"/>
         </Grid>
     </StackLayout>
 </ContentPage>
