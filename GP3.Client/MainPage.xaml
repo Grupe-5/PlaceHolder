@@ -26,6 +26,7 @@
                            FontSize="20"
                            TextColor="Black" Margin="5,0"
                            ReturnType="Next"
+                           
                            PlaceholderColor="#BDBDBD">
                         <Entry.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding EmailClickedCommand}">

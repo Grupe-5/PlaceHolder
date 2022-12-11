@@ -13,7 +13,7 @@ public partial class HistoryViewModel : BaseViewModel
     public HistoryViewModel(HistoryService historyService)
     {
         _historyService = historyService;
-        Title = "HistoryPage";
+        Title = "Energy Use History";
 
         GetMonthReadingsAsync();   
     }

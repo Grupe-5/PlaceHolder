@@ -87,7 +87,5 @@ namespace GP3.Client.ViewModels
             }
         }
 
-
-
     }
 }

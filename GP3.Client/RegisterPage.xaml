@@ -29,6 +29,7 @@
                            FontSize="20"
                            TextColor="Black" 
                            Margin="5,0"
+                           ReturnType="Next"
                            PlaceholderColor="#BDBDBD">
                         <Entry.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding EmailClickedCommand}">
@@ -52,6 +53,7 @@
                            FontSize="20"
                            TextColor="Black" 
                            Margin="5,0"
+                           ReturnType="Next"
                            PlaceholderColor="#BDBDBD" 
                            IsPassword="True">
                         <Entry.GestureRecognizers>
@@ -73,6 +75,8 @@
                            Text="{Binding RepeatedPassword}"
                            FontSize="20"
                            TextColor="Black"
+                           ReturnType="Done"
+                           ReturnCommand="{Binding RegisterCommand}"
                            PlaceholderColor="#BDBDBD" 
                            IsPassword="True">
                         <Entry.GestureRecognizers>

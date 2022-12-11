@@ -37,11 +37,11 @@ public partial class AddDeviceViewModel: BaseViewModel
         IntegrationCallback clbk = null;
         try
         {
-            clbk = await _api.AddIntegrationAsync(CallbackUrl, CallbackReason);
+            clbk = await _api.AddIntegrationAsync(CallbackUrl, callbackReason);
         }
         catch (Exception e)
         {
-                await Shell.Current.DisplayAlert("Error!", "Failed to save callback!", "OK");
+            await Shell.Current.DisplayAlert("Error!", "Failed to save callback!", "OK");
         }
         finally
         {
