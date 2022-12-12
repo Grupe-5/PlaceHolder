@@ -3,29 +3,25 @@ using GP3.Client.Services;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using GP3.Client.Refit;
+using System.Threading.Tasks;
 
 namespace GP3.Client.ViewModels;
 
 [QueryProperty("MeterHistory", "MeterHistory")]
 public partial class UsageDataViewModel : BaseViewModel
 {
-
-    UsageDataService _historyService;
+    private readonly IHistoryApi _api;
     public ObservableCollection<MeterHistory> MeterHistory { get; } = new();
 
-    public UsageDataViewModel(UsageDataService historyService)
+    public UsageDataViewModel(IHistoryApi api)
     {
-        _historyService = historyService;
+        _api = api;
         Title = "Energy Meter Data";
 
+        
+
         MeterHistory.Add(new MeterHistory(3, 3, 3, 3, 3));
-
-
-
-    }
-    async Task nice()
-    {
-        await Shell.Current.DisplayAlert("Error!", "here", "OK");
     }
 
     [ObservableProperty]
@@ -41,13 +37,18 @@ public partial class UsageDataViewModel : BaseViewModel
     [RelayCommand]
     async Task AddNewMonthPage()
     {
-        //await Shell.Current.GoToAsync($"{nameof(HistoryMonthAddPage)}");
         await Shell.Current.GoToAsync($"{nameof(ChooseProviderPage)}", true, 
             new Dictionary<string, object>
             {
                 {"MeterHistory", MeterHistory}
             });
         IsMeterRegistred = !IsMeterRegistred;
+    }
+
+    async Task GetApiStuff()
+    {
+        bool a = await _api.ProviderIsRegistered();
+        await Shell.Current.DisplayAlert("Error!", a.ToString(), "OK");
     }
 
 }
