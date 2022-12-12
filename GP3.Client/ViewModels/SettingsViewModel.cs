@@ -1,6 +1,7 @@
 ﻿using GP3.Client.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using GP3.Client.Models;
 
 namespace GP3.Client.ViewModels
 {
@@ -36,8 +37,7 @@ namespace GP3.Client.ViewModels
             try
             {
                 IsBusy = true;
-                
-                await _settingsService.PutSettings(userSettings);
+                _settingsService.Settings = userSettings;
                 await Shell.Current.DisplayAlert("","Settings saved successfully!","Ok");
             }
             catch (Exception ex)
@@ -51,12 +51,11 @@ namespace GP3.Client.ViewModels
         }
 
         [RelayCommand]
-        public async void OpenMailApp()
+        public static async void OpenMailApp()
         {
             if (Email.Default.IsComposeSupported)
             {
-
-                string[] recipients = new[] { "nedasgulb@gmail.com "};
+                string[] recipients = new[] { "placeholder@gp3.com"};
 
                 var message = new EmailMessage
                 {
@@ -74,13 +73,7 @@ namespace GP3.Client.ViewModels
             {
                 IsBusy = true;
 
-                userSettings = _settingsService.GetSettings1();
-                if (userSettings == null)
-                {
-                    userSettings = new UserSettings();
-                }
-
-
+                userSettings = _settingsService.Settings;
             }
             catch (Exception ex)
             {

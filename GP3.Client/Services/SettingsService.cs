@@ -1,7 +1,6 @@
 ﻿
+using GP3.Client.Models;
 using MonkeyCache;
-using MonkeyCache.FileStore;
-using Newtonsoft.Json;
 
 namespace GP3.Client.Services
 {
@@ -11,35 +10,14 @@ namespace GP3.Client.Services
         private readonly TimeSpan barrelDuration = TimeSpan.MaxValue;
         private readonly IBarrel _barrel;
 
+        public UserSettings Settings { get => _barrel.Get<UserSettings>(barrelPrefix); set => _barrel.Add(key: barrelPrefix, data: value, expireIn: barrelDuration); }
         public SettingsService(IBarrel barrel)
         {
             _barrel = barrel;
             if(!_barrel.Exists(barrelPrefix))
             {
-                UserSettings userSettings = new UserSettings();
-                _barrel.Add(key: barrelPrefix, data: userSettings, expireIn: barrelDuration);
+                Settings = new UserSettings();
             }
-        }
-
-        public UserSettings GetSettings1()
-        {
-            if (_barrel.Exists(barrelPrefix))
-            {
-                return _barrel.Get<UserSettings>(barrelPrefix);
-            }
-            return null;
-        }
-
-        public async Task<bool> PutSettings(UserSettings userSettings)
-        {
-   
-            if (_barrel.Exists(barrelPrefix))
-            {
-                _barrel.Add(key: barrelPrefix, data: userSettings, expireIn: barrelDuration);
-                return true;
-            }
-
-            return false;
         }
     }
 }

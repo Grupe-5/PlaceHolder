@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿namespace GP3.Client.Models;
 public class UserSettings
 {
     public UserSettings()
     {
+        /* Set defaults here */
         lowPriceMark = 250;
+        priceChangeNotf = false;
+        lowestPriceNotf = false;
     }
 
     public double lowPriceMark { get; set; }
