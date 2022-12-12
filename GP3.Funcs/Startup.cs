@@ -4,6 +4,7 @@ using GP3.Common.Repositories;
 using GP3.Funcs.DesignTimeDB;
 using GP3.Funcs.Functions.ServiceBus;
 using GP3.Funcs.Services;
+using GP3.Funcs.Services.HistoryProviders;
 using GP3.Scraper;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Azure.Functions.Extensions.JwtCustomHandler;
@@ -41,6 +42,14 @@ namespace GP3.Funcs
             builder.Services.AddScoped<FetcherService>();
             builder.Services.AddScoped<PriceService>();
 
+            /* Register electricity history providers */
+            builder.Services.AddSingleton<Eso>();
+            builder.Services.AddSingleton<Ignitis>();
+            builder.Services.AddSingleton<Perlas>();
+            builder.Services.AddSingleton<ProviderFactory>();
+            builder.Services.AddScoped<ProviderService>();
+
+            builder.Services.AddTransient<IHistoryRegistrationRepository, HistoryRegistrationRepository>();
             builder.Services.AddTransient<IIntegrationRepository, IntegrationRepository>();
             builder.Services.AddTransient<IDayPriceRepository, DayPriceRepository>();
             builder.Services.Decorate<IDayPriceRepository, CachedDayPriceRepository>();
@@ -58,7 +67,8 @@ namespace GP3.Funcs
             var dbStr = conf.GetConnectionString(ConnStrings.SQL);
             builder.Services
                 .UseMySqlMig<DayPriceDbContext>(dbStr, ConnStrings.ContextAssembly)
-                .UseMySqlMig<IntegrationDbContext>(dbStr, ConnStrings.ContextAssembly);
+                .UseMySqlMig<IntegrationDbContext>(dbStr, ConnStrings.ContextAssembly)
+                .UseMySqlMig<HistoryRegistrationDbContext>(dbStr, ConnStrings.ContextAssembly);
 
             builder.Services.AddTransient<IFirebaseTokenProvider, CustomTokenProvider>(provider => new CustomTokenProvider(
                 issuer: "https://securetoken.google.com/gp3-auth",
