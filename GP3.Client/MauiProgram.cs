@@ -15,7 +15,7 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder
-            .UseMauiApp<App>()
+            .UseMauiApp<App>()            
             .UseSentry(options =>
             {
                 // The DSN is the only required setting.
@@ -37,11 +37,11 @@ public static class MauiProgram
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<RegisterViewModel>();
 
-        builder.Services.AddTransient<HistoryPage>();
-        builder.Services.AddTransient<HistoryViewModel>();
+        builder.Services.AddTransient<UsageDataPage>();
+        builder.Services.AddTransient<UsageDataViewModel>();
 
-        builder.Services.AddTransient<HistoryMonthAddViewModel>();
-        builder.Services.AddTransient<HistoryMonthAddPage>();
+        builder.Services.AddTransient<EditDeviceViewModel>();
+        builder.Services.AddTransient<EditDevicePage>();
 
         builder.Services.AddTransient<StatisticsPage>();
         builder.Services.AddTransient<StatisticsViewModel>();
@@ -55,14 +55,18 @@ public static class MauiProgram
         builder.Services.AddTransient<IntegrationsPage>();
         builder.Services.AddTransient<IntegrationsViewModel>();
 
-        builder.Services.AddTransient<EditDevicePage>();
-        builder.Services.AddTransient<EditDeviceViewModel>();
+        builder.Services.AddTransient<ChooseProviderPage>();
+        builder.Services.AddTransient<ChooseProviderViewModel>();
+
 
         builder.Services.AddTransient<AddDevicePage>();
         builder.Services.AddTransient<AddDeviceViewModel>();
 
+        builder.Services.AddTransient<AddAPITokenPage>();
+        builder.Services.AddTransient<APITokenPageViewModel>();
+
         /* Services */
-        builder.Services.AddSingleton<HistoryService>();
+        builder.Services.AddSingleton<UsageDataService>();
         builder.Services.AddSingleton<AuthService>();
         builder.Services.AddSingleton<SettingsService>();
 

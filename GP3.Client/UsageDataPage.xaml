@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:GP3.Client.Models"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+             x:DataType="viewmodel:UsageDataViewModel"
+             x:Class="GP3.Client.UsageDataPage">
+    <StackLayout Padding="10,10,10,10">
+        <HorizontalStackLayout HorizontalOptions="Center" Margin="0,15,0,0">
+            <Label Text="{Binding Title}" FontSize="25" FontAttributes="Bold"/>
+        </HorizontalStackLayout>
+
+
+        <CollectionView BackgroundColor="Transparent"
+                        ItemsSource="{Binding MeterHistory}"
+                        SelectionMode="None"
+                        IsVisible="{Binding IsMeterRegistred}">
+        <CollectionView.ItemTemplate>
+        <DataTemplate x:DataType="model:MeterHistory">
+
+        <Grid RowDefinitions="10,48,55,30,18,40,25,75,50,55,30,18,45,30,60" ColumnDefinitions="*, *">
+            <StackLayout  
+                BackgroundColor="#4C34C2" 
+                Grid.Row="1" 
+                Grid.ColumnSpan="3"  
+                Padding="10">
+                <Label Margin="0,0,8,0" Text="Today" FontAttributes="Bold" TextColor="#F7F5FF" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2" HorizontalOptions="Center" Margin="0,15,0,0">
+                <Label Text="{Binding currentDraw}" FontSize="30"></Label>
+                <Label Text="kW" Margin="10,0,0,0" TextColor="#4C34C2"  FontSize="30"></Label>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout 
+                    Grid.Row="4" Grid.ColumnSpan="2"
+                    BackgroundColor="#4C34C2" 
+                    HeightRequest="3" 
+                    WidthRequest="350" 
+                    HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout 
+                Grid.Row="3" 
+                Grid.ColumnSpan="2" 
+                HorizontalOptions="Center">
+                <Label Text="Current Draw" FontSize="19"></Label>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout  
+                Grid.Row="5" 
+                Grid.Column="0" 
+                HorizontalOptions="Center" 
+                Margin="0,10,0,0">
+                <Label Text="Used: " FontSize="20" FontAttributes="Bold"/>
+                <Label Text="{Binding dayUsed}" FontSize="20"/>
+                <Label Text="KWh" TextColor="#4C34C2" FontSize="20"  Margin="5,0,0,0" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+                <HorizontalStackLayout 
+                Grid.Row="5" 
+                Grid.Column="1" 
+                HorizontalOptions="Center" 
+                Margin="0,10,0,0">
+                <Label Text="Est. Cost: " FontSize="20" FontAttributes="Bold"/>
+                <Label Text="{Binding dayEstCost}" FontSize="20"/>
+                <Label Text="€" TextColor="#4C34C2" FontSize="20" Margin="5,0,0,0" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout 
+ 
+                Grid.Row="7"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center" >
+                <Label Text="Using more than ussual." Margin="5,0,0,0" FontSize="20" TextColor="#E23636" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+            <!-- This month -->
+            <StackLayout 
+                BackgroundColor="#4C34C2" 
+                Grid.Row="8" 
+                Grid.ColumnSpan="3"  
+                Padding="10">
+                <Label Margin="0,0,8,0" Text="Month" FontAttributes="Bold" TextColor="#F7F5FF" FontSize="20" HorizontalOptions="Center"/>
+            </StackLayout>
+
+            <HorizontalStackLayout 
+                Grid.Row="9" 
+                Grid.ColumnSpan="2" 
+                HorizontalOptions="Center" 
+                Margin="0,15,0,0">
+                <Label Text="{Binding monthUsed}" FontSize="30"></Label>
+                <Label Text="Kwh" Margin="10,0,0,0" TextColor="#4C34C2"  FontSize="30"></Label>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout 
+                Grid.Row="10" 
+                Grid.ColumnSpan="2" 
+                HorizontalOptions="Center">
+                <Label Text="Total Used" FontSize="19"></Label>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout
+                    Grid.Row="11" Grid.ColumnSpan="2"
+                    BackgroundColor="#4C34C2" 
+                    HeightRequest="3" 
+                    WidthRequest="350" 
+                    HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout 
+                Grid.Row="12" 
+                Grid.ColumnSpan="2" 
+                HorizontalOptions="Center" 
+                Margin="0,10,0,0">
+                <Label Text="Est. Cost: " FontSize="20" FontAttributes="Bold"/>
+                <Label Text="{Binding monthEstCost}" FontSize="20"/>
+                <Label Text="€" TextColor="#4C34C2" FontSize="20" Margin="5,0,0,0" FontAttributes="Bold"/>
+            </HorizontalStackLayout>
+
+        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        
+        <Button Grid.Row="16" Grid.ColumnSpan="2" 
+                    IsEnabled="{Binding IsNotBusy}" 
+                    Command="{Binding AddNewMonthPageCommand}"
+                    IsVisible="{Binding IsMeterRegistred}"
+                    Text="Add Meter" 
+                    Padding="15" 
+                    TextColor="#4C34C2"
+                    BorderColor="#4C34C2"
+                    BorderWidth="2"
+                    FontSize="20" 
+                    FontAttributes="Bold"
+                    CornerRadius="10" 
+                    BackgroundColor="Transparent">
+        </Button>
+        <Grid RowDefinitions="10,48,55,30,18,40,25,65,50,55,30,18,45,30,60,60" ColumnDefinitions="*, *" >
+            <Image Source="error.svg" Grid.Row="5" Grid.RowSpan="3" IsVisible="{Binding IsNotMeterRegistred}" Grid.ColumnSpan="2"  />
+            <HorizontalStackLayout 
+                IsVisible="{Binding IsNotMeterRegistred}"
+                Grid.Row="8" 
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2" 
+                HorizontalOptions="Center" Margin="0,10,0,0">
+                <Label Text="No Meter is added!" FontSize="25" FontAttributes="Bold" TextColor="#4C34C2"/>
+            </HorizontalStackLayout>
+            
+            <Button Grid.Row="16" Grid.ColumnSpan="2" 
+                    IsEnabled="{Binding IsNotBusy}" 
+                    Command="{Binding AddNewMonthPageCommand}"
+                    Text="Add Meter" 
+                    Padding="15" 
+                    TextColor="#4C34C2"
+                    BorderColor="#4C34C2"
+                    BorderWidth="2"
+                    FontSize="20" 
+                    FontAttributes="Bold"
+                    CornerRadius="10" 
+                    BackgroundColor="Transparent">
+            </Button>
+        </Grid>
+        
+    </StackLayout>
+</ContentPage>

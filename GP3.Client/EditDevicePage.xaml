@@ -7,11 +7,11 @@
 
     <StackLayout Padding="20">
         <StackLayout Padding="0,0,0,25">
-                <Label 
+            <Label 
                     Text="{Binding Title}"
                     FontSize="25"
                     HorizontalOptions="Center"/>
-                <HorizontalStackLayout 
+            <HorizontalStackLayout 
                     BackgroundColor="#4C34C2" 
                     HeightRequest="3" 
                     WidthRequest="190" 
@@ -20,7 +20,7 @@
         </StackLayout>
 
         <Grid ColumnDefinitions="*, *" RowDefinitions="*,*,*,*,*,*,*,*" RowSpacing="10">
-            
+
             <VerticalStackLayout Grid.ColumnSpan="2" Grid.Row="1" HorizontalOptions="Start">
                 <Grid>
                     <Frame HeightRequest="50" 
@@ -73,10 +73,10 @@
                 <VerticalStackLayout Padding="5,0,0,0">
                 </VerticalStackLayout>
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Grid.Column="1" Grid.Row="6">
             </VerticalStackLayout>
-            
+
             <VerticalStackLayout Grid.Column="0" Grid.Row="7" HorizontalOptions="Start" VerticalOptions="Center">
                 <VerticalStackLayout Padding="5,0,0,0">
                 </VerticalStackLayout>
