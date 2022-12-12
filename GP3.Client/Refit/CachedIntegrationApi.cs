@@ -60,6 +60,7 @@ namespace GP3.Client.Refit
             {
                 var cachedIntegrations = _barrel.Get<IEnumerable<IntegrationCallback>>(barrelPrefix)
                     .Where(i => i.Id != integration.Id).Append(ret);
+
                 _barrel.Add(key: barrelPrefix, data: cachedIntegrations, expireIn: barrelDuration);
             }
 

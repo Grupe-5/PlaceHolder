@@ -1,40 +1,45 @@
 ﻿
+using MonkeyCache;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 
 namespace GP3.Client.Services
 {
     public class SettingsService
     {
-        private string fullPath;
-        public SettingsService()
+        private const string barrelPrefix = "UserSettings";
+        private readonly TimeSpan barrelDuration = TimeSpan.MaxValue;
+        private readonly IBarrel _barrel;
+
+        public SettingsService(IBarrel barrel)
         {
-            string path = FileSystem.Current.CacheDirectory;
-            fullPath = Path.Combine(path, "UserSetting.txt");
+            _barrel = barrel;
+            if(!_barrel.Exists(barrelPrefix))
+            {
+                UserSettings userSettings = new UserSettings();
+                _barrel.Add(key: barrelPrefix, data: userSettings, expireIn: barrelDuration);
+            }
         }
+
         public UserSettings GetSettings1()
         {
-           
-            string userSettingsJson = File.ReadAllText(fullPath);
-            UserSettings userSettings = JsonConvert.DeserializeObject<UserSettings>(userSettingsJson);
-            
-            return userSettings;
+            if (_barrel.Exists(barrelPrefix))
+            {
+                return _barrel.Get<UserSettings>(barrelPrefix);
+            }
+            return null;
         }
 
         public async Task<bool> PutSettings(UserSettings userSettings)
         {
-            string userSettingsJson = JsonConvert.SerializeObject(userSettings);
-
-            try
+   
+            if (_barrel.Exists(barrelPrefix))
             {
-                File.WriteAllText(fullPath, userSettingsJson);
-            }
-            catch(Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-                return false;
+                _barrel.Add(key: barrelPrefix, data: userSettings, expireIn: barrelDuration);
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
