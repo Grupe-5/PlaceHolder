@@ -10,7 +10,6 @@ namespace GP3.Client.ViewModels
     public partial class HomeViewModel : BaseViewModel
     {
         private readonly IPriceApi _priceApi;
-        private readonly SettingsService _settingsService;
         public ObservableCollection<HourPriceFormated> HourPricesFormated { get; } = new();
 
         public HomeViewModel(IPriceApi priceApi, SettingsService settingsService)
@@ -20,17 +19,7 @@ namespace GP3.Client.ViewModels
             GetPricesAsync();
 
             currHour = DateTime.Now.Hour;
-
-            UserSettings us = settingsService.GetSettings1();
-            if(us != null)
-            {
-                currUserLowPriceDefinition = us.lowPriceMark;
-            }
-            else
-            {
-                currUserLowPriceDefinition = 250;
-            }
-
+            currUserLowPriceDefinition = settingsService.Settings.lowPriceMark;
         }
 
         [ObservableProperty]
