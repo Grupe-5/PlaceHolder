@@ -82,7 +82,8 @@ public static class MauiProgram
 
         builder.Services
             .AddResilientApi<IPriceApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout)
-            .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
+            .AddResilientApi<IIntegrationApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout)
+            .AddResilientApi<IHistoryApi>(builder.Configuration["ApiURI"], apiRetryCount, apiRetryWait, apiTimeout);
 
         builder.Services.Decorate<IPriceApi, CachedPriceApi>();
         builder.Services.Decorate<IIntegrationApi, CachedIntegrationApi>();
