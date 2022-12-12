@@ -107,6 +107,9 @@
 	  <MauiXaml Update="AddDevicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\CalendarView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="EditDevicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

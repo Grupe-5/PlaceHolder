@@ -4,6 +4,7 @@ using GP3.Client.Models;
 using GP3.Client.Refit;
 using GP3.Client.Services;
 using System.Collections.ObjectModel;
+using GP3.Client.CustomControls;
 
 namespace GP3.Client.ViewModels
 {
@@ -38,12 +39,15 @@ namespace GP3.Client.ViewModels
 
         [ObservableProperty]
         public int currHour;
+
+        [ObservableProperty]
+        public DateTime currentDate;
         async public void GetPricesAsync()
         {
             try
             {
                 IsBusy = true;
-                var prices = await _priceApi.GetPriceOffsetAsync(DateTime.Today);
+                var prices = await _priceApi.GetPriceOffsetAsync(CurrentDate);
                 int index = 0;
                 HourPriceFormated hourPriceFormated;
                 HourPricesFormated.Clear();
