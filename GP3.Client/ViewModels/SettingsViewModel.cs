@@ -28,8 +28,8 @@ namespace GP3.Client.ViewModels
         [RelayCommand]
         async Task SignOut()
         {
-            _authService.NullAuth();
             await _historyApi.UnregisterProvider();
+            await _authService.Signout();
             await Shell.Current.GoToAsync("///" + nameof(MainPage));
         }
 

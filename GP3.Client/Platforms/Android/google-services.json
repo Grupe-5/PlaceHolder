@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "396103772080",
+    "project_id": "gp3-auth",
+    "storage_bucket": "gp3-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396103772080:android:217552de7670137f649875",
+        "android_client_info": {
+          "package_name": "com.gp3.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396103772080-4sbbfrqjjlkqbcg2tc7ch3d4ua4f8u3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhgtYgvvLST3hIb_SOdIQ8JHYMGYeX9Ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396103772080-4sbbfrqjjlkqbcg2tc7ch3d4ua4f8u3d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396103772080-pbjd3r7l3ru97bvfrps8lvuavusv1efk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gp3.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

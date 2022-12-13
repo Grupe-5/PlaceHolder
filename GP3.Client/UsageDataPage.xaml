@@ -67,11 +67,10 @@
             </HorizontalStackLayout>
 
             <HorizontalStackLayout 
- 
                 Grid.Row="7"
                 Grid.ColumnSpan="2"
                 HorizontalOptions="Center" >
-                <Label Text="Using more than ussual." Margin="5,0,0,0" FontSize="20" TextColor="#E23636" FontAttributes="Bold"/>
+                <Label Text="Using more than usual" Margin="5,0,0,0" FontSize="20" TextColor="#E23636" FontAttributes="Bold"/>
             </HorizontalStackLayout>
 
             <!-- This month -->

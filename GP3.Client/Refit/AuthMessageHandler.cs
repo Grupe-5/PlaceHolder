@@ -20,7 +20,8 @@ namespace GP3.Client.Refit
 
             if(authHeader != null)
             {
-                headers.Authorization = new AuthenticationHeaderValue(authHeader.Scheme, _auth.Token);
+                var token = await _auth.GetToken();
+                headers.Authorization = new AuthenticationHeaderValue(authHeader.Scheme, token);
             }
 
             return await base.SendAsync(request, cancelToken);
