@@ -56,31 +56,12 @@ public partial class APITokenPageViewModel : BaseViewModel
             ActivateError("Please fill the field!");
             return;
         }
+
         IsBusy = true;
-
-        MeterHistoryCollection.First().monthEstCost = 25;
-
         try
         {
-            // Unregister
             await _api.RegisterProvider(new HistoryRegistration("Nedas", ApiToken, Provider));
-            if (await _api.ProviderIsRegistered())
-            {
-                double currDraw = Math.Round(await _api.GetCurrentDraw(), 2);
-                double dailyUsage = Math.Round(await _api.GetDailyUsage(), 2);
-                double monthlyusage = Math.Round(await _api.GetMonthlyUsage(), 2);
-                double dalyEst = Math.Round(dailyUsage * 0.43, 2);
-                double mothlyEst = Math.Round(monthlyusage * 0.43918, 2);
-                
-                
-                meterHistoryCollection.Clear();
-                meterHistoryCollection.Add(new MeterHistory(currDraw, dailyUsage, dalyEst, monthlyusage, mothlyEst));
-            }
-            else
-            {
-                ActivateError("Invalid token!");
-            }
-
+            await Shell.Current.GoToAsync("../..");
         }
         catch(Exception e)
         {
@@ -89,7 +70,6 @@ public partial class APITokenPageViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
-            await Shell.Current.GoToAsync("../..");
         }
 
     }

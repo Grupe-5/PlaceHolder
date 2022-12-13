@@ -18,7 +18,7 @@
         <CollectionView.ItemTemplate>
         <DataTemplate x:DataType="model:MeterHistory">
 
-        <Grid RowDefinitions="10,48,55,30,18,40,25,75,50,55,30,18,45,30,60" ColumnDefinitions="*, *">
+        <Grid RowDefinitions="10,48,55,30,18,40,25,85,50,55,30,18,45,30,60" ColumnDefinitions="*, *">
             <StackLayout  
                 BackgroundColor="#4C34C2" 
                 Grid.Row="1" 
@@ -121,20 +121,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         
-        <Button Grid.Row="16" Grid.ColumnSpan="2" 
-                    IsEnabled="{Binding IsNotBusy}" 
-                    Command="{Binding AddNewMonthPageCommand}"
-                    IsVisible="{Binding IsMeterRegistred}"
-                    Text="Add Meter" 
-                    Padding="15" 
-                    TextColor="#4C34C2"
-                    BorderColor="#4C34C2"
-                    BorderWidth="2"
-                    FontSize="20" 
-                    FontAttributes="Bold"
-                    CornerRadius="10" 
-                    BackgroundColor="Transparent">
-        </Button>
         <Grid RowDefinitions="10,48,55,30,18,40,25,65,50,55,30,18,45,30,60,60" ColumnDefinitions="*, *" >
             <Image Source="error.svg" Grid.Row="5" Grid.RowSpan="3" IsVisible="{Binding IsNotMeterRegistred}" Grid.ColumnSpan="2"  />
             <HorizontalStackLayout 
@@ -155,6 +141,7 @@
             </StackLayout>
 
             <Button Grid.Row="16" Grid.ColumnSpan="2" 
+                    IsVisible="{Binding IsNotMeterRegistred}"
                     IsEnabled="{Binding IsNotBusy}" 
                     Command="{Binding AddNewMonthPageCommand}"
                     Text="Add Meter" 

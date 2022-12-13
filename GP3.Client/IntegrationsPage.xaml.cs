@@ -10,7 +10,6 @@ public partial class IntegrationsPage : ContentPage
 		BindingContext = viewModel;
     }
     
-
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         await ((IntegrationsViewModel)BindingContext).RefreshIntegrationsAsync();

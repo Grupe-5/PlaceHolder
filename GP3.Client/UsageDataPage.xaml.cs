@@ -11,6 +11,7 @@ public partial class UsageDataPage : ContentPage
 	}
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
+        ((UsageDataViewModel)BindingContext).RefreshMeterData();
         base.OnNavigatedTo(args);
     }
 }
