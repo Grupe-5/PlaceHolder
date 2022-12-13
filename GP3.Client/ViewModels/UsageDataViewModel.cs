@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GP3.Client.Refit;
-using System.ComponentModel;
 
 namespace GP3.Client.ViewModels;
 
@@ -18,7 +17,6 @@ public partial class UsageDataViewModel : BaseViewModel
     {
         _api = api;
         Title = "Energy Meter Data";
-
     }
 
     [ObservableProperty]
@@ -29,7 +27,6 @@ public partial class UsageDataViewModel : BaseViewModel
 
     [ObservableProperty]
     double currentDraw;
-
 
     [RelayCommand]
     async Task AddNewMonthPage()
