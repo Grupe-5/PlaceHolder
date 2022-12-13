@@ -8,6 +8,9 @@ using MonkeyCache.FileStore;
 #if ANDROID
 using Plugin.Firebase.Android;
 #endif
+#if IOS
+using Plugin.Firebase.iOS;
+#endif
 using Plugin.Firebase.Auth;
 using Plugin.Firebase.Shared;
 

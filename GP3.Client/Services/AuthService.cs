@@ -1,22 +1,16 @@
 ﻿using Plugin.Firebase.Auth;
-using System.Text.Json;
 
 namespace GP3.Client.Services
 {
     public class AuthService
     {
         private readonly IFirebaseAuth _auth;
-        public AuthService(IFirebaseAuth auth)
-        {
-            _auth = auth;
-        }
+        public AuthService(IFirebaseAuth auth) => _auth = auth;
 
         public string UserId => _auth.CurrentUser.Uid;
 
         public async Task<string> GetToken()
-        {
-            return (await _auth.CurrentUser.GetIdTokenResultAsync()).Token;
-        }
+            => (await _auth.CurrentUser.GetIdTokenResultAsync()).Token;
 
         public bool IsSignedIn() => _auth.CurrentUser != null;
 
