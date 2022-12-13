@@ -54,6 +54,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\google-services.json" />
+	  <None Remove="Platforms\iOS\GoogleService-Info.plist" />
 	  <None Remove="Resources\Fonts\OpenSans-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Sitka.ttc" />
 	  <None Remove="Resources\Images\arrow.svg" />
@@ -83,6 +85,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <GoogleServicesJson Include="Platforms\Android\google-services.json" />
+	  <GoogleServicesJson Include="Platforms\iOS\GoogleService-Info.plist" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="DevExpress.Maui.Charts" Version="22.1.6" />
 	  <PackageReference Include="DevExpress.Maui.CollectionView" Version="22.1.6" />
@@ -93,7 +100,7 @@
 	  <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.10" />
 	  <PackageReference Include="MonkeyCache" Version="1.6.3" />
 	  <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
-	  <PackageReference Include="Plugin.Firebase" Version="1.2.1" />
+	  <PackageReference Include="Plugin.Firebase" Version="1.2.4" />
 	  <PackageReference Include="Polly" Version="7.2.3" />
 	  <PackageReference Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
 	  <PackageReference Include="Refit" Version="6.3.2" />

@@ -123,5 +123,8 @@ public static class MauiProgram
         return builder;
     }
 
-    private static CrossFirebaseSettings CreateCrossFirebaseSettings() => new(isAuthEnabled: true);
+    private static CrossFirebaseSettings CreateCrossFirebaseSettings()
+    {
+        return new CrossFirebaseSettings(isAuthEnabled: true, isCloudMessagingEnabled: true);
+    }
 }
