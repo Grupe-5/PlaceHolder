@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
+using GP3.Client.Refit;
 
 namespace GP3.Client.ViewModels
 {
@@ -9,11 +10,13 @@ namespace GP3.Client.ViewModels
     {
         private readonly SettingsService _settingsService;
         private readonly AuthService _authService;
+        private readonly IHistoryApi _historyApi;
 
-        public SettingsViewModel(SettingsService settingsService, AuthService authService)
+        public SettingsViewModel(SettingsService settingsService, AuthService authService, IHistoryApi historyApi)
         {
             _settingsService = settingsService;
             _authService = authService;
+            _historyApi = historyApi;
 
             Title = "Settings";
             GetSettingsAsync();
@@ -26,6 +29,7 @@ namespace GP3.Client.ViewModels
         async Task SignOut()
         {
             _authService.NullAuth();
+            await _historyApi.UnregisterProvider();
             await Shell.Current.GoToAsync("///" + nameof(MainPage));
         }
 

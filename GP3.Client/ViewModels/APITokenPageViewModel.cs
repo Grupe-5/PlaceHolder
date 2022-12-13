@@ -63,7 +63,7 @@ public partial class APITokenPageViewModel : BaseViewModel
         try
         {
             // Unregister
-            await _api.RegisterProvider(new HistoryRegistration("Nedas", ApiToken, ProviderSelection.Perlas));
+            await _api.RegisterProvider(new HistoryRegistration("Nedas", ApiToken, Provider));
             if (await _api.ProviderIsRegistered())
             {
                 double currDraw = Math.Round(await _api.GetCurrentDraw(), 2);
