@@ -5,10 +5,6 @@ namespace GP3.Client.Services
 {
     public class AuthService
     {
-        /*
-        private const string apiKey = "AIzaSyAhgtYgvvLST3hIb_SOdIQ8JHYMGYeX9Ns";
-        private readonly FirebaseAuthProvider authProvider = new(new FirebaseConfig(apiKey));
-        */
         private readonly IFirebaseAuth _auth;
         public AuthService(IFirebaseAuth auth)
         {
