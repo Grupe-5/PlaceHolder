@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Text.RegularExpressions;
-using Firebase.Auth;
 
 namespace GP3.Client.ViewModels
 {
@@ -71,9 +70,9 @@ namespace GP3.Client.ViewModels
                 HideEmailError();
                 await Shell.Current.GoToAsync(nameof(HomePage));
             }
-            catch (FirebaseAuthException ex)
+            catch (Exception ex)
             {
-                ActivatePswError(AuthService.ParseErrorToString(ex), true, true);
+                ActivatePswError("Failed to register", true, true);
                 ActivateEmailError("");
             }
             finally

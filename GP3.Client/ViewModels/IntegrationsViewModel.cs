@@ -58,7 +58,6 @@ namespace GP3.Client.ViewModels
         {
             try
             {
-                IsBusy = true;
                 IsRefreshing = true;
                 var integrationList = await _api.GetIntegrationsAsync();
                 Integrations.Clear();
@@ -74,7 +73,6 @@ namespace GP3.Client.ViewModels
             finally
             {
                 IsRefreshing = false;
-                IsBusy = false;
             }
         }
     }

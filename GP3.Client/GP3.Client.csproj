@@ -20,7 +20,7 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
@@ -29,6 +29,11 @@
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-ios'">
 		<BundleResource Include="Platforms\iOS\GoogleService-Info.plist" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk7" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -85,7 +90,6 @@
 	  <PackageReference Include="DevExpress.Maui.DataGrid" Version="22.1.6" />
 	  <PackageReference Include="DevExpress.Maui.Editors" Version="22.1.6" />
 	  <PackageReference Include="DevExpress.Maui.Scheduler" Version="22.1.6" />
-	  <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2" />
 	  <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.10" />
 	  <PackageReference Include="MonkeyCache" Version="1.6.3" />
 	  <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />

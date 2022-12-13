@@ -1,7 +1,6 @@
 ﻿using GP3.Client.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Firebase.Auth;
 using GP3.Client.Models;
 
 namespace GP3.Client.ViewModels
@@ -27,7 +26,6 @@ namespace GP3.Client.ViewModels
 
         private async void SkipLoginIfValid()
         {
-            await authService.LoadAuth();
             if (authService.IsSignedIn())
             {
                 await Shell.Current.GoToAsync(nameof(HomePage));
@@ -68,9 +66,9 @@ namespace GP3.Client.ViewModels
                 await Shell.Current.GoToAsync(nameof(HomePage));
 
             }
-            catch (FirebaseAuthException ex)
+            catch
             {
-                ActivateError(AuthService.ParseErrorToString(ex));
+                ActivateError("Failed to login");
                 Password = "";
             }
             finally
@@ -132,8 +130,5 @@ namespace GP3.Client.ViewModels
             Email = "";
             Password = "";
         }
-
- 
-
     }
 }
