@@ -91,6 +91,7 @@ public static class MauiProgram
 
         builder.Services.Decorate<IPriceApi, CachedPriceApi>();
         builder.Services.Decorate<IIntegrationApi, CachedIntegrationApi>();
+        builder.Services.Decorate<IHistoryApi, CachedHistoryApi>();
 
         return builder.Build();
     }
