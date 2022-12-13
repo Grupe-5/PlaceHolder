@@ -59,6 +59,7 @@
 	  <None Remove="Resources\Images\boxarrowleft.svg" />
 	  <None Remove="Resources\Images\calendar.svg" />
 	  <None Remove="Resources\Images\envelope.svg" />
+	  <None Remove="Resources\Images\error.svg" />
 	  <None Remove="Resources\Images\gear.svg" />
 	  <None Remove="Resources\Images\help.svg" />
 	  <None Remove="Resources\Images\History.svg" />
@@ -103,16 +104,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="AddDevicePage.xaml.cs">
+	    <DependentUpon>AddDevicePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="ChooseProviderPage.xaml.cs">
+	    <DependentUpon>ChooseProviderPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="UsageDataPage.xaml.cs">
+	    <DependentUpon>UsageDataPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="AddAPITokenPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="AddDevicePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ChooseProviderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="EditDevicePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="HistoryMonthAddPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="HistoryPage.xaml">
+	  <MauiXaml Update="UsageDataPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="HomePage.xaml">

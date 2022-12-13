@@ -2,13 +2,12 @@ using GP3.Client.ViewModels;
 
 namespace GP3.Client;
 
-
-public partial class EditDevicePage : ContentPage
+public partial class AddAPITokenPage : ContentPage
 {
-    public EditDevicePage(EditDeviceViewModel vm)
-    {
-        InitializeComponent();
-        BindingContext = vm;
+	public AddAPITokenPage(APITokenPageViewModel viewModel)
+	{
+		InitializeComponent();
+        BindingContext = viewModel;
         Shell.SetTabBarIsVisible(this, false);
     }
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

@@ -14,10 +14,10 @@
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
         </Tab>
-        <Tab Title="History" Icon="history.svg">
+        <Tab Title="Data" Icon="history.svg">
             <ShellContent
-            ContentTemplate="{DataTemplate local:HistoryPage}"
-            Route="HistoryPage" />
+            ContentTemplate="{DataTemplate local:UsageDataPage}"
+            Route="UsageDataPage" />
         </Tab>
         <Tab Title="Integrations" Icon="integrations.svg">
             <ShellContent

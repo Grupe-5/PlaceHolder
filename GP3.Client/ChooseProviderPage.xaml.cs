@@ -2,9 +2,9 @@ using GP3.Client.ViewModels;
 
 namespace GP3.Client;
 
-public partial class HistoryMonthAddPage : ContentPage
+public partial class ChooseProviderPage : ContentPage
 {
-	public HistoryMonthAddPage(HistoryMonthAddViewModel viewModel)
+	public ChooseProviderPage(ChooseProviderViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;

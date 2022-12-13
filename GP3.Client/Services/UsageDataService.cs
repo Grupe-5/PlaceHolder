@@ -3,9 +3,9 @@ using GP3.Client.Models;
 
 namespace GP3.Client.Services
 {
-    public class HistoryService
+    public class UsageDataService
     {
-        public HistoryService()
+        public UsageDataService()
         {
         }
 

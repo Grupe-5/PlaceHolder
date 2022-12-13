@@ -21,5 +21,8 @@ namespace GP3.Client.Refit
 
         [Post("/" + Routes.HistoryRegisterProvider)]
         Task RegisterProvider(HistoryRegistration registration);
+
+        [Delete("/" + Routes.HistoryRegisterProvider)]
+        Task UnregisterProvider();
     }
 }

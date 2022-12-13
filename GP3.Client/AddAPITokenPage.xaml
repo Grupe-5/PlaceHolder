@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.NavBarIsVisible="False"
+             x:Class="GP3.Client.AddAPITokenPage"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+             Shell.PresentationMode="Animated"
+             x:DataType="viewmodel:APITokenPageViewModel">
+    <StackLayout Padding="20,50,20,20">
+        <Grid RowDefinitions="80, 75, 25, 100, 100" ColumnDefinitions="*">
+            <StackLayout Grid.Row="0" >
+                <Label 
+                    Text="Provide API Token"
+                    FontSize="25"
+                    HorizontalOptions="Center" />
+                <HorizontalStackLayout 
+                    BackgroundColor="#4C34C2" 
+                    HeightRequest="3" 
+                    WidthRequest="260" 
+                    Margin="5" 
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+            
+            <Grid Margin="0,25,0,0" Grid.Row="1" >
+                <Frame Opacity="0.3" HeightRequest="50"  BackgroundColor="#F6F6F6" CornerRadius="10" BorderColor="{Binding TokenFieldBorderColor}" />
+                <Entry Placeholder="API Token" 
+                           Text="{Binding ApiToken}"
+                           FontSize="20"
+                           TextColor="Black" Margin="5,0"
+                           ReturnType="Done"
+                           ReturnCommand="{Binding AddMeterCommand}"
+                           PlaceholderColor="#BDBDBD">
+                    <Entry.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ApiTokenClickedCommand}">
+                        </TapGestureRecognizer>
+                    </Entry.GestureRecognizers>
+                </Entry>
+            </Grid>
+
+            <StackLayout Grid.Row="2">
+                <Label Padding="10,5,0,0" Text="{Binding ErrorText}" TextColor="#E23636" />
+            </StackLayout>
+
+            <StackLayout Padding="0,10,0,0" Grid.Row="3">
+                <Button Margin="0,35,0,0"
+                    Command="{Binding AddMeterCommand}"
+                    TextColor="White" 
+                    FontSize="20"
+                    CornerRadius="30"
+                    Text="Add meter"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="1" Margin="0,30,0,0">
+                <ActivityIndicator 
+                   HeightRequest="80"
+                   IsRunning="{Binding IsBusy}"
+                   Color="#4C34C2" />
+            </StackLayout>
+        </Grid>
+        
+
+
+    </StackLayout>
+</ContentPage>
