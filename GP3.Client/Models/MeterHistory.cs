@@ -1,4 +1,6 @@
 ﻿
+using GP3.Common.Entities;
+
 namespace GP3.Client.Models
 {
     public class MeterHistory
@@ -11,7 +13,7 @@ namespace GP3.Client.Models
             this.monthUsed = monthUsed;
             this.monthEstCost = monthEstCost;
         }
-        public ElectricityProviders electricityProvider { get; set; }
+        public ProviderSelection electricityProvider { get; set; }
         public string apiToken { get; set; }
         public double currentDraw { get; set; }
         public double dayUsed { get; set; }
@@ -20,6 +22,8 @@ namespace GP3.Client.Models
         public double monthUsed { get; set; }
         public double monthEstCost { get; set; }
     }
+
+
     public enum ElectricityProviders
     {
         Eso,

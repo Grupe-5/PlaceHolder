@@ -14,6 +14,7 @@ namespace GP3.Client.Services
         public SettingsService(IBarrel barrel)
         {
             _barrel = barrel;
+
             if(!_barrel.Exists(barrelPrefix))
             {
                 Settings = new UserSettings();
