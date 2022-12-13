@@ -4,33 +4,31 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using GP3.Client.Models;
 using GP3.Common.Entities;
-using Java.Security;
+
 
 namespace GP3.Client.ViewModels
 {
-    [QueryProperty("MeterHistory", "MeterHistory")]
+    [QueryProperty("MeterHistoryCollection", "MeterHistoryCollection")]
     public partial class ChooseProviderViewModel : BaseViewModel
     {
-        private readonly UsageDataService _historyService;
-        public ChooseProviderViewModel(UsageDataService historyService)
+        public ChooseProviderViewModel()
         {
-            _historyService = historyService;
             
         }
         [ObservableProperty]
         double currentDraw;
 
-        
         [ObservableProperty]
-        public ObservableCollection<MeterHistory> meterHistory;
-
+        public ObservableCollection<MeterHistory> meterHistoryCollection;
+                                                  
         [RelayCommand]
         async Task GoToTokenPage(string providerString)
         {
+
             await Shell.Current.GoToAsync($"{nameof(AddAPITokenPage)}", true,
                 new Dictionary<string, object>
                 {
-                {"MeterHistory", MeterHistory},
+                {"MeterHistoryCollection", MeterHistoryCollection},
                 {"Provider", GetProvider(providerString) }
                 });
         }
@@ -40,7 +38,7 @@ namespace GP3.Client.ViewModels
             switch (providerString)
             {
                 case "Eso":
-                    return ProviderSelection.Eso;
+                    return ProviderSelection.Eso;   
                 case "Ignitis":
                     return ProviderSelection.Ignitis;
                 case "Perlas":

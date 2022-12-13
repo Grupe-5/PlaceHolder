@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace GP3.Client.ViewModels;
 
-[QueryProperty("MeterHistory", "MeterHistory")]
+[QueryProperty("MeterHistoryCollection", "MeterHistoryCollection")]
 [QueryProperty("Provider", "Provider")]
 public partial class APITokenPageViewModel : BaseViewModel
 {
@@ -31,9 +31,9 @@ public partial class APITokenPageViewModel : BaseViewModel
 
     [ObservableProperty]
     Color tokenFieldBorderColor;
-    
+
     [ObservableProperty]
-    public ObservableCollection<MeterHistory> meterHistory;
+    public ObservableCollection<MeterHistory> meterHistoryCollection;
 
     [ObservableProperty]
     public string errorText;
@@ -58,17 +58,23 @@ public partial class APITokenPageViewModel : BaseViewModel
         }
         IsBusy = true;
 
-        // Call things
+        MeterHistoryCollection.First().monthEstCost = 25;
+
         try
         {
-            await _api.RegisterProvider(new HistoryRegistration("Nedas", ApiToken, Provider));
+            // Unregister
+            await _api.RegisterProvider(new HistoryRegistration("Nedas", ApiToken, ProviderSelection.Perlas));
             if (await _api.ProviderIsRegistered())
             {
-                double currDraw = await _api.GetCurrentDraw();
-                double dailyUsage = await _api.GetDailyUsage();
-                double monthlyusage = await _api.GetMonthlyUsage();
-                MeterHistory.Clear();
-                MeterHistory.Add(new MeterHistory(currDraw, dailyUsage, dailyUsage * 0.43918, monthlyusage, monthlyusage * 0.43918));
+                double currDraw = Math.Round(await _api.GetCurrentDraw(), 2);
+                double dailyUsage = Math.Round(await _api.GetDailyUsage(), 2);
+                double monthlyusage = Math.Round(await _api.GetMonthlyUsage(), 2);
+                double dalyEst = Math.Round(dailyUsage * 0.43, 2);
+                double mothlyEst = Math.Round(monthlyusage * 0.43918, 2);
+                
+                
+                meterHistoryCollection.Clear();
+                meterHistoryCollection.Add(new MeterHistory(currDraw, dailyUsage, dalyEst, monthlyusage, mothlyEst));
             }
             else
             {

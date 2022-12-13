@@ -12,7 +12,7 @@
 
 
         <CollectionView BackgroundColor="Transparent"
-                        ItemsSource="{Binding MeterHistory}"
+                        ItemsSource="{Binding MeterHistoryCollection}"
                         SelectionMode="None"
                         IsVisible="{Binding IsMeterRegistred}">
         <CollectionView.ItemTemplate>
