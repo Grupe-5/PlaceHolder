@@ -2,7 +2,9 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Plugin.Firebase.Android;
 using Plugin.Firebase.CloudMessaging;
+using Plugin.Firebase.Shared;
 
 namespace MauiFirebasePush;
 
@@ -14,6 +16,12 @@ public class MainActivity : MauiAppCompatActivity
         base.OnCreate(savedInstanceState);
         HandleIntent(Intent);
         CreateNotificationChannelIfNeeded();
+        CrossFirebase.Initialize(this, savedInstanceState, CreateCrossFirebaseSettings());
+    }
+
+    private static CrossFirebaseSettings CreateCrossFirebaseSettings()
+    {
+        return new CrossFirebaseSettings(isAuthEnabled: true, isCloudMessagingEnabled: true);
     }
 
     protected override void OnNewIntent(Intent intent)
@@ -42,6 +50,5 @@ public class MainActivity : MauiAppCompatActivity
         var channel = new NotificationChannel(channelId, "General", NotificationImportance.Default);
         notificationManager.CreateNotificationChannel(channel);
         FirebaseCloudMessagingImplementation.ChannelId = channelId;
-        //FirebaseCloudMessagingImplementation.SmallIconRef = Resource.Drawable.ic_push_small;
     }
 }
