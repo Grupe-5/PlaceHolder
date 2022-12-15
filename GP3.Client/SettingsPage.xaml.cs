@@ -10,13 +10,21 @@ public partial class SettingsPage : ContentPage
         BindingContext = vm;
     }
 
-	private void PriceChangedHandler(object sender, EventArgs e)
+	private async void PriceChangedHandler(object sender, EventArgs e)
 	{
-		((SettingsViewModel)(BindingContext)).ChangedNotifSettings(true, false);
+		await ((SettingsViewModel)(BindingContext)).ChangedNotifSettings(true, false);
 	}
 
-	private void LowestPriceHandler(object sender, EventArgs e)
+	private async void LowestPriceHandler(object sender, EventArgs e)
 	{
-		((SettingsViewModel)(BindingContext)).ChangedNotifSettings(false, true);
+		await ((SettingsViewModel)(BindingContext)).ChangedNotifSettings(false, true);
+	}
+
+	private async void PrivacyAlert(object sender, EventArgs e)
+	{
+		await Shell.Current.DisplayAlert(
+			"Our Privacy Policy",
+            "We take the utmost care to ensure that GDPR laws are followed.",
+			"I understand");
 	}
 }

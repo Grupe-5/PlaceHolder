@@ -117,25 +117,27 @@
             </HorizontalStackLayout>
 
             <StackLayout Padding="23,0">
-                <Grid ColumnDefinitions="20,*, 2*" RowDefinitions="*">
+                <Grid ColumnDefinitions="23,*" Margin="0,15,0,0" RowDefinitions="*" >
                     <Image Grid.Column="0" Source="help.svg" Margin="0,0,2,0" HeightRequest="20"/>
-                    <Label Grid.Column="1" Margin="6,0,8,0" Text="Help" FontSize="20"/>
-                    <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End">
-                        <Image Source="bluearrow.svg" Margin="0,2,2,0" HeightRequest="20"/>
-                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Margin="6,0,8,0" Text="Help" FontAttributes="Bold" FontSize="18"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenMailAppCommand}">
+                        </TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
                 </Grid>
 
-                <Grid ColumnDefinitions="20,*, 2*" Margin="0,10,0,0" RowDefinitions="*">
+                <Grid ColumnDefinitions="23,*" Margin="0,15,0,0" RowDefinitions="*" >
                     <Image Grid.Column="0" Source="lock.svg" Margin="0,0,2,0" HeightRequest="20"/>
-                    <Label Grid.Column="1" Margin="6,0,8,0" Text="Privacy" FontSize="20"/>
-                    <VerticalStackLayout Grid.Column="2"  HorizontalOptions="End">
-                        <Image Source="bluearrow.svg" Margin="0,2,2,0" HeightRequest="20"/>
-                    </VerticalStackLayout>
+                    <Label Grid.Column="1" Margin="6,0,8,0" Text="Privacy" FontAttributes="Bold" FontSize="18"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="PrivacyAlert">
+                        </TapGestureRecognizer>
+                    </Grid.GestureRecognizers>
                 </Grid>
 
                 <Grid ColumnDefinitions="23,*" Margin="0,15,0,0" RowDefinitions="*" >
                     <Image Grid.Column="0" Source="envelope.svg" Margin="0,0,2,0" HeightRequest="20"/>
-                    <Label Grid.Column="1" Margin="6,0,8,0" Text="PlaceHolder@gp3.com" FontAttributes="Bold" FontSize="18"/>
+                    <Label Grid.Column="1" Margin="6,0,8,0" Text="IntelliPower@gp3.com" FontAttributes="Bold" FontSize="18"/>
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding OpenMailAppCommand}">
                         </TapGestureRecognizer>
