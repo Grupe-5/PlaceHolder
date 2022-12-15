@@ -64,6 +64,7 @@
 	  <None Remove="Resources\Images\History.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\Integrations.svg" />
+	  <None Remove="Resources\Images\leftarrow.svg" />
 	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\lock.svg" />
 	  <None Remove="Resources\Images\pencil.svg" />
@@ -71,6 +72,7 @@
 	  <None Remove="Resources\Images\plus.svg" />
 	  <None Remove="Resources\Images\plusblack.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
+	  <None Remove="Resources\Images\rightarrow.svg" />
 	  <None Remove="Resources\Images\Settings.svg" />
 	  <None Remove="Resources\Images\toaster.png" />
 	  <None Remove="Resources\Images\trashempty.svg" />
