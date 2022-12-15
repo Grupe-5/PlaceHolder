@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
 using GP3.Client.Refit;
+using Plugin.Firebase.CloudMessaging;
 
 namespace GP3.Client.ViewModels
 {
@@ -11,12 +12,14 @@ namespace GP3.Client.ViewModels
         private readonly SettingsService _settingsService;
         private readonly AuthService _authService;
         private readonly IHistoryApi _historyApi;
+        private readonly IFirebaseCloudMessaging _messaging;
 
-        public SettingsViewModel(SettingsService settingsService, AuthService authService, IHistoryApi historyApi)
+        public SettingsViewModel(SettingsService settingsService, AuthService authService, IHistoryApi historyApi, IFirebaseCloudMessaging messaging)
         {
             _settingsService = settingsService;
             _authService = authService;
             _historyApi = historyApi;
+            _messaging = messaging;
 
             Title = "Settings";
             GetSettingsAsync();
@@ -89,5 +92,28 @@ namespace GP3.Client.ViewModels
             }
         }
 
+        public async Task ChangedNotifSettings(bool changedPriceChange, bool changedLowestPrice)
+        {
+            await _messaging.CheckIfValidAsync();
+            if (changedPriceChange)
+            {
+                var priceChange = "priceChange";
+                if (UserSettings.priceChangeNotf)
+                    await _messaging.SubscribeToTopicAsync(priceChange);
+                else
+                    await _messaging.UnsubscribeFromTopicAsync(priceChange);
+                Console.WriteLine($"Price change topic: {UserSettings.priceChangeNotf}");
+            }
+
+            if (changedLowestPrice)
+            {
+                var lowestPrice = "lowestPrice";
+                if (UserSettings.lowestPriceNotf)
+                    await _messaging.SubscribeToTopicAsync(lowestPrice);
+                else
+                    await _messaging.UnsubscribeFromTopicAsync(lowestPrice);
+                Console.WriteLine($"Lowest price topic: {UserSettings.lowestPriceNotf}");
+            }
+        }
     }
 }

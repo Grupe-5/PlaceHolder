@@ -9,6 +9,7 @@ using MonkeyCache.FileStore;
 using Plugin.Firebase.Android;
 #endif
 using Plugin.Firebase.Auth;
+using Plugin.Firebase.CloudMessaging;
 using Plugin.Firebase.Shared;
 
 namespace GP3.Client;
@@ -111,6 +112,7 @@ public static class MauiProgram
         });
 
         builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
+        builder.Services.AddSingleton(_ => CrossFirebaseCloudMessaging.Current);
         return builder;
     }
 
