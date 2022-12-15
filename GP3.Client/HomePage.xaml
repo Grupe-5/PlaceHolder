@@ -10,24 +10,77 @@
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
 
-    <StackLayout>
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <ImageButton Source="leftarrow.svg"
-                         Command="{Binding DecreaseDateCommand}"/>
+    <StackLayout >
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <StackLayout 
+                Grid.Column="0"   
+                Grid.ColumnSpan="2"
+                Grid.Row="1" 
+                WidthRequest="180"
+                HorizontalOptions="Center">
+                <Grid 
+                      Padding="10,10,0,0"
+                      ColumnDefinitions="25,*,25"
+                      RowDefinitions="*">
+                    <ImageButton Source="leftarrow.svg"
+                                 HeightRequest="25"
+                                 WidthRequest="25"
+                                 Grid.Column="0"
+                                 Grid.Row="0"
+                                 Command="{Binding DecreaseDateCommand}"/>
 
-            <Label Text="{Binding SelectedDateFormated}"
-                Margin="0,0,0,0"
-                FontSize="20"
-                FontAttributes="Bold"
-                VerticalOptions="Center"/>
+                    <Label Text="{Binding SelectedDateFormated}"
+                        Grid.Column="1"
+                        Grid.Row="0"   
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"/>
 
-            <ImageButton Source="rightarrow.svg"
-                         HeightRequest="50"
-                         Command="{Binding IncreaseDateCommand}"/>
-        </HorizontalStackLayout>
-        
+                    <Grid Grid.Column="1" Grid.Row="0"  IsVisible="{Binding IsBusy}">
+                        <ActivityIndicator HeightRequest="30" IsRunning="True" Color="#4C34C2"/>
+                    </Grid>
+
+                    <ImageButton Source="rightarrow.svg"
+                                 IsVisible="{Binding IsNotToday}"
+                                 Grid.Column="3"
+                                 Grid.Row="0"
+                                 HeightRequest="25"
+                                 WidthRequest="25"
+                                 Command="{Binding IncreaseDateCommand}"/>
+
+                    <ImageButton Source="rightarrowgrey.svg"
+                                 IsVisible="{Binding IsToday}"
+                                 Grid.Column="3"
+                                 Grid.Row="0"
+                                 HeightRequest="25"
+                                 WidthRequest="25"/>
+                </Grid>
+            </StackLayout>
+
+            <Grid Grid.Column="0"  
+                  Grid.Row="0" 
+                  Padding="10,10,0,0"
+                  ColumnDefinitions="1,50,70,70"
+                  RowDefinitions="*">
+                <Label Grid.Column="1" Grid.Row="0" Text="Avg:" FontSize="20"  TextColor="#4C34C2" FontAttributes="Bold" VerticalOptions="Center"   />
+                <Label Grid.Column="2" Grid.Row="0" Text="{Binding AveragePrice }" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"  HorizontalOptions="Center" />
+                <Label Grid.Column="3" Margin="4,0,5,0" Grid.Row="0" Text="€/MWh" TextColor="#4C34C2" FontSize="16" FontAttributes="Bold" VerticalOptions="End"  HorizontalOptions="End"/>
+            </Grid>
+            <Grid Grid.Column="1"  
+                  Grid.Row="0" 
+                  Padding="10,10,0,0"
+                  ColumnDefinitions="36,63,71,20"
+                  RowDefinitions="*">
+                <Label Grid.Column="1" Grid.Row="0" Text="Now: " FontSize="20"  TextColor="#4C34C2" FontAttributes="Bold" VerticalOptions="Center" />
+                <Label Grid.Column="2" Grid.Row="0" Text="{Binding CurrPrice }" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" />
+                <Label Grid.Column="3" Margin="4,0,5,0" Grid.Row="0" Text="€" TextColor="#4C34C2" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
+
+            </Grid>
+
+        </Grid>
+
         <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" x:Name="scrollViewObj">
-            <dxc:ChartView WidthRequest="750" HeightRequest="600">
+            <dxc:ChartView WidthRequest="750" HeightRequest="680">
                 <dxc:ChartView.Series>
                     <dxc:StepLineSeries>
                         <dxc:StepLineSeries.Data>
@@ -46,6 +99,43 @@
                         </dxc:StepLineSeries.Style>
 
                     </dxc:StepLineSeries>
+
+                    <dxc:StepLineSeries>
+                        <dxc:StepLineSeries.Data>
+                            <dxc:SeriesDataAdapter DataSource="{Binding HourPricesFormated }"
+                                           ArgumentDataMember="intHour">
+                                <dxc:ValueDataMember Type="Value" Member="priceNumber"/>
+                            </dxc:SeriesDataAdapter>
+                        </dxc:StepLineSeries.Data>
+
+                        <dxc:StepLineSeries.Style>
+                            <dxc:LineSeriesStyle Stroke="#7145a7" StrokeThickness="2" MarkerSize="8">
+                                <dxc:LineSeriesStyle.MarkerStyle>
+                                    <dxc:MarkerStyle Fill="#4C34C2"/>
+                                </dxc:LineSeriesStyle.MarkerStyle>
+                            </dxc:LineSeriesStyle>
+                        </dxc:StepLineSeries.Style>
+
+                        <dxc:StepLineSeries.AxisY>
+                            <dxc:NumericAxisY>
+                                <dxc:NumericAxisY.Range>
+                                    <dxc:NumericRange  SideMargin="25" />
+                                </dxc:NumericAxisY.Range>
+                                <dxc:NumericAxisY.Label>
+                                    <dxc:AxisLabel>
+                                        <dxc:AxisLabel.Style>
+                                            <dxc:AxisLabelStyle>
+                                                <dxc:AxisLabelStyle.TextStyle>
+                                                    <dxc:TextStyle Size="15" Color="Black"/>
+                                                </dxc:AxisLabelStyle.TextStyle>
+                                            </dxc:AxisLabelStyle>
+                                        </dxc:AxisLabel.Style>
+                                    </dxc:AxisLabel>
+                                </dxc:NumericAxisY.Label>
+
+                            </dxc:NumericAxisY>
+                        </dxc:StepLineSeries.AxisY>
+                    </dxc:StepLineSeries>
                 </dxc:ChartView.Series>
 
                 <dxc:ChartView.AxisY>
@@ -53,18 +143,10 @@
                         <dxc:NumericAxisY.Range>
                             <dxc:NumericRange  SideMargin="25" />
                         </dxc:NumericAxisY.Range>
-                        <dxc:NumericAxisY.Title>
-                            <dxc:AxisTitle Text="€/MWh"
-                                       Alignment="Outside">
-                                <dxc:AxisTitle.Style>
-                                    <dxc:TitleStyle>
-                                        <dxc:TitleStyle.TextStyle>
-                                            <dxc:TextStyle Size="18" />
-                                        </dxc:TitleStyle.TextStyle>
-                                    </dxc:TitleStyle>
-                                </dxc:AxisTitle.Style>
-                            </dxc:AxisTitle>
-                        </dxc:NumericAxisY.Title>
+                       
+                        <dxc:NumericAxisY.DisplayPosition>
+                            <dxc:AxisDisplayPositionFar/>
+                        </dxc:NumericAxisY.DisplayPosition>
 
                         <dxc:NumericAxisY.Label>
                             <dxc:AxisLabel>
@@ -77,6 +159,7 @@
                                 </dxc:AxisLabel.Style>
                             </dxc:AxisLabel>
                         </dxc:NumericAxisY.Label>
+
                         <dxc:NumericAxisY.ConstantLines>
                             <dxc:NumericConstantLine AxisValue="{Binding CurrUserLowPriceDefinition}" ShowBehind="False">
                                 <dxc:NumericConstantLine.Title>

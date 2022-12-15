@@ -20,18 +20,18 @@
 		<ApplicationVersion>1</ApplicationVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.4</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <BundleResource Include="Platforms\iOS\GoogleService-Info.plist" />
-    <GoogleServicesJson Include="Platforms\Android\google-services.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<BundleResource Include="Platforms\iOS\GoogleService-Info.plist" />
+		<GoogleServicesJson Include="Platforms\Android\google-services.json" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
-    <PackageReference Include="Xamarin.Kotlin.StdLib.Jdk7" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
-    <PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android'">
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk7" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
+		<PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
+	</ItemGroup>
   
 	<ItemGroup>
 		<!-- App Icon -->
@@ -74,6 +74,7 @@
 	  <None Remove="Resources\Images\plusblack.svg" />
 	  <None Remove="Resources\Images\profile.svg" />
 	  <None Remove="Resources\Images\rightarrow.svg" />
+	  <None Remove="Resources\Images\rightarrowgrey.svg" />
 	  <None Remove="Resources\Images\Settings.svg" />
 	  <None Remove="Resources\Images\toaster.png" />
 	  <None Remove="Resources\Images\trashempty.svg" />

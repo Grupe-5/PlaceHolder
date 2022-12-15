@@ -8,4 +8,8 @@ public partial class HomePage : ContentPage
 		InitializeComponent();
         BindingContext = vm;
     }
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        ((HomeViewModel)BindingContext).SetLowPriceLine();
+    }
 }
