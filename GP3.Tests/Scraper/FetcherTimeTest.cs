@@ -59,5 +59,11 @@ namespace GP3.Tests.Scraper
         {
             Assert.That(new DateTime(2021, 01, 01), Is.EqualTo(FetcherTime.MinDate));
         }
+
+        [Test]
+        public void IsTommorowDataAvailable()
+        {
+            Assert.That(FetcherTime.IsTommorowDataAvailable, Is.EqualTo(DateTime.UtcNow.UTCtoCEST().Hour >= FetcherTime.NewDataHour));
+        }
     }
 }
