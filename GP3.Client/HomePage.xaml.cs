@@ -17,4 +17,8 @@ public partial class HomePage : ContentPage
         await CrossFirebaseCloudMessaging.Current.CheckIfValidAsync();
         await CrossFirebaseCloudMessaging.Current.SubscribeToTopicAsync("ha");
     }
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        ((HomeViewModel)BindingContext).SetLowPriceLine();
+    }
 }
