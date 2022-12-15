@@ -9,137 +9,154 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
-    
-    <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" x:Name="scrollViewObj">
-        <dxc:ChartView WidthRequest="750" HeightRequest="750">
-            <dxc:ChartView.Series>
-                <dxc:StepLineSeries>
-                    <dxc:StepLineSeries.Data>
-                        <dxc:SeriesDataAdapter DataSource="{Binding HourPricesFormated }"
+
+    <StackLayout>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <ImageButton Source="leftarrow.svg"
+                         Command="{Binding DecreaseDateCommand}"/>
+
+            <Label Text="{Binding SelectedDateFormated}"
+                Margin="0,0,0,0"
+                FontSize="20"
+                FontAttributes="Bold"
+                VerticalOptions="Center"/>
+
+            <ImageButton Source="rightarrow.svg"
+                         HeightRequest="50"
+                         Command="{Binding IncreaseDateCommand}"/>
+        </HorizontalStackLayout>
+        
+        <ScrollView Orientation="Both" HorizontalScrollBarVisibility="Always" x:Name="scrollViewObj">
+            <dxc:ChartView WidthRequest="750" HeightRequest="600">
+                <dxc:ChartView.Series>
+                    <dxc:StepLineSeries>
+                        <dxc:StepLineSeries.Data>
+                            <dxc:SeriesDataAdapter DataSource="{Binding HourPricesFormated }"
                                            ArgumentDataMember="intHour">
-                            <dxc:ValueDataMember Type="Value" Member="priceNumber"/>
-                        </dxc:SeriesDataAdapter>
-                    </dxc:StepLineSeries.Data>
+                                <dxc:ValueDataMember Type="Value" Member="priceNumber"/>
+                            </dxc:SeriesDataAdapter>
+                        </dxc:StepLineSeries.Data>
 
-                    <dxc:StepLineSeries.Style>
-                        <dxc:LineSeriesStyle Stroke="#7145a7" StrokeThickness="2" MarkerSize="8">
-                            <dxc:LineSeriesStyle.MarkerStyle>
-                                <dxc:MarkerStyle Fill="#4C34C2"/>
-                            </dxc:LineSeriesStyle.MarkerStyle>
-                        </dxc:LineSeriesStyle>
-                    </dxc:StepLineSeries.Style>
+                        <dxc:StepLineSeries.Style>
+                            <dxc:LineSeriesStyle Stroke="#7145a7" StrokeThickness="2" MarkerSize="8">
+                                <dxc:LineSeriesStyle.MarkerStyle>
+                                    <dxc:MarkerStyle Fill="#4C34C2"/>
+                                </dxc:LineSeriesStyle.MarkerStyle>
+                            </dxc:LineSeriesStyle>
+                        </dxc:StepLineSeries.Style>
 
-                </dxc:StepLineSeries>
-            </dxc:ChartView.Series>
+                    </dxc:StepLineSeries>
+                </dxc:ChartView.Series>
 
-            <dxc:ChartView.AxisY>
-                <dxc:NumericAxisY>
-                    <dxc:NumericAxisY.Range>
-                        <dxc:NumericRange  SideMargin="25" />
-                    </dxc:NumericAxisY.Range>
-                    <dxc:NumericAxisY.Title>
-                        <dxc:AxisTitle Text="€/MWh"
+                <dxc:ChartView.AxisY>
+                    <dxc:NumericAxisY>
+                        <dxc:NumericAxisY.Range>
+                            <dxc:NumericRange  SideMargin="25" />
+                        </dxc:NumericAxisY.Range>
+                        <dxc:NumericAxisY.Title>
+                            <dxc:AxisTitle Text="€/MWh"
                                        Alignment="Outside">
-                            <dxc:AxisTitle.Style>
-                                <dxc:TitleStyle>
-                                    <dxc:TitleStyle.TextStyle>
-                                        <dxc:TextStyle Size="18" />
-                                    </dxc:TitleStyle.TextStyle>
-                                </dxc:TitleStyle>
-                            </dxc:AxisTitle.Style>
-                        </dxc:AxisTitle>
-                    </dxc:NumericAxisY.Title>
+                                <dxc:AxisTitle.Style>
+                                    <dxc:TitleStyle>
+                                        <dxc:TitleStyle.TextStyle>
+                                            <dxc:TextStyle Size="18" />
+                                        </dxc:TitleStyle.TextStyle>
+                                    </dxc:TitleStyle>
+                                </dxc:AxisTitle.Style>
+                            </dxc:AxisTitle>
+                        </dxc:NumericAxisY.Title>
 
-                    <dxc:NumericAxisY.Label>
-                        <dxc:AxisLabel>
-                            <dxc:AxisLabel.Style>
-                                <dxc:AxisLabelStyle>
-                                    <dxc:AxisLabelStyle.TextStyle>
-                                        <dxc:TextStyle Size="15" Color="Black"/>
-                                    </dxc:AxisLabelStyle.TextStyle>
-                                </dxc:AxisLabelStyle>
-                            </dxc:AxisLabel.Style>
-                        </dxc:AxisLabel>
-                    </dxc:NumericAxisY.Label>
-                    <dxc:NumericAxisY.ConstantLines>
-                        <dxc:NumericConstantLine AxisValue="{Binding CurrUserLowPriceDefinition}" ShowBehind="False">
-                            <dxc:NumericConstantLine.Title>
-                                <dxc:ConstantLineTitle Text="User's 'Low Price'">
-                                    <dxc:ConstantLineTitle.Style>
-                                        <dxc:TitleStyle>
-                                            <dxc:TitleStyle.TextStyle>
-                                                <dxc:TextStyle Color="#E23636" Size="14"/>
-                                            </dxc:TitleStyle.TextStyle>
-                                        </dxc:TitleStyle>
-                                    </dxc:ConstantLineTitle.Style>
-                                </dxc:ConstantLineTitle>
+                        <dxc:NumericAxisY.Label>
+                            <dxc:AxisLabel>
+                                <dxc:AxisLabel.Style>
+                                    <dxc:AxisLabelStyle>
+                                        <dxc:AxisLabelStyle.TextStyle>
+                                            <dxc:TextStyle Size="15" Color="Black"/>
+                                        </dxc:AxisLabelStyle.TextStyle>
+                                    </dxc:AxisLabelStyle>
+                                </dxc:AxisLabel.Style>
+                            </dxc:AxisLabel>
+                        </dxc:NumericAxisY.Label>
+                        <dxc:NumericAxisY.ConstantLines>
+                            <dxc:NumericConstantLine AxisValue="{Binding CurrUserLowPriceDefinition}" ShowBehind="False">
+                                <dxc:NumericConstantLine.Title>
+                                    <dxc:ConstantLineTitle Text="User's 'Low Price'">
+                                        <dxc:ConstantLineTitle.Style>
+                                            <dxc:TitleStyle>
+                                                <dxc:TitleStyle.TextStyle>
+                                                    <dxc:TextStyle Color="#E23636" Size="14"/>
+                                                </dxc:TitleStyle.TextStyle>
+                                            </dxc:TitleStyle>
+                                        </dxc:ConstantLineTitle.Style>
+                                    </dxc:ConstantLineTitle>
 
-                            </dxc:NumericConstantLine.Title>
+                                </dxc:NumericConstantLine.Title>
 
-                            <dxc:NumericConstantLine.Style>
-                                <dxc:ConstantLineStyle Stroke="#E23636" Dashes="1 2" Thickness="3"/>
-                            </dxc:NumericConstantLine.Style>
-                        </dxc:NumericConstantLine>
+                                <dxc:NumericConstantLine.Style>
+                                    <dxc:ConstantLineStyle Stroke="#E23636" Dashes="1 2" Thickness="3"/>
+                                </dxc:NumericConstantLine.Style>
+                            </dxc:NumericConstantLine>
 
-                    </dxc:NumericAxisY.ConstantLines>
-                </dxc:NumericAxisY>
-            </dxc:ChartView.AxisY>
+                        </dxc:NumericAxisY.ConstantLines>
+                    </dxc:NumericAxisY>
+                </dxc:ChartView.AxisY>
 
-            <dxc:ChartView.AxisX>
-                <dxc:NumericAxisX GridAlignment="1">
-                    <dxc:NumericAxisX.Style>
-                        <dxc:AxisStyle 
+                <dxc:ChartView.AxisX>
+                    <dxc:NumericAxisX GridAlignment="1">
+                        <dxc:NumericAxisX.Style>
+                            <dxc:AxisStyle 
                             LineThickness="1"
                             MajorGridlinesVisible="True" 
                             MajorGridlinesColor="#DCDCDC"/>
-                    </dxc:NumericAxisX.Style>
+                        </dxc:NumericAxisX.Style>
 
-                    <dxc:NumericAxisX.Range>
-                        <dxc:NumericRange SideMargin="0.3" />
-                    </dxc:NumericAxisX.Range>
+                        <dxc:NumericAxisX.Range>
+                            <dxc:NumericRange SideMargin="0.3" />
+                        </dxc:NumericAxisX.Range>
 
-                    <dxc:NumericAxisX.Label>
-                        <dxc:AxisLabel>
-                            <dxc:AxisLabel.Style>
-                                <dxc:AxisLabelStyle>
-                                    <dxc:AxisLabelStyle.TextStyle>
-                                        <dxc:TextStyle Size="15" Color="#4C34C2"/>
-                                    </dxc:AxisLabelStyle.TextStyle>
-                                </dxc:AxisLabelStyle>
-                            </dxc:AxisLabel.Style>
-                        </dxc:AxisLabel>
-                    </dxc:NumericAxisX.Label>
+                        <dxc:NumericAxisX.Label>
+                            <dxc:AxisLabel>
+                                <dxc:AxisLabel.Style>
+                                    <dxc:AxisLabelStyle>
+                                        <dxc:AxisLabelStyle.TextStyle>
+                                            <dxc:TextStyle Size="15" Color="#4C34C2"/>
+                                        </dxc:AxisLabelStyle.TextStyle>
+                                    </dxc:AxisLabelStyle>
+                                </dxc:AxisLabel.Style>
+                            </dxc:AxisLabel>
+                        </dxc:NumericAxisX.Label>
 
-                    <dxc:NumericAxisX.ConstantLines>
+                        <dxc:NumericAxisX.ConstantLines>
 
-                        <dxc:NumericConstantLine  AxisValue="{Binding CurrHour}" ShowBehind="False">
-                            <dxc:NumericConstantLine.Title>
-                                <dxc:ConstantLineTitle Text=" "/>
-                            </dxc:NumericConstantLine.Title>
-                            <dxc:NumericConstantLine.Style>
-                                <dxc:ConstantLineStyle Stroke="#4c34c2" Dashes="3 1" Thickness="3"/>
-                            </dxc:NumericConstantLine.Style>
-                        </dxc:NumericConstantLine>
+                            <dxc:NumericConstantLine  AxisValue="{Binding CurrHour}" ShowBehind="False">
+                                <dxc:NumericConstantLine.Title>
+                                    <dxc:ConstantLineTitle Text=" "/>
+                                </dxc:NumericConstantLine.Title>
+                                <dxc:NumericConstantLine.Style>
+                                    <dxc:ConstantLineStyle Stroke="#4c34c2" Dashes="3 1" Thickness="3"/>
+                                </dxc:NumericConstantLine.Style>
+                            </dxc:NumericConstantLine>
 
-                    </dxc:NumericAxisX.ConstantLines>
-                    <dxc:NumericAxisX.Strips>
-                        <dxc:NumericStrip MinLimit ="00"  MaxLimit="{Binding CurrHour}" 
+                        </dxc:NumericAxisX.ConstantLines>
+                        <dxc:NumericAxisX.Strips>
+                            <dxc:NumericStrip MinLimit ="00"  MaxLimit="{Binding CurrHour}" 
                             LegendText="Mesozoic Era" VisibleInLegend="True">
-                            <dxc:NumericStrip.Style>
-                                <dxc:StripStyle Fill="#ededed"/>
-                            </dxc:NumericStrip.Style>
-                        </dxc:NumericStrip>
-                    </dxc:NumericAxisX.Strips>
-                </dxc:NumericAxisX>
-            </dxc:ChartView.AxisX>
+                                <dxc:NumericStrip.Style>
+                                    <dxc:StripStyle Fill="#ededed"/>
+                                </dxc:NumericStrip.Style>
+                            </dxc:NumericStrip>
+                        </dxc:NumericAxisX.Strips>
+                    </dxc:NumericAxisX>
+                </dxc:ChartView.AxisX>
 
-            <dxc:ChartView.Hint>
-                <dxc:Hint>
-                    <dxc:Hint.Behavior>
-                        <dxc:TooltipHintBehavior/>
-                    </dxc:Hint.Behavior>
-                </dxc:Hint>
-            </dxc:ChartView.Hint>
-        </dxc:ChartView>
-    </ScrollView>
+                <dxc:ChartView.Hint>
+                    <dxc:Hint>
+                        <dxc:Hint.Behavior>
+                            <dxc:TooltipHintBehavior/>
+                        </dxc:Hint.Behavior>
+                    </dxc:Hint>
+                </dxc:ChartView.Hint>
+            </dxc:ChartView>
+        </ScrollView>
+    </StackLayout>
 </ContentPage>
