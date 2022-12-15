@@ -8,9 +8,6 @@ using MonkeyCache.FileStore;
 #if ANDROID
 using Plugin.Firebase.Android;
 #endif
-#if IOS
-using Plugin.Firebase.iOS;
-#endif
 using Plugin.Firebase.Auth;
 using Plugin.Firebase.Shared;
 
@@ -28,7 +25,7 @@ public static class MauiProgram
             {
                 // The DSN is the only required setting.
                 options.Dsn = "https://369041dcedd24381ad160911a69b287c@o4504267915264000.ingest.sentry.io/4504293859852288";
-
+                options.Debug = true;
             })
             .UseDevExpress()
             .RegisterFirebaseServices()
@@ -38,7 +35,7 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Bold.ttf", "OpenSansBold");
                 fonts.AddFont("Sitka.ttc", "Sitka");
             });
-
+        
         /* Pages and viewmodels should be transient */
         builder.Services.AddTransient<MainPage>();
         builder.Services.AddTransient<MainViewModel>();
@@ -108,20 +105,17 @@ public static class MauiProgram
     private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
     {
         builder.ConfigureLifecycleEvents(events => {
-#if IOS
-            events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) => {
-                CrossFirebase.Initialize(app, launchOptions, CreateCrossFirebaseSettings());
-                return false;
-            }));
-#else
+
             events.AddAndroid(android => android.OnCreate((activity, state) =>
                 CrossFirebase.Initialize(activity, state, CreateCrossFirebaseSettings())));
-#endif
         });
 
         builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
         return builder;
     }
 
-    private static CrossFirebaseSettings CreateCrossFirebaseSettings() => new(isAuthEnabled: true);
+    private static CrossFirebaseSettings CreateCrossFirebaseSettings()
+    {
+        return new CrossFirebaseSettings(isAuthEnabled: true, isCloudMessagingEnabled: true);
+    }
 }
