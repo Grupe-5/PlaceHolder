@@ -61,13 +61,13 @@
                 <Grid ColumnDefinitions="*, *"  RowDefinitions="*">
                     <Label Grid.Column="0" Margin="0,0,8,0" Text="Price Change" FontSize="20"/>
                     <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-                        <Switch IsToggled="{Binding UserSettings.priceChangeNotf}" HeightRequest="30"/>
+                        <Switch IsToggled="{Binding UserSettings.priceChangeNotf}" Toggled="PriceChangedHandler" HeightRequest="30"/>
                     </VerticalStackLayout>
                 </Grid>
                 <Grid ColumnDefinitions="*, *" Margin="0,10,0,0"  RowDefinitions="*">
                     <Label Grid.Column="0" Margin="0,0,8,0" Text="Lowest Price" FontSize="20"/>
                     <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-                        <Switch IsToggled="{Binding UserSettings.lowestPriceNotf}"  HeightRequest="30"/>
+                        <Switch IsToggled="{Binding UserSettings.lowestPriceNotf}" Toggled="LowestPriceHandler" HeightRequest="30"/>
                     </VerticalStackLayout>
                 </Grid>
             </StackLayout>

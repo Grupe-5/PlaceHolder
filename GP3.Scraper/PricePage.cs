@@ -78,6 +78,10 @@ namespace GP3.Scraper
             if (!await SetPageDateAsync(date))
             {
                 _logger.LogError("Failed to set page date!");
+                PageData failedRet;
+                failedRet.tableHead = new string[0];
+                failedRet.tableBody = new string[0];
+                return failedRet;
             }
 
             var jsSelectDates = @"Array.from(document.querySelector('#datatable').querySelectorAll('table thead tr th')).filter(th => !th.classList.contains('row-name')).map(th => th.innerText);";
