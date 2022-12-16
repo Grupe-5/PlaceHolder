@@ -29,7 +29,7 @@
                            BorderColor="#F6F6F6"/>
 
                     <Entry Placeholder="Name" 
-                           Text="{Binding CallbackUrl}"
+                           Text="{Binding Device.DeviceName}"
                            Keyboard="Text"
                            FontSize="18"
                            TextColor="Black" Margin="5,0"
@@ -44,45 +44,92 @@
                            CornerRadius="10" 
                            BorderColor="#F6F6F6"/>
 
-                    <Picker ItemsSource="{Binding ReasonNames}" 
-                        SelectedItem="{Binding CallbackReason}"
-                        Title="Turn On reason"
-                        TextColor="Black"
-                        FontSize="18"
-                        TitleColor="#BDBDBD"
-                        Margin="5,0"/>
+                    <Entry Placeholder="Connection key" 
+                           Text="{Binding Device.deviceType}"
+                           Keyboard="Text"
+                           FontSize="18"
+                           TextColor="Black" Margin="5,0"
+                           PlaceholderColor="#BDBDBD"/>
                 </Grid>
             </VerticalStackLayout>
 
             <VerticalStackLayout Padding="0,10,0,0"  Grid.ColumnSpan="2" Grid.Row="3" HorizontalOptions="Start">
                 <Grid Padding="5,0,0,0" Grid.Column="1" Grid.Row="1" ColumnDefinitions="175,25" RowDefinitions="*">
                     <VerticalStackLayout VerticalOptions="Center">
+                        <Label Text="Turn On Lowest: " FontAttributes="Bold" Grid.Column="0" FontSize="18"/>
                     </VerticalStackLayout>
                 </Grid>
             </VerticalStackLayout>
 
+            <VerticalStackLayout Padding="0,10,0,0" Grid.Column="1" Grid.Row="3" HorizontalOptions="Start">
+                <Switch IsToggled="{Binding Device.turnOnLowest}" Grid.Column="1" HeightRequest="30"/>
+            </VerticalStackLayout>
+
             <VerticalStackLayout Grid.Column="0" Grid.Row="4" HorizontalOptions="Start" VerticalOptions="Center">
                 <VerticalStackLayout  Padding="5,0,0,0" >
+                    <Label Text="Run For (h):" Grid.Column="0" FontSize="18" />
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
+            <VerticalStackLayout Grid.Column="1" Grid.Row="4" HorizontalOptions="Start">
+                <Grid WidthRequest="85">
+                    <Frame HeightRequest="50" 
+                           BackgroundColor="#F6F6F6" 
+                           CornerRadius="10" 
+                           BorderColor="#F6F6F6"/>
+
+                    <Entry Text="{Binding Device.runFor}"
+                           Keyboard="Numeric"
+                           FontSize="18"
+                           TextColor="Black" Margin="5,0"
+                           PlaceholderColor="#BDBDBD"/>
+                </Grid>
+            </VerticalStackLayout>
+
             <VerticalStackLayout Padding="0,10,0,0" Grid.ColumnSpan="2" Grid.Row="5">
+                <Label Text="Turn On Time" FontSize="18" FontAttributes="Bold"/>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Column="0" Grid.Row="6" HorizontalOptions="Start" VerticalOptions="Center">
                 <VerticalStackLayout Padding="5,0,0,0">
+                    <Label Text="Start time:" Grid.Column="0" FontSize="18"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Column="1" Grid.Row="6">
+                <Frame HeightRequest="45" 
+                       BackgroundColor="#F6F6F6" 
+                       CornerRadius="10" 
+                       BorderColor="#F6F6F6"
+                       WidthRequest="90"
+                       HorizontalOptions="Start"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout  Grid.Column="1" Grid.Row="6">
+                <StackLayout Padding="5,0,0,0">
+                    <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.startTime}"/>
+                </StackLayout>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Column="0" Grid.Row="7" HorizontalOptions="Start" VerticalOptions="Center">
                 <VerticalStackLayout Padding="5,0,0,0">
+                    <Label Text="End time:" Grid.Column="0" FontSize="18" />
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
             <VerticalStackLayout Grid.Column="1" Grid.Row="7">
+                <Frame HeightRequest="45" 
+                           BackgroundColor="#F6F6F6" 
+                           CornerRadius="10" 
+                           BorderColor="#F6F6F6"
+                           WidthRequest="90"
+                           HorizontalOptions="Start"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1" Grid.Row="7">
+                <StackLayout Padding="5,0,0,0">
+                    <TimePicker FontAttributes="Bold" FontSize="18" Time="{Binding Device.endTime}" />
+                </StackLayout>
             </VerticalStackLayout>
         </Grid>
 
@@ -92,7 +139,27 @@
                     TextColor="White" 
                     FontSize="20"
                     CornerRadius="30"
-                    Text="Add Device"/>
+                    Text="Update Information"/>
         </Grid>
+        <Frame CornerRadius="30"
+               BorderColor="#7145a7"
+               Padding="0"
+               Margin="0,15,0,0">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer
+                    Command="{Binding GoToConnectDeviceCommand}">
+                </TapGestureRecognizer>
+            </Frame.GestureRecognizers>
+
+            <Grid  ColumnDefinitions="30,auto" RowDefinitions="50" HorizontalOptions="Center" ColumnSpacing="10">
+                <Image Grid.Column="0" Source="connectdevice.svg" HeightRequest="23" VerticalOptions="Center"/>
+                <Label Grid.Column="1" 
+                       Text="Connect via Wi-Fi" 
+                       TextColor="#7145a7" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Frame>
     </StackLayout>
 </ContentPage>

@@ -1,39 +1,41 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
-using GP3.Client.Refit;
 using System.Collections.ObjectModel;
 
 
 namespace GP3.Client.ViewModels
 {
-    public partial class IntegrationsViewModel: BaseViewModel
+    public partial class IntegrationsViewModel : BaseViewModel
     {
-        private readonly IIntegrationApi _api;
-        public ObservableCollection<IntegrationFormatted> Integrations { get; } = new();
+        public ObservableCollection<DeviceIntegration> DevicesIntegrations { get; } = new();
 
-        [ObservableProperty]
-        bool isRefreshing;
-
-        public IntegrationsViewModel(IIntegrationApi api)
+        public IntegrationsViewModel()
         {
-            Title = "Devices Management";
-            _api = api;
+            Title = "Integrations page";
+            DeviceIntegration integrations;
+
+            /* Call API */
+            /* Only for testing */
+            integrations = new(1, "Smart Toaster", "Toaster", new TimeSpan(6, 5, 0), new TimeSpan(7, 5, 0), true, 20, false, "toaster.svg");    
+            DevicesIntegrations.Add(integrations);
+            integrations = new(1, "Smart Lamp ", "Lamp", new TimeSpan(7, 5, 0), new TimeSpan(8, 5, 0), false, 10, true, "lamp.png");
+            DevicesIntegrations.Add(integrations);
+
         }
 
         [RelayCommand]
-        async Task EditDevice(IntegrationFormatted currDevice)
+        async Task EditDevice(DeviceIntegration currDevice)
         {
             if (IsBusy)
                 return;
 
             IsBusy = true;
-            IntegrationFormatted deviceCopy = (IntegrationFormatted)currDevice.Clone();
+            DeviceIntegration deviceCopy = currDevice.Clone();
 
             await Shell.Current.GoToAsync($"{nameof(EditDevicePage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"Devices", Integrations },
+                    {"Devices", DevicesIntegrations },
                     {"Device", deviceCopy },
                 });
             IsBusy = false;
@@ -49,31 +51,9 @@ namespace GP3.Client.ViewModels
             await Shell.Current.GoToAsync($"{nameof(AddDevicePage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"Devices", Integrations },
+                    {"Devices", DevicesIntegrations },
                 });
             IsBusy = false;
-        }
-
-        public async Task RefreshIntegrationsAsync()
-        {
-            try
-            {
-                IsRefreshing = true;
-                var integrationList = await _api.GetIntegrationsAsync();
-                Integrations.Clear();
-                foreach (var x in integrationList)
-                {
-                    Integrations.Add(new IntegrationFormatted(x));
-                }
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-            }
-            finally
-            {
-                IsRefreshing = false;
-            }
         }
     }
 }

@@ -14,5 +14,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(AddDevicePage), typeof(AddDevicePage));
 		Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
 		Routing.RegisterRoute(nameof(AddAPITokenPage), typeof(AddAPITokenPage));
+        Routing.RegisterRoute(nameof(ConnectDevice), typeof(ConnectDevice));
     }
 }

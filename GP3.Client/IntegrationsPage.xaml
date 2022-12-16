@@ -12,7 +12,7 @@
         <HorizontalStackLayout Grid.ColumnSpan="3" Grid.Row="0" HorizontalOptions="Center" Margin="0,25,0,30">
             <Label Text="{Binding Title}" FontSize="25" FontAttributes="Bold"/>
         </HorizontalStackLayout>
-        
+
         <StackLayout BackgroundColor="#4C34C2"  Padding="20,10" Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,10,0">
             <Grid ColumnDefinitions="*, 2*"  RowDefinitions="*">
                 <Label Margin="0,0,8,0" Text="Devices" TextColor="#F7F5FF" FontSize="20"/>
@@ -25,25 +25,37 @@
         <CollectionView Grid.ColumnSpan="3"
                         Grid.Row="2"
                         BackgroundColor="Transparent"
-                        ItemsSource="{Binding Integrations}"
+                        ItemsSource="{Binding DevicesIntegrations}"
                         SelectionMode="None">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:IntegrationFormatted">
+                <DataTemplate x:DataType="model:DeviceIntegration">
                     <Grid Padding="10"  BackgroundColor="Transparent">
-                        <Frame HeightRequest="35"
-                               Padding="5"
+                        <Frame HeightRequest="125"
+                               Padding="0"
                                BorderColor="#4C34C2">
                             <Grid Padding="0" 
-                                  ColumnDefinitions="130,150,*"
+                                  ColumnDefinitions="125,150,*"
                                   RowDefinitions="*,*">
+                                <Image Aspect="Fill"
+                                       Grid.RowSpan="2"
+                                       Source="{Binding imageUlr}"
+                                       WidthRequest="100"
+                                       HeightRequest="100"/>
 
-                                <VerticalStackLayout Padding="0,0,0,0" 
-                                                     Grid.Column="0" 
+                                <VerticalStackLayout Padding="5,0,0,0" 
+                                                     Grid.Column="1" 
                                                      Grid.Row="0"  
-                                                     HorizontalOptions="Center" 
+                                                     HorizontalOptions="Start" 
                                                      VerticalOptions="Center">
-                                <Label Text="{Binding CallbackReason}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding DeviceName}" FontSize="18" FontAttributes="Bold"/>
                                 </VerticalStackLayout>
+
+                                <Grid Padding="5,0,0,0" Grid.Column="1" Grid.Row="1" ColumnDefinitions="100,25" RowDefinitions="*">
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <Label Text="Working:" Grid.Column="0" FontSize="15" />
+                                    </VerticalStackLayout>
+                                    <Switch IsToggled="{Binding IsRunning}" Grid.Column="1" HeightRequest="30"/>
+                                </Grid>
 
                                 <VerticalStackLayout Padding="5,0,25,0" 
                                                      Grid.Column="2" 
@@ -62,17 +74,14 @@
                         </Frame>
                     </Grid>
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-
-        <Grid ColumnDefinitions="auto,30" RowDefinitions="30" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="10">
-            <ActivityIndicator HeightRequest="200" IsRunning="{Binding IsRefreshing}" Color="#4C34C2"/>
-        </Grid>
-        <Frame
+        <Frame  
                 Grid.Row="3" 
                 Grid.ColumnSpan="3"
-                Margin="10,30,10,00"
+                Margin="10,40,10,10"
                 BorderColor="#4C34C2">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding AddNewDeviceCommand}">
