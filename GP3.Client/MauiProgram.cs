@@ -71,6 +71,9 @@ public static class MauiProgram
         builder.Services.AddTransient<AddAPITokenPage>();
         builder.Services.AddTransient<APITokenPageViewModel>();
 
+        builder.Services.AddTransient<ConnectDevice>();
+        builder.Services.AddTransient<ConnectDeviceViewModel>();
+
         /* Services */
         builder.Services.AddSingleton<UsageDataService>();
         builder.Services.AddSingleton<AuthService>();

@@ -12,7 +12,7 @@ public partial class IntegrationsPage : ContentPage
     
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        ((IntegrationsViewModel)BindingContext).RefreshIntegrationsAsync();
+        //((IntegrationsViewModel)BindingContext).RefreshIntegrationsAsync();
         base.OnNavigatedTo(args);
     }
 

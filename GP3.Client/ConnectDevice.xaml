@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GP3.Client.ConnectDevice"
+             Shell.NavBarIsVisible="False"
+             xmlns:viewmodel="clr-namespace:GP3.Client.ViewModels"
+              x:DataType="viewmodel:ConnectDeviceViewModel">
+    <StackLayout Padding="15,25,15,20">
+        <StackLayout  
+                BackgroundColor="#4C34C2" 
+                Grid.Row="1" 
+                Grid.ColumnSpan="3"  
+                Padding="10">
+            <Label Margin="0,0,8,0" Text="Available devices" FontAttributes="Bold" TextColor="#F7F5FF" FontSize="20" HorizontalOptions="Center"/>
+        </StackLayout>
+        <Grid RowDefinitions="60,60,60,100,100" ColumnDefinitions="*, *">
+            <StackLayout  Grid.Row="9" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <ActivityIndicator 
+                   HeightRequest="80"
+                   IsRunning="True"
+                   IsVisible="{Binding IsBusy}"
+                   Color="#4C34C2" />
+            </StackLayout>
+            
+            <VerticalStackLayout Padding="10,10,8,10" Spacing="4" Grid.Row="0" Grid.ColumnSpan="2" >
+                <Grid ColumnDefinitions="*, 40" RowDefinitions="*" Padding="10,0,15,20" Margin="0,15,0,0">
+                    <HorizontalStackLayout Grid.Column="0" >
+                        <Image Source="cpu.svg" HeightRequest="25" Margin="0,0,10,0" />
+                        <Label Text="LG Dishwasher" FontSize="20"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                        <Image Source="boxarrow.svg" HeightRequest="25" Margin="0" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+                <Line X1="500"
+                            Y1="0"
+                            X2="0"
+                            Y2="0"
+                            Stroke="#E8E8E8"/>
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ConnectDeviceCommand}"/>
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10,10,8,10" Spacing="4" Grid.Row="1" Grid.ColumnSpan="2" >
+                <Grid ColumnDefinitions="*, 40" RowDefinitions="*" Padding="10,0,15,20" Margin="0,15,0,0">
+                    <HorizontalStackLayout Grid.Column="0" >
+                        <Image Source="cpu.svg" HeightRequest="25" Margin="0,0,10,0" />
+                        <Label Text="Dildo" FontSize="20"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Grid.Column="1" HorizontalOptions="End">
+                        <Image Source="boxarrow.svg" HeightRequest="25" Margin="0" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+                <Line X1="500"
+                            Y1="0"
+                            X2="0"
+                            Y2="0"
+                            Stroke="#E8E8E8"/>
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ConnectDeviceCommand}"/>
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+        </Grid>
+    </StackLayout>
+</ContentPage>

@@ -1,63 +1,57 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GP3.Client.Models;
-using GP3.Client.Refit;
-using GP3.Common.Entities;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GP3.Client.ViewModels;
 
 [QueryProperty("Devices", "Devices")]
-public partial class AddDeviceViewModel: BaseViewModel
+public partial class AddDeviceViewModel : BaseViewModel
 {
-    IIntegrationApi _api;
-    public AddDeviceViewModel(IIntegrationApi api)
+    public AddDeviceViewModel()
     {
         Title = "Add Device";
-        reasonNames = Enum.GetNames(typeof(IntegrationCallbackReason));
-        _api = api;
+        device = new DeviceIntegration();
     }
 
     [ObservableProperty]
-    string[] reasonNames;
+    public DeviceIntegration device;
 
     [ObservableProperty]
-    string callbackUrl;
-
-    [ObservableProperty]
-    IntegrationCallbackReason callbackReason;
-
-    [ObservableProperty]
-    public ObservableCollection<IntegrationFormatted> devices;
+    public ObservableCollection<DeviceIntegration> devices;
 
     [RelayCommand]
     public async void AddNewDevice()
     {
-        /* POST to server */
-        IntegrationCallback clbk = null;
-        try
-        {
-            clbk = await _api.AddIntegrationAsync(CallbackUrl, callbackReason);
-        }
-        catch (Exception e)
-        {
-            await Shell.Current.DisplayAlert("Error!", "Failed to save callback!", "OK");
-        }
-        finally
-        {
-            if (clbk != null)
-            {
-                devices.Add(new IntegrationFormatted(clbk));
-            }
-            await GoBackAsync();
-        }
+
+        /* ADD Validation */
+        /* Call API */
+        DeviceIntegration CurrDevice = device.Clone();
+        devices.Add(CurrDevice);
+
+        await GoBackAsync();
     }
+
     async Task GoBackAsync()
     {
         await Shell.Current.GoToAsync("..");
     }
-}
 
+    [RelayCommand]
+    public async void GoToConnectDevice()
+    {
+        await Shell.Current.GoToAsync($"{nameof(ConnectDevice)}", true,
+        new Dictionary<string, object>
+        {
+            {"Devices", Devices },
+        });
+    }
+}
 
 
 

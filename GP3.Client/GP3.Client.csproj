@@ -19,7 +19,7 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">31.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0-android31.0'">
@@ -53,9 +53,14 @@
 	  <None Remove="Resources\Fonts\Sitka.ttc" />
 	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\background.svg" />
+	  <None Remove="Resources\Images\bag.svg" />
 	  <None Remove="Resources\Images\bluearrow.svg" />
+	  <None Remove="Resources\Images\boxarrow.svg" />
 	  <None Remove="Resources\Images\boxarrowleft.svg" />
 	  <None Remove="Resources\Images\calendar.svg" />
+	  <None Remove="Resources\Images\connectdevice.svg" />
+	  <None Remove="Resources\Images\cpu.svg" />
+	  <None Remove="Resources\Images\dishwasher.png" />
 	  <None Remove="Resources\Images\envelope.svg" />
 	  <None Remove="Resources\Images\error.svg" />
 	  <None Remove="Resources\Images\gear.svg" />
@@ -63,6 +68,7 @@
 	  <None Remove="Resources\Images\History.svg" />
 	  <None Remove="Resources\Images\home.svg" />
 	  <None Remove="Resources\Images\Integrations.svg" />
+	  <None Remove="Resources\Images\lamp.png" />
 	  <None Remove="Resources\Images\leftarrow.svg" />
 	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\lock.svg" />
@@ -128,6 +134,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ChooseProviderPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ConnectDevice.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="EditDevicePage.xaml">
