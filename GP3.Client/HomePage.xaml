@@ -12,70 +12,50 @@
 
     <StackLayout >
         <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-            <StackLayout 
+            <HorizontalStackLayout 
+                Padding="0,8,0,0"
                 Grid.Column="0"   
-                Grid.ColumnSpan="2"
                 Grid.Row="1" 
-                WidthRequest="180"
-                HorizontalOptions="Center">
-                <Grid 
-                      Padding="10,10,0,0"
-                      ColumnDefinitions="25,*,25"
-                      RowDefinitions="*">
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center" >
                     <ImageButton Source="leftarrow.svg"
                                  HeightRequest="25"
                                  WidthRequest="25"
-                                 Grid.Column="0"
-                                 Grid.Row="0"
                                  Command="{Binding DecreaseDateCommand}"/>
 
                     <Label Text="{Binding SelectedDateFormated}"
-                        Grid.Column="1"
-                        Grid.Row="0"   
                         FontSize="20"
+                        Padding="10,0"
                         FontAttributes="Bold"
                         VerticalOptions="Center"/>
 
-                    <Grid Grid.Column="1" Grid.Row="0"  IsVisible="{Binding IsBusy}">
-                        <ActivityIndicator HeightRequest="30" IsRunning="True" Color="#4C34C2"/>
-                    </Grid>
-
                     <ImageButton Source="rightarrow.svg"
                                  IsVisible="{Binding IsNotToday}"
-                                 Grid.Column="3"
-                                 Grid.Row="0"
-                                 HeightRequest="25"
-                                 WidthRequest="25"
+                                 HeightRequest="23"
+                                 WidthRequest="23"
                                  Command="{Binding IncreaseDateCommand}"/>
 
                     <ImageButton Source="rightarrowgrey.svg"
-                                 IsVisible="{Binding IsToday}"
-                                 Grid.Column="3"
-                                 Grid.Row="0"
-                                 HeightRequest="25"
-                                 WidthRequest="25"/>
-                </Grid>
-            </StackLayout>
+                                     IsVisible="{Binding IsToday}"
+                                     HeightRequest="23"
+                                     WidthRequest="23"/>
+            </HorizontalStackLayout>
 
-            <Grid Grid.Column="0"  
-                  Grid.Row="0" 
-                  Padding="10,10,0,0"
-                  ColumnDefinitions="1,50,70,70"
-                  RowDefinitions="*">
-                <Label Grid.Column="1" Grid.Row="0" Text="Avg:" FontSize="20"  TextColor="#4C34C2" FontAttributes="Bold" VerticalOptions="Center"   />
-                <Label Grid.Column="2" Grid.Row="0" Text="{Binding AveragePrice }" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"  HorizontalOptions="Center" />
-                <Label Grid.Column="3" Margin="4,0,5,0" Grid.Row="0" Text="€/MWh" TextColor="#4C34C2" FontSize="16" FontAttributes="Bold" VerticalOptions="End"  HorizontalOptions="End"/>
+            <Grid Grid.ColumnSpan="2" Grid.Row="1"  IsVisible="{Binding IsBusy}" HorizontalOptions="Center">
+                <ActivityIndicator HeightRequest="30" IsRunning="True" Color="#4C34C2"/>
             </Grid>
-            <Grid Grid.Column="1"  
-                  Grid.Row="0" 
-                  Padding="10,10,0,0"
-                  ColumnDefinitions="36,63,71,20"
-                  RowDefinitions="*">
-                <Label Grid.Column="1" Grid.Row="0" Text="Now: " FontSize="20"  TextColor="#4C34C2" FontAttributes="Bold" VerticalOptions="Center" />
+
+            <HorizontalStackLayout Grid.Column="0"  Grid.Row="0" Padding="10,10,0,0">
+                <Label Text="Avg:" FontSize="20"  TextColor="#7145a7" FontAttributes="Bold" VerticalOptions="Center"   />
+                <Label Padding="8,0,3,0" Text="{Binding AveragePrice }" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"  HorizontalOptions="Center" />
+                <Label Margin="4,0,5,0" Grid.Row="0" Text="€/MWh" TextColor="#4C34C2" FontSize="16" FontAttributes="Bold" VerticalOptions="End"  HorizontalOptions="End"/>
+            </HorizontalStackLayout>
+            
+            <HorizontalStackLayout Grid.Column="1" Grid.Row="0" Padding="10,10,0,0" HorizontalOptions="End">
+                <Label Grid.Column="1" Grid.Row="0" Text="Now: " FontSize="20"  TextColor="#7145a7" FontAttributes="Bold" VerticalOptions="Center" />
                 <Label Grid.Column="2" Grid.Row="0" Text="{Binding CurrPrice }" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" />
-                <Label Grid.Column="3" Margin="4,0,5,0" Grid.Row="0" Text="€" TextColor="#4C34C2" FontSize="18" FontAttributes="Bold" VerticalOptions="End" />
-
-            </Grid>
+                <Label Grid.Column="3" Margin="4,0,5,0" Grid.Row="0" Text="€/MWh" TextColor="#4C34C2" FontSize="16" FontAttributes="Bold" VerticalOptions="End" />
+            </HorizontalStackLayout>
 
         </Grid>
 
